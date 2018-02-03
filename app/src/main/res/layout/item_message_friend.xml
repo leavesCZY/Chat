@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="20dp">
+
+    <TextView
+        android:id="@+id/tv_friendMsgSendTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/hintTextBg"
+        android:paddingBottom="1dp"
+        android:paddingEnd="5dp"
+        android:paddingStart="5dp"
+        android:paddingTop="1dp"
+        android:textSize="@dimen/sendTimeTextSize"
+        android:visibility="gone" />
+
+    <com.czy.ui.common.CircleImageView
+        android:id="@+id/iv_friendAvatar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/tv_friendMsgSendTime"
+        android:layout_marginStart="10dp"
+        android:src="@drawable/avatar_friend" />
+
+    <TextView
+        android:id="@+id/tv_friendName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/iv_friendAvatar"
+        android:layout_marginBottom="5dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_toEndOf="@id/iv_friendAvatar"
+        android:text="叶应是叶"
+        android:textColor="@color/black"
+        android:textSize="@dimen/friendNameTextSize"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/tv_friend_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_friendName"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_toEndOf="@id/iv_friendAvatar"
+        android:background="@drawable/message_friend_background"
+        android:gravity="center_vertical"
+        android:text="叶应是叶叶应是叶叶应是叶叶应是叶叶应是叶叶应是叶叶应是叶叶应是叶叶应是叶叶应是叶叶应是叶叶应是叶叶应是叶叶应是叶叶应是叶叶应是叶叶应是叶叶应是叶叶应是叶叶应是叶叶应是叶叶应是叶"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/messageTextSize" />
+
+</RelativeLayout>

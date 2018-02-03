@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#F3F3F3"
+    android:paddingBottom="6dp"
+    android:paddingTop="4dp">
+
+    <ImageView
+        android:id="@+id/iv_sounds"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignBottom="@+id/et_input"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="6dp"
+        android:layout_marginEnd="7dp"
+        android:layout_marginStart="7dp"
+        android:clickable="true"
+        android:src="@drawable/sounds" />
+
+    <ImageView
+        android:id="@+id/iv_more"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignBottom="@+id/et_input"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="6dp"
+        android:layout_marginEnd="7dp"
+        android:layout_marginStart="7dp"
+        android:clickable="true"
+        android:src="@drawable/more" />
+
+    <ImageView
+        android:id="@+id/iv_showEmoji"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignBottom="@+id/et_input"
+        android:layout_marginBottom="6dp"
+        android:layout_marginStart="7dp"
+        android:layout_toStartOf="@id/iv_more"
+        android:clickable="true"
+        android:src="@drawable/emoji_unselected" />
+
+    <EditText
+        android:id="@+id/et_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/iv_sounds"
+        android:layout_toStartOf="@id/iv_showEmoji"
+        android:imeOptions="actionNone"
+        android:maxLines="3"
+        android:minHeight="44dp"
+        android:textSize="16sp"
+        android:theme="@style/EditTextTheme" />
+    <!--actionDone -->
+
+</RelativeLayout>

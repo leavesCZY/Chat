@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <include
+        android:id="@+id/toolbar_groupMemberProfile"
+        layout="@layout/common_toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar_groupMemberProfile"
+        android:scrollbars="none">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.czy.ui.common.CircleImageView
+                android:id="@+id/iv_groupMemberProfile_avatar"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/avatar_group_member" />
+
+            <com.czy.ui.common.OptionView
+                android:id="@+id/ov_groupMemberProfile_identifier"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv_groupMemberProfile_avatar"
+                android:layout_marginTop="20dp"
+                app:title="账号" />
+
+            <com.czy.ui.common.OptionView
+                android:id="@+id/ov_groupMemberProfile_remark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ov_groupMemberProfile_identifier"
+                app:title="备注" />
+
+            <com.czy.ui.common.OptionView
+                android:id="@+id/ov_groupMemberProfile_role"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ov_groupMemberProfile_remark"
+                app:title="角色" />
+
+            <com.czy.ui.common.OptionView
+                android:id="@+id/ov_groupMemberProfile_joinTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ov_groupMemberProfile_role"
+                app:title="加入时间" />
+
+            <Button
+                android:id="@+id/btn_groupProfile_addFriend"
+                style="@style/blueButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ov_groupMemberProfile_joinTime"
+                android:layout_marginBottom="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:text="加为好友"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

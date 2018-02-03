@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--圆形头像-->
+    <declare-styleable name="CircleImageView">
+        <attr name="borderWidth" format="dimension" />
+        <attr name="borderColor" format="color" />
+        <attr name="borderOverlay" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="OptionView">
+        <attr name="title" format="string" />
+        <attr name="content" format="string" />
+        <attr name="showDivider" format="boolean" />
+    </declare-styleable>
+</resources>

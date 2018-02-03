@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:scrollbars="none">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/rl_avatar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/pressed_rectangle_background"
+            android:clickable="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="15dp"
+                android:text="头像"
+                android:textColor="@android:color/black"
+                android:textSize="17sp" />
+
+            <ImageView
+                android:id="@+id/iv_myInfo_avatar"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="7dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginTop="7dp"
+                android:src="@drawable/avatar_me" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dividerHeight"
+                android:layout_below="@id/iv_myInfo_avatar"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:background="@color/dividerColor" />
+
+        </RelativeLayout>
+
+        <com.czy.ui.common.OptionView
+            android:id="@+id/ov_identifier"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl_avatar"
+            app:title="账号" />
+
+        <com.czy.ui.common.OptionView
+            android:id="@+id/ov_nickname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ov_identifier"
+            app:title="昵称" />
+
+        <com.czy.ui.common.OptionView
+            android:id="@+id/ov_gender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ov_nickname"
+            app:title="性别" />
+
+        <com.czy.ui.common.OptionView
+            android:id="@+id/ov_signature"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ov_gender"
+            app:showDivider="false"
+            app:title="个性签名" />
+
+        <com.czy.ui.common.OptionView
+            android:id="@+id/ov_allowType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ov_signature"
+            android:visibility="gone"
+            app:showDivider="false"
+            app:title="加好友选项" />
+
+        <Button
+            android:id="@+id/btn_logout"
+            style="@style/redButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ov_allowType"
+            android:layout_marginBottom="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="注销" />
+
+    </RelativeLayout>
+
+</ScrollView>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="14dp"
+    android:layout_marginTop="10dp"
+    android:background="@android:color/transparent">
+
+    <TextView
+        android:id="@+id/tv_systemHintTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/hintTextBg"
+        android:paddingBottom="1dp"
+        android:paddingEnd="5dp"
+        android:paddingStart="5dp"
+        android:paddingTop="1dp"
+        android:text="昨天 晚上11:40"
+        android:textSize="@dimen/sendTimeTextSize"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_systemHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_systemHintTime"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="0dp"
+        android:background="@color/hintTextBg"
+        android:paddingBottom="1dp"
+        android:paddingEnd="5dp"
+        android:paddingStart="5dp"
+        android:paddingTop="1dp"
+        android:text="叶应是叶已加入群聊"
+        android:textSize="@dimen/sendTimeTextSize" />
+
+</RelativeLayout>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--分隔线的颜色-->
+    <color name="dividerColor">#b5beb9</color>
+    <color name="optionContentColor">#7d8983</color>
+</resources>

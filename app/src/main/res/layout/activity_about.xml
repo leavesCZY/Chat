@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="com.czy.chat.view.me.AboutActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_about"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        app:titleTextAppearance="@style/toolbarTextAppearance"
+        app:titleTextColor="@color/black" />
+
+    <com.czy.ui.common.CircleImageView
+        android:id="@+id/iv_about_avatar"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/avatar_me"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_about" />
+
+    <com.czy.ui.common.OptionView
+        android:id="@+id/ov_summary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/iv_about_avatar"
+        app:title="应用介绍" />
+
+    <com.czy.ui.common.OptionView
+        android:id="@+id/ov_changelog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/ov_summary"
+        app:title="更新日志" />
+
+    <com.czy.ui.common.OptionView
+        android:id="@+id/ov_gitHub"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/ov_changelog"
+        app:title="项目地址" />
+
+    <com.czy.ui.common.OptionView
+        android:id="@+id/ov_joinGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/ov_gitHub"
+        app:title="加入群组" />
+
+    <com.czy.ui.common.OptionView
+        android:id="@+id/ov_reward"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/ov_joinGroup"
+        app:title="赞赏支持" />
+
+    <com.czy.ui.common.OptionView
+        android:id="@+id/ov_contact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/ov_reward"
+        app:title="联系方式" />
+
+</android.support.constraint.ConstraintLayout>

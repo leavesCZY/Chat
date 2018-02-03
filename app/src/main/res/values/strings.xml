@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">云聊</string>
+    <string name="about_summary">这是我个人开发的一个小应用，算作是一个聊天应用吧？\n前后断断续续地写了几个月，实现了基本的私聊和群聊功能，做得也是比较粗糙，看看就好</string>
+    <string name="about_changelog">第一个版本 Chat 1.0 \n2018-02-04</string>
+    <string name="about_contact">GitHub：https://github.com/leavesC\n\n简书：https://www.jianshu.com/u/9df45b87cfdf\n\nEmail：init_object@foxmail.com</string>
+</resources>

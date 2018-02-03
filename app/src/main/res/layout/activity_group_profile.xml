@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <include
+        android:id="@+id/toolbar_groupProfile"
+        layout="@layout/common_toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar_groupProfile"
+        android:scrollbars="none">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.czy.ui.common.CircleImageView
+                android:id="@+id/iv_groupProfile_avatar"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/avatar_group" />
+
+            <com.czy.ui.common.OptionView
+                android:id="@+id/ov_groupProfile_groupName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv_groupProfile_avatar"
+                android:layout_marginTop="20dp"
+                app:title="群名" />
+
+            <com.czy.ui.common.OptionView
+                android:id="@+id/ov_groupProfile_groupOwner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ov_groupProfile_groupName"
+                app:title="群主" />
+
+            <com.czy.ui.common.OptionView
+                android:id="@+id/ov_groupProfile_members"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ov_groupProfile_groupOwner"
+                app:title="群成员" />
+
+            <com.czy.ui.common.OptionView
+                android:id="@+id/ov_groupProfile_introduction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ov_groupProfile_members"
+                app:title="群简介" />
+
+            <com.czy.ui.common.OptionView
+                android:id="@+id/ov_groupProfile_notification"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ov_groupProfile_introduction"
+                app:title="群公告" />
+
+            <com.czy.ui.common.OptionView
+                android:id="@+id/ov_groupProfile_createTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ov_groupProfile_notification"
+                app:title="群创建时间" />
+
+            <com.czy.ui.common.OptionView
+                android:id="@+id/ov_groupProfile_receiveMessageOpt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ov_groupProfile_createTime"
+                app:title="消息接收" />
+
+            <Button
+                android:id="@+id/btn_groupProfile_inviteGroupMember"
+                style="@style/blueButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ov_groupProfile_receiveMessageOpt"
+                android:layout_marginBottom="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:text="邀请好友入群" />
+
+            <Button
+                android:id="@+id/btn_groupProfile_quitGroup"
+                style="@style/redButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btn_groupProfile_inviteGroupMember"
+                android:layout_marginBottom="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:text="退出聊天群" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

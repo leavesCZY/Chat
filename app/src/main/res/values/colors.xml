@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="black">@android:color/black</color>
+    <color name="white">@android:color/white</color>
+    <!--ToolBar的背景色-->
+    <color name="toolbarBackground">@android:color/white</color>
+    <!--Activity的主背景色-->
+    <color name="activityRootBackground">#EBEBEB</color>
+    <!--分隔线的颜色-->
+    <color name="dividerColor">#b5beb9</color>
+    <!--聊天界面提示信息的背景色-->
+    <color name="hintTextBg">#30acb0b4</color>
+
+    <color name="greenStatusLine">#41e169</color>
+
+    <color name="test">#30cfff</color>
+</resources>

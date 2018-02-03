@@ -1,0 +1,10 @@
+<resources>
+    <!--分隔线的高度-->
+    <dimen name="dividerHeight">1px</dimen>
+    <!--聊天消息文字大小-->
+    <dimen name="messageTextSize">16sp</dimen>
+    <!--群聊界面好友昵称文字大小-->
+    <dimen name="friendNameTextSize">12sp</dimen>
+    <!--聊天消息发送时间提示文字大小-->
+    <dimen name="sendTimeTextSize">13sp</dimen>
+</resources>

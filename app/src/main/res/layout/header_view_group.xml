@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/pressed_rectangle_background">
+
+    <com.czy.ui.common.CircleImageView
+        android:id="@+id/civ_header_groupAvatar"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginBottom="7dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginRight="13dp"
+        android:layout_marginTop="7dp"
+        android:src="@drawable/avatar_group" />
+
+    <TextView
+        android:id="@+id/tv_header_groupName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@id/civ_header_groupAvatar"
+        android:text="群聊"
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
+
+</RelativeLayout>
+

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.czy.chat">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:name=".ChatApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".view.open.OpenActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.SearchUserActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.SearchUserResultActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.chat.ChatActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.contacts.AlterFriendRemarkActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.contacts.FriendProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.me.ModifyInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.open.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.open.RegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.group.GroupListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.group.SelectFriendToCreateGroupActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.group.GroupProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.group.GroupProfileModifyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.group.GroupMemberProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.me.AboutActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.me.AppIntroductionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.group.GroupMembersActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.conversation.SystemMessageListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.group.InviteGroupMemberActivity"
+            android:screenOrientation="portrait" />
+        <!-- 云通信配置 -->
+        <service
+            android:name="com.tencent.qalsdk.service.QalService"
+            android:exported="true"
+            android:process=":QALSERVICE" />
+        <service
+            android:name="com.tencent.qalsdk.service.QalAssistService"
+            android:exported="false"
+            android:process=":QALSERVICE" />
+
+        <receiver
+            android:name="com.tencent.qalsdk.QALBroadcastReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.tencent.qalsdk.broadcast.qal" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.tencent.qalsdk.core.NetConnInfoCenter"
+            android:process=":QALSERVICE">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.TIME_SET" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.tencent.qalsdk.service.TASK_REMOVED" />
+            </intent-filter>
+        </receiver>
+        <!-- 云通信配置结束 -->
+    </application>
+
+</manifest>
