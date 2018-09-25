@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.czy.ui.common.CircleImageView
+            <hello.leavesC.ui.common.CircleImageView
                 android:id="@+id/civ_friendProfile_avatar"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
@@ -54,7 +54,7 @@
 
             </LinearLayout>
 
-            <com.czy.ui.common.OptionView
+            <hello.leavesC.ui.common.OptionView
                 android:id="@+id/ov_friendProfile_identifier"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -62,14 +62,14 @@
                 android:layout_marginTop="10dp"
                 app:title="账号" />
 
-            <com.czy.ui.common.OptionView
+            <hello.leavesC.ui.common.OptionView
                 android:id="@+id/ov_friendProfile_nickname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/ov_friendProfile_identifier"
                 app:title="昵称" />
 
-            <com.czy.ui.common.OptionView
+            <hello.leavesC.ui.common.OptionView
                 android:id="@+id/ov_friendProfile_signature"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

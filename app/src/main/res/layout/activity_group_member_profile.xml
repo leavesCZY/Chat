@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.czy.ui.common.CircleImageView
+            <hello.leavesC.ui.common.CircleImageView
                 android:id="@+id/iv_groupMemberProfile_avatar"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
@@ -27,7 +27,7 @@
                 android:layout_marginTop="10dp"
                 android:src="@drawable/avatar_group_member" />
 
-            <com.czy.ui.common.OptionView
+            <hello.leavesC.ui.common.OptionView
                 android:id="@+id/ov_groupMemberProfile_identifier"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -35,21 +35,21 @@
                 android:layout_marginTop="20dp"
                 app:title="账号" />
 
-            <com.czy.ui.common.OptionView
+            <hello.leavesC.ui.common.OptionView
                 android:id="@+id/ov_groupMemberProfile_remark"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/ov_groupMemberProfile_identifier"
                 app:title="备注" />
 
-            <com.czy.ui.common.OptionView
+            <hello.leavesC.ui.common.OptionView
                 android:id="@+id/ov_groupMemberProfile_role"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/ov_groupMemberProfile_remark"
                 app:title="角色" />
 
-            <com.czy.ui.common.OptionView
+            <hello.leavesC.ui.common.OptionView
                 android:id="@+id/ov_groupMemberProfile_joinTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

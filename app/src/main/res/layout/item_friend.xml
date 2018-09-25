@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_headerLetter">
 
-        <com.czy.ui.common.CircleImageView
+        <hello.leavesC.ui.common.CircleImageView
             android:id="@+id/civ_friendAvatar"
             android:layout_width="48dp"
             android:layout_height="48dp"

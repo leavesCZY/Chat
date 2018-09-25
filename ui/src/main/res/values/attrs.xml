@@ -9,7 +9,7 @@
 
     <declare-styleable name="OptionView">
         <attr name="title" format="string" />
-        <attr name="content" format="string" />
+        <attr name="substance" format="string" />
         <attr name="showDivider" format="boolean" />
     </declare-styleable>
 </resources>

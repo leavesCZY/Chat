@@ -1,14 +1,22 @@
 apply plugin: 'com.android.library'
 
+def globalConfiguration = rootProject.ext
+def presentationDependencies = globalConfiguration.dependencies
+
 android {
-    compileSdkVersion 25
-    buildToolsVersion rootProject.ext.android.buildToolsVersion
+    compileSdkVersion globalConfiguration["compileSdkVersion"]
+    buildToolsVersion globalConfiguration["buildToolsVersion"]
     defaultConfig {
-        minSdkVersion rootProject.ext.android.minSdkVersion
-        targetSdkVersion rootProject.ext.android.targetSdkVersion
-        versionCode rootProject.ext.android.versionCode
-        versionName rootProject.ext.android.versionName
+        minSdkVersion globalConfiguration["minSdkVersion"]
+        targetSdkVersion globalConfiguration["targetSdkVersion"]
+        versionCode globalConfiguration["versionCode"]
+        versionName globalConfiguration["versionName"]
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
     }
     buildTypes {
         release {
@@ -20,8 +28,8 @@ android {
 
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:25.4.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    implementation presentationDependencies.appcompatV7
+    testImplementation presentationDependencies.junit
+    androidTestImplementation presentationDependencies.testRunner
+    androidTestImplementation presentationDependencies.espressoCore
 }
