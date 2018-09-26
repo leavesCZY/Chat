@@ -1,4 +1,4 @@
-package hello.leavesC.ui;
+package hello.leavesC.common;
 
 import org.junit.Test;
 

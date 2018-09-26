@@ -1,4 +1,4 @@
-package hello.leavesC.ui;
+package hello.leavesC.common;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
