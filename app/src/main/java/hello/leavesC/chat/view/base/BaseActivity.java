@@ -1,14 +1,20 @@
 package hello.leavesC.chat.view.base;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
+import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
+
+import hello.leavesC.chat.R;
 import hello.leavesC.ui.dialog.LoadingDialog;
 import hello.leavesC.ui.dialog.MessageDialog;
 
@@ -17,11 +23,32 @@ import hello.leavesC.ui.dialog.MessageDialog;
  * 时间：2017/11/29 21:04
  * 说明：基类Activity
  */
+@SuppressLint("Registered")
 public class BaseActivity extends AppCompatActivity {
 
     private LoadingDialog loadingDialog;
 
     private MessageDialog messageDialog;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        QMUIStatusBarHelper.translucent(this);
+        QMUIStatusBarHelper.setStatusBarLightMode(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dismissLoadingDialog();
+        dismissMessageDialog();
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_still, R.anim.slide_out_right);
+    }
 
     protected void initToolbar(@IdRes int toolbarId, String toolbarTitle, boolean displayHomeAsUpEnabled) {
         Toolbar toolbar = (Toolbar) findViewById(toolbarId);
@@ -108,19 +135,6 @@ public class BaseActivity extends AppCompatActivity {
         if (messageDialog != null) {
             messageDialog.dismiss();
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        dismissLoadingDialog();
-        dismissMessageDialog();
-    }
-
-    @Override
-    public void finish() {
-        super.finish();
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
     protected BaseActivity getContext() {

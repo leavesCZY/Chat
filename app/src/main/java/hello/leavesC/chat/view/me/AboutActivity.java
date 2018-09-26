@@ -7,7 +7,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
+
+import com.qmuiteam.qmui.widget.QMUITopBar;
 
 import hello.leavesC.chat.R;
 import hello.leavesC.chat.view.base.BaseActivity;
@@ -30,7 +33,10 @@ public class AboutActivity extends BaseActivity {
     }
 
     private void initView() {
-        initToolbar(R.id.toolbar_about, "关于");
+        QMUITopBar toolbar_about = findViewById(R.id.toolbar_about);
+        toolbar_about.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+        toolbar_about.setTitle("沉浸式状态栏示例");
+//        initToolbar(R.id.toolbar_about, "关于");
         View.OnClickListener clickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {

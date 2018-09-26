@@ -2,6 +2,8 @@ package hello.leavesC.chat.view.base;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.widget.Toast;
 
@@ -18,6 +20,18 @@ public class BaseFragment extends Fragment {
     private LoadingDialog loadingDialog;
 
     private MessageDialog messageDialog;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        dismissLoadingDialog();
+        dismissMessageDialog();
+    }
 
     protected void startActivity(Class cl) {
         startActivity(new Intent(getContext(), cl));
@@ -65,13 +79,6 @@ public class BaseFragment extends Fragment {
         if (messageDialog != null) {
             messageDialog.dismiss();
         }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        dismissLoadingDialog();
-        dismissMessageDialog();
     }
 
 }
