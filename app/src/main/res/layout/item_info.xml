@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<hello.leavesC.ui.common.OptionView xmlns:android="http://schemas.android.com/apk/res/android"
+<hello.leavesC.common.common.OptionView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/option"
     android:layout_width="match_parent"

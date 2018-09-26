@@ -24,7 +24,7 @@ import hello.leavesC.presenter.event.FriendEvent;
 import hello.leavesC.presenter.event.GroupEvent;
 import hello.leavesC.presenter.event.MessageEvent;
 import hello.leavesC.presenter.event.RefreshEvent;
-import hello.leavesC.tls.service.TlsService;
+import hello.leavesC.presenter.tls.service.TlsService;
 
 /**
  * 作者：叶应是叶

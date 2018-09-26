@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <hello.leavesC.ui.common.LetterIndexView
+        <hello.leavesC.common.common.LetterIndexView
             android:id="@+id/liv_selectFriend_letters"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

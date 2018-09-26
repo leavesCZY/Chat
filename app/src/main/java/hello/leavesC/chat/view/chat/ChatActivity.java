@@ -40,10 +40,10 @@ import hello.leavesC.chat.view.group.GroupProfileActivity;
 import hello.leavesC.presenter.log.Logger;
 import hello.leavesC.presenter.presenter.ChatPresenter;
 import hello.leavesC.presenter.view.ChatView;
-import hello.leavesC.ui.input.EmojiFragment;
-import hello.leavesC.ui.input.EmojiKeyboard;
-import hello.leavesC.ui.input.utils.EmojiUtils;
-import hello.leavesC.ui.input.utils.SpanStringUtils;
+import hello.leavesC.common.input.EmojiFragment;
+import hello.leavesC.common.input.EmojiKeyboard;
+import hello.leavesC.common.input.utils.EmojiUtils;
+import hello.leavesC.common.input.utils.SpanStringUtils;
 
 import static com.tencent.imsdk.TIMConversationType.C2C;
 

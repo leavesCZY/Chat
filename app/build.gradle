@@ -63,7 +63,6 @@ dependencies {
     androidTestImplementation presentationDependencies.testRunner
     androidTestImplementation presentationDependencies.espressoCore
     implementation project(':presenter')
-    implementation project(':tls')
-    implementation project(':ui')
+    implementation project(':common')
     implementation presentationDependencies.qmuiteam
 }

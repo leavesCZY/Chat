@@ -14,7 +14,7 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="4dp">
 
-        <hello.leavesC.ui.common.CircleImageView
+        <hello.leavesC.common.common.CircleImageView
             android:id="@+id/iv_conversation_avatar"
             android:layout_width="55dp"
             android:layout_height="55dp"

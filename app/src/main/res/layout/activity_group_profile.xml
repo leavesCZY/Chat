@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <hello.leavesC.ui.common.CircleImageView
+            <hello.leavesC.common.common.CircleImageView
                 android:id="@+id/iv_groupProfile_avatar"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
@@ -28,7 +28,7 @@
                 android:layout_marginTop="10dp"
                 android:src="@drawable/avatar_group" />
 
-            <hello.leavesC.ui.common.OptionView
+            <hello.leavesC.common.common.OptionView
                 android:id="@+id/ov_groupProfile_groupName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -36,42 +36,42 @@
                 android:layout_marginTop="20dp"
                 app:title="群名" />
 
-            <hello.leavesC.ui.common.OptionView
+            <hello.leavesC.common.common.OptionView
                 android:id="@+id/ov_groupProfile_groupOwner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/ov_groupProfile_groupName"
                 app:title="群主" />
 
-            <hello.leavesC.ui.common.OptionView
+            <hello.leavesC.common.common.OptionView
                 android:id="@+id/ov_groupProfile_members"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/ov_groupProfile_groupOwner"
                 app:title="群成员" />
 
-            <hello.leavesC.ui.common.OptionView
+            <hello.leavesC.common.common.OptionView
                 android:id="@+id/ov_groupProfile_introduction"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/ov_groupProfile_members"
                 app:title="群简介" />
 
-            <hello.leavesC.ui.common.OptionView
+            <hello.leavesC.common.common.OptionView
                 android:id="@+id/ov_groupProfile_notification"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/ov_groupProfile_introduction"
                 app:title="群公告" />
 
-            <hello.leavesC.ui.common.OptionView
+            <hello.leavesC.common.common.OptionView
                 android:id="@+id/ov_groupProfile_createTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/ov_groupProfile_notification"
                 app:title="群创建时间" />
 
-            <hello.leavesC.ui.common.OptionView
+            <hello.leavesC.common.common.OptionView
                 android:id="@+id/ov_groupProfile_receiveMessageOpt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

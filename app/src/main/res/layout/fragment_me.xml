@@ -49,28 +49,28 @@
 
         </RelativeLayout>
 
-        <hello.leavesC.ui.common.OptionView
+        <hello.leavesC.common.common.OptionView
             android:id="@+id/ov_identifier"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/rl_avatar"
             app:title="账号" />
 
-        <hello.leavesC.ui.common.OptionView
+        <hello.leavesC.common.common.OptionView
             android:id="@+id/ov_nickname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/ov_identifier"
             app:title="昵称" />
 
-        <hello.leavesC.ui.common.OptionView
+        <hello.leavesC.common.common.OptionView
             android:id="@+id/ov_gender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/ov_nickname"
             app:title="性别" />
 
-        <hello.leavesC.ui.common.OptionView
+        <hello.leavesC.common.common.OptionView
             android:id="@+id/ov_signature"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -78,7 +78,7 @@
             app:showDivider="false"
             app:title="个性签名" />
 
-        <hello.leavesC.ui.common.OptionView
+        <hello.leavesC.common.common.OptionView
             android:id="@+id/ov_allowType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

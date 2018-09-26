@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <hello.leavesC.ui.common.CircleImageView
+            <hello.leavesC.common.common.CircleImageView
                 android:id="@+id/civ_searchUserResult_avatar"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
@@ -55,14 +55,14 @@
 
             </LinearLayout>
 
-            <hello.leavesC.ui.common.OptionView
+            <hello.leavesC.common.common.OptionView
                 android:id="@+id/ov_searchUserResult_nickname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/ll_searchUserResult_name_gender"
                 app:title="昵称" />
 
-            <hello.leavesC.ui.common.OptionView
+            <hello.leavesC.common.common.OptionView
                 android:id="@+id/ov_searchUserResult_signature"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

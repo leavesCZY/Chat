@@ -1,1 +1,1 @@
-include ':app', ':presenter', ':ui', ':sdk', ':tls'
+include ':app', ':presenter', ':common', ':sdk'

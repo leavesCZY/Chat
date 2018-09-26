@@ -8,8 +8,8 @@ import java.util.List;
 
 import hello.leavesC.chat.R;
 import hello.leavesC.chat.model.GroupProfile;
-import hello.leavesC.ui.recycler.common.CommonRecyclerViewAdapter;
-import hello.leavesC.ui.recycler.common.CommonRecyclerViewHolder;
+import hello.leavesC.common.recycler.common.CommonRecyclerViewAdapter;
+import hello.leavesC.common.recycler.common.CommonRecyclerViewHolder;
 
 /**
  * 作者：叶应是叶

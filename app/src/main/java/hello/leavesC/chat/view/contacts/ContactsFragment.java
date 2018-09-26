@@ -22,10 +22,10 @@ import hello.leavesC.chat.cache.FriendCache;
 import hello.leavesC.chat.model.FriendProfile;
 import hello.leavesC.chat.view.base.BaseFragment;
 import hello.leavesC.chat.view.group.GroupListActivity;
-import hello.leavesC.ui.common.LetterIndexView;
-import hello.leavesC.ui.recycler.common.CommonItemDecoration;
-import hello.leavesC.ui.recycler.common.CommonRecyclerViewHolder;
-import hello.leavesC.ui.recycler.wrap.WrapRecyclerViewAdapter;
+import hello.leavesC.common.common.LetterIndexView;
+import hello.leavesC.common.recycler.common.CommonItemDecoration;
+import hello.leavesC.common.recycler.common.CommonRecyclerViewHolder;
+import hello.leavesC.common.recycler.wrap.WrapRecyclerViewAdapter;
 
 /**
  * 作者：叶应是叶

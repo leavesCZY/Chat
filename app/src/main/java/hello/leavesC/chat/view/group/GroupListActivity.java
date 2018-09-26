@@ -18,8 +18,8 @@ import hello.leavesC.chat.cache.GroupCache;
 import hello.leavesC.chat.model.GroupProfile;
 import hello.leavesC.chat.view.base.BaseActivity;
 import hello.leavesC.chat.view.chat.ChatActivity;
-import hello.leavesC.ui.recycler.common.CommonItemDecoration;
-import hello.leavesC.ui.recycler.common.CommonRecyclerViewHolder;
+import hello.leavesC.common.recycler.common.CommonItemDecoration;
+import hello.leavesC.common.recycler.common.CommonRecyclerViewHolder;
 
 /**
  * 作者：叶应是叶

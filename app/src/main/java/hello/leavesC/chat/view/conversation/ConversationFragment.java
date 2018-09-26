@@ -32,9 +32,9 @@ import hello.leavesC.chat.view.chat.ChatActivity;
 import hello.leavesC.presenter.log.Logger;
 import hello.leavesC.presenter.presenter.ConversationPresenter;
 import hello.leavesC.presenter.view.ConversationView;
-import hello.leavesC.ui.dialog.ListPickerDialog;
-import hello.leavesC.ui.recycler.common.CommonItemDecoration;
-import hello.leavesC.ui.recycler.common.CommonRecyclerViewHolder;
+import hello.leavesC.common.dialog.ListPickerDialog;
+import hello.leavesC.common.recycler.common.CommonItemDecoration;
+import hello.leavesC.common.recycler.common.CommonRecyclerViewHolder;
 
 /**
  * 作者：叶应是叶

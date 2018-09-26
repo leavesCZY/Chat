@@ -20,9 +20,9 @@ import hello.leavesC.chat.model.FriendProfile;
 import hello.leavesC.chat.view.base.BaseActivity;
 import hello.leavesC.presenter.listener.ValueCallBackListener;
 import hello.leavesC.presenter.manager.GroupManager;
-import hello.leavesC.ui.common.LetterIndexView;
-import hello.leavesC.ui.recycler.common.CommonItemDecoration;
-import hello.leavesC.ui.recycler.common.CommonRecyclerViewHolder;
+import hello.leavesC.common.common.LetterIndexView;
+import hello.leavesC.common.recycler.common.CommonItemDecoration;
+import hello.leavesC.common.recycler.common.CommonRecyclerViewHolder;
 
 /**
  * 作者：叶应是叶

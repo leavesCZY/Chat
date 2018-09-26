@@ -21,7 +21,7 @@ import hello.leavesC.presenter.log.Logger;
 import hello.leavesC.presenter.manager.SelfProfileManager;
 import hello.leavesC.presenter.presenter.ProfilePresenter;
 import hello.leavesC.presenter.view.ProfileView;
-import hello.leavesC.ui.common.OptionView;
+import hello.leavesC.common.common.OptionView;
 
 /**
  * 作者：叶应是叶

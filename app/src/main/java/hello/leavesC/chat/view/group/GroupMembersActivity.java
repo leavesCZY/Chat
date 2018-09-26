@@ -17,8 +17,8 @@ import hello.leavesC.chat.view.base.BaseActivity;
 import hello.leavesC.presenter.listener.ValueCallBackListener;
 import hello.leavesC.presenter.manager.GroupManager;
 import hello.leavesC.presenter.model.GroupMemberInfo;
-import hello.leavesC.ui.recycler.common.CommonItemDecoration;
-import hello.leavesC.ui.recycler.common.CommonRecyclerViewHolder;
+import hello.leavesC.common.recycler.common.CommonItemDecoration;
+import hello.leavesC.common.recycler.common.CommonRecyclerViewHolder;
 
 /**
  * 作者：叶应是叶

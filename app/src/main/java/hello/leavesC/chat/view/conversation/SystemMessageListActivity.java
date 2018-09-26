@@ -24,7 +24,7 @@ import hello.leavesC.chat.view.base.BaseActivity;
 import hello.leavesC.presenter.log.Logger;
 import hello.leavesC.presenter.presenter.ChatPresenter;
 import hello.leavesC.presenter.view.ChatView;
-import hello.leavesC.ui.recycler.common.CommonItemDecoration;
+import hello.leavesC.common.recycler.common.CommonItemDecoration;
 
 /**
  * 作者：叶应是叶

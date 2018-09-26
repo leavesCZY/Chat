@@ -27,7 +27,7 @@ import hello.leavesC.chat.view.base.BaseActivity;
 import hello.leavesC.chat.view.chat.ChatActivity;
 import hello.leavesC.presenter.listener.ValueCallBackListener;
 import hello.leavesC.presenter.manager.FriendManager;
-import hello.leavesC.ui.common.OptionView;
+import hello.leavesC.common.common.OptionView;
 
 /**
  * 作者：叶应是叶

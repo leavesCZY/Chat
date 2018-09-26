@@ -15,8 +15,8 @@ import android.widget.Toast;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 
 import hello.leavesC.chat.R;
-import hello.leavesC.ui.dialog.LoadingDialog;
-import hello.leavesC.ui.dialog.MessageDialog;
+import hello.leavesC.common.dialog.LoadingDialog;
+import hello.leavesC.common.dialog.MessageDialog;
 
 /**
  * 作者：叶应是叶

@@ -5,7 +5,7 @@
     android:background="@drawable/pressed_rectangle_background"
     android:clickable="true">
 
-    <hello.leavesC.ui.common.CircleImageView
+    <hello.leavesC.common.common.CircleImageView
         android:id="@+id/iv_selectFriend_avatar"
         android:layout_width="44dp"
         android:layout_height="44dp"

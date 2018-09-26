@@ -16,9 +16,9 @@ import hello.leavesC.chat.model.BaseMessage;
 import hello.leavesC.chat.model.GroupTipsMessage;
 import hello.leavesC.chat.model.TextMessage;
 import hello.leavesC.chat.utils.TimeUtil;
-import hello.leavesC.ui.input.utils.SpanStringUtils;
-import hello.leavesC.ui.recycler.common.CommonRecyclerViewAdapter;
-import hello.leavesC.ui.recycler.common.CommonRecyclerViewHolder;
+import hello.leavesC.common.input.utils.SpanStringUtils;
+import hello.leavesC.common.recycler.common.CommonRecyclerViewAdapter;
+import hello.leavesC.common.recycler.common.CommonRecyclerViewHolder;
 
 /**
  * 作者：叶应是叶

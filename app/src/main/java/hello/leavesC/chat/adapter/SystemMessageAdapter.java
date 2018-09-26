@@ -12,8 +12,8 @@ import hello.leavesC.chat.model.SystemGroupMessage;
 import hello.leavesC.chat.model.SystemProfileTipsMessage;
 import hello.leavesC.chat.model.SystemSnsMessage;
 import hello.leavesC.chat.utils.TimeUtil;
-import hello.leavesC.ui.recycler.common.CommonRecyclerViewAdapter;
-import hello.leavesC.ui.recycler.common.CommonRecyclerViewHolder;
+import hello.leavesC.common.recycler.common.CommonRecyclerViewAdapter;
+import hello.leavesC.common.recycler.common.CommonRecyclerViewHolder;
 
 /**
  * 作者：叶应是叶

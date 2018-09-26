@@ -9,8 +9,8 @@ import android.widget.EditText;
 
 import hello.leavesC.chat.R;
 import hello.leavesC.chat.view.base.BaseActivity;
-import hello.leavesC.tls.callback.RegisterListener;
-import hello.leavesC.tls.service.RegisterService;
+import hello.leavesC.presenter.tls.callback.RegisterListener;
+import hello.leavesC.presenter.tls.service.RegisterService;
 
 /**
  * 作者：叶应是叶

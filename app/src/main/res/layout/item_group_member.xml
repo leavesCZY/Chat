@@ -5,7 +5,7 @@
     android:layout_below="@id/tv_headerLetter"
     android:background="@drawable/pressed_rectangle_background">
 
-    <hello.leavesC.ui.common.CircleImageView
+    <hello.leavesC.common.common.CircleImageView
         android:id="@+id/civ_groupMember_avatar"
         android:layout_width="48dp"
         android:layout_height="48dp"

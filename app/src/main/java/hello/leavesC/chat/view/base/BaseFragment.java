@@ -7,8 +7,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.widget.Toast;
 
-import hello.leavesC.ui.dialog.LoadingDialog;
-import hello.leavesC.ui.dialog.MessageDialog;
+import hello.leavesC.common.dialog.LoadingDialog;
+import hello.leavesC.common.dialog.MessageDialog;
 
 /**
  * 作者：叶应是叶
