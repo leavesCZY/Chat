@@ -35,7 +35,6 @@ public class AboutActivity extends BaseActivity {
     private void initView() {
         QMUITopBar toolbar_about = findViewById(R.id.toolbar_about);
         toolbar_about.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-        toolbar_about.setTitle("沉浸式状态栏示例");
 //        initToolbar(R.id.toolbar_about, "关于");
         View.OnClickListener clickListener = new View.OnClickListener() {
             @Override

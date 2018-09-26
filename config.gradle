@@ -6,6 +6,8 @@ ext {
     versionCode = 1
     versionName = '1.0'
     buildToolsVersion = "28.0.2"
+    debugMinifyEnabled = false
+    releaseMinifyEnabled = true
 
     dependencies = [
             appcompatV7     : 'com.android.support:appcompat-v7:28.0.0',
@@ -14,7 +16,8 @@ ext {
             recyclerview    : 'com.android.support:recyclerview-v7:28.0.0',
             junit           : 'junit:junit:4.12',
             testRunner      : 'com.android.support.test:runner:1.0.2',
-            espressoCore    : 'com.android.support.test.espresso:espresso-core:3.0.2'
+            espressoCore    : 'com.android.support.test.espresso:espresso-core:3.0.2',
+            qmuiteam        : 'com.qmuiteam:qmui:1.1.6'
     ]
 
 }

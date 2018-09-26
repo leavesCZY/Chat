@@ -19,3 +19,14 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+-keep class com.tencent.**{*;}
+-dontwarn com.tencent.**
+-keep class tencent.**{*;}
+-dontwarn tencent.**
+-keep class qalsdk.**{*;}
+-dontwarn qalsdk.**
+
+-dontwarn net.soureceforge.pinyin4j.**
+-dontwarn demo.**
+-keep class net.sourceforge.pinyin4j.** { *;}
+-keep class demo.** { *;}

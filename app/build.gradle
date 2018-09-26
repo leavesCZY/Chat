@@ -3,21 +3,53 @@ apply plugin: 'com.android.application'
 def globalConfiguration = rootProject.ext
 def presentationDependencies = globalConfiguration.dependencies
 
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+def keyStorePath_ = properties.getProperty("key.keyStorePath")
+def storePassword_ = properties.getProperty("key.storePassword")
+def keyAlias_ = properties.getProperty("key.keyAlias")
+def keyPassword_ = properties.getProperty("key.keyPassword")
+def storeFile_ = file(keyStorePath_)
+
 android {
     compileSdkVersion globalConfiguration["compileSdkVersion"]
     buildToolsVersion globalConfiguration["buildToolsVersion"]
     defaultConfig {
-        applicationId "hello.leavesC.chat"
+        applicationId defaultApplicationId
         minSdkVersion globalConfiguration["minSdkVersion"]
         targetSdkVersion globalConfiguration["targetSdkVersion"]
         versionCode globalConfiguration["versionCode"]
         versionName globalConfiguration["versionName"]
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-    buildTypes {
+    signingConfigs {
+        debug {
+            storeFile storeFile_
+            storePassword storePassword_
+            keyAlias keyAlias_
+            keyPassword keyPassword_
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
         release {
-            minifyEnabled false
+            storeFile storeFile_
+            storePassword storePassword_
+            keyAlias keyAlias_
+            keyPassword keyPassword_
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
+    buildTypes {
+        debug {
+            minifyEnabled globalConfiguration["debugMinifyEnabled"]
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+        }
+        release {
+            minifyEnabled globalConfiguration["releaseMinifyEnabled"]
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 }
@@ -33,4 +65,5 @@ dependencies {
     implementation project(':presenter')
     implementation project(':tls')
     implementation project(':ui')
+    implementation presentationDependencies.qmuiteam
 }
