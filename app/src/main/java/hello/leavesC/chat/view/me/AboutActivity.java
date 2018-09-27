@@ -1,9 +1,5 @@
 package hello.leavesC.chat.view.me;
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,8 +8,6 @@ import android.view.View;
 import hello.leavesC.chat.R;
 import hello.leavesC.chat.view.base.BaseActivity;
 import hello.leavesC.common.common.OptionView;
-import hello.leavesC.presenter.listener.CallBackListener;
-import hello.leavesC.presenter.manager.GroupManager;
 
 /**
  * 作者：叶应是叶
@@ -35,78 +29,21 @@ public class AboutActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
-                    case R.id.ov_summary: {
-                        AppIntroductionActivity.navigation(AboutActivity.this, "应用介绍", getString(R.string.about_summary));
-                        break;
-                    }
-                    case R.id.ov_changelog: {
-                        AppIntroductionActivity.navigation(AboutActivity.this, "更新日志", getString(R.string.about_changelog));
-                        break;
-                    }
                     case R.id.ov_gitHub: {
                         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/leavesC/Chat")));
-                        break;
-                    }
-                    case R.id.ov_reward: {
-                        ClipboardManager clipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                        if (clipboardManager != null) {
-                            ClipData clip = ClipData.newPlainText("Hello", "#吱口令#长按复制此条消息，打开支付宝给我转账cN9ccz98uq");
-                            clipboardManager.setPrimaryClip(clip);
-                            try {
-                                startActivity(getPackageManager().getLaunchIntentForPackage("com.eg.android.AlipayGphone"));
-                            } catch (Exception e) {
-                                showToast("启动支付宝失败 " + e.getMessage());
-                            }
-                        }
                         break;
                     }
                     case R.id.ov_contact: {
                         AppIntroductionActivity.navigation(AboutActivity.this, "联系方式", getString(R.string.about_contact));
                         break;
                     }
-                    case R.id.ov_joinGroup: {
-                        showMessageDialog(null, "是否加入开发者聊天群？", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                if (which == DialogInterface.BUTTON_POSITIVE) {
-                                    showLoadingDialog("正在申请加入开发者聊天群");
-                                    GroupManager.applyJoinGroup("@TGS#2VYICXBF3", "兴趣所致", new CallBackListener() {
-                                        @Override
-                                        public void onSuccess() {
-                                            if (!isFinishingOrDestroyed()) {
-                                                dismissLoadingDialog();
-                                                showToast("已加入开发者聊天群");
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onError(int code, String desc) {
-                                            if (!isFinishingOrDestroyed()) {
-                                                dismissLoadingDialog();
-                                                showToast("Error: " + code + " " + desc);
-                                            }
-                                        }
-                                    });
-                                }
-                            }
-                        });
-                        break;
-                    }
                 }
             }
         };
-        OptionView ov_summary = findViewById(R.id.ov_summary);
-        OptionView ov_changelog = findViewById(R.id.ov_changelog);
         OptionView ov_gitHub = findViewById(R.id.ov_gitHub);
-        OptionView ov_reward = findViewById(R.id.ov_reward);
         OptionView ov_contact = findViewById(R.id.ov_contact);
-        OptionView ov_joinGroup = findViewById(R.id.ov_joinGroup);
-        ov_summary.setOnClickListener(clickListener);
-        ov_changelog.setOnClickListener(clickListener);
         ov_gitHub.setOnClickListener(clickListener);
-        ov_reward.setOnClickListener(clickListener);
         ov_contact.setOnClickListener(clickListener);
-        ov_joinGroup.setOnClickListener(clickListener);
     }
 
 }

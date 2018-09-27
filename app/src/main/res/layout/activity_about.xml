@@ -20,45 +20,17 @@
         app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
     <hello.leavesC.common.common.OptionView
-        android:id="@+id/ov_summary"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/iv_about_avatar"
-        app:title="应用介绍" />
-
-    <hello.leavesC.common.common.OptionView
-        android:id="@+id/ov_changelog"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/ov_summary"
-        app:title="更新日志" />
-
-    <hello.leavesC.common.common.OptionView
         android:id="@+id/ov_gitHub"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/ov_changelog"
+        app:layout_constraintTop_toBottomOf="@id/iv_about_avatar"
         app:title="项目地址" />
-
-    <hello.leavesC.common.common.OptionView
-        android:id="@+id/ov_joinGroup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/ov_gitHub"
-        app:title="加入群组" />
-
-    <hello.leavesC.common.common.OptionView
-        android:id="@+id/ov_reward"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/ov_joinGroup"
-        app:title="赞赏支持" />
 
     <hello.leavesC.common.common.OptionView
         android:id="@+id/ov_contact"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/ov_reward"
+        app:layout_constraintTop_toBottomOf="@id/ov_gitHub"
         app:title="联系方式" />
 
 </android.support.constraint.ConstraintLayout>

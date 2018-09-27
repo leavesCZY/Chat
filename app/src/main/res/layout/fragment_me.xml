@@ -34,17 +34,17 @@
                 android:layout_height="65dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:layout_marginBottom="7dp"
-                android:layout_marginEnd="15dp"
                 android:layout_marginTop="7dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="7dp"
                 android:src="@drawable/avatar_me" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dividerHeight"
                 android:layout_below="@id/iv_myInfo_avatar"
-                android:layout_marginEnd="15dp"
                 android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
                 android:background="@color/dividerColor" />
 
         </RelativeLayout>
@@ -75,7 +75,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/ov_gender"
-            app:showDivider="false"
             app:title="个性签名" />
 
         <hello.leavesC.common.common.OptionView
@@ -84,19 +83,33 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/ov_signature"
             android:visibility="gone"
-            app:showDivider="false"
             app:title="加好友选项" />
+
+        <hello.leavesC.common.common.OptionView
+            android:id="@+id/ov_joinGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ov_allowType"
+            app:title="加入群组" />
+
+        <hello.leavesC.common.common.OptionView
+            android:id="@+id/ov_reward"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ov_joinGroup"
+            app:showDivider="false"
+            app:title="赞赏支持" />
 
         <Button
             android:id="@+id/btn_logout"
             style="@style/redButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/ov_allowType"
-            android:layout_marginBottom="20dp"
-            android:layout_marginEnd="20dp"
+            android:layout_below="@id/ov_reward"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
             android:text="注销" />
 
     </RelativeLayout>

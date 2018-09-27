@@ -1,5 +1,8 @@
 package hello.leavesC.chat.view.me;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,6 +21,8 @@ import hello.leavesC.chat.view.MainActivity;
 import hello.leavesC.chat.view.base.BaseFragment;
 import hello.leavesC.common.common.OptionView;
 import hello.leavesC.presenter.business.LoginBusiness;
+import hello.leavesC.presenter.listener.CallBackListener;
+import hello.leavesC.presenter.manager.GroupManager;
 import hello.leavesC.presenter.manager.SelfProfileManager;
 import hello.leavesC.presenter.presenter.ProfilePresenter;
 import hello.leavesC.presenter.view.ProfileView;
@@ -41,6 +46,10 @@ public class MeFragment extends BaseFragment implements ProfileView {
 
     private OptionView ov_allowType;
 
+    private OptionView ov_reward;
+
+    private OptionView ov_joinGroup;
+
     private Button btn_logout;
 
     private static final String TAG = "MeFragment";
@@ -57,6 +66,8 @@ public class MeFragment extends BaseFragment implements ProfileView {
             ov_signature = view.findViewById(R.id.ov_signature);
             ov_allowType = view.findViewById(R.id.ov_allowType);
             btn_logout = view.findViewById(R.id.btn_logout);
+            ov_reward = view.findViewById(R.id.ov_reward);
+            ov_joinGroup = view.findViewById(R.id.ov_joinGroup);
         }
         return view;
     }
@@ -113,6 +124,43 @@ public class MeFragment extends BaseFragment implements ProfileView {
                             }
                         });
                         break;
+                    case R.id.ov_reward: {
+                        ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                        if (clipboardManager != null) {
+                            ClipData clip = ClipData.newPlainText("Hello", "#吱口令#长按复制此条消息，打开支付宝给我转账cN9ccz98uq");
+                            clipboardManager.setPrimaryClip(clip);
+                            try {
+                                startActivity(getActivity().getPackageManager().getLaunchIntentForPackage("com.eg.android.AlipayGphone"));
+                            } catch (Exception e) {
+                                showToast("启动支付宝失败 " + e.getMessage());
+                            }
+                        }
+                        break;
+                    }
+                    case R.id.ov_joinGroup: {
+                        showMessageDialog(null, "是否加入开发者聊天群？", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if (which == DialogInterface.BUTTON_POSITIVE) {
+                                    showLoadingDialog("正在申请加入开发者聊天群");
+                                    GroupManager.applyJoinGroup("@TGS#2VYICXBF3", "兴趣所致", new CallBackListener() {
+                                        @Override
+                                        public void onSuccess() {
+                                            dismissLoadingDialog();
+                                            showToast("已加入开发者聊天群");
+                                        }
+
+                                        @Override
+                                        public void onError(int code, String desc) {
+                                            dismissLoadingDialog();
+                                            showToast("Error: " + code + " " + desc);
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                        break;
+                    }
                 }
             }
         };
@@ -137,6 +185,8 @@ public class MeFragment extends BaseFragment implements ProfileView {
         btn_logout.setOnClickListener(clickListener);
         ov_gender.setOnClickShowPickerDialog("性别", TransformUtil.getGenderOption(), getFragmentManager(), clickOptionListener);
         ov_allowType.setOnClickShowPickerDialog("加好友选项", TransformUtil.getAllowTypeOption(), getFragmentManager(), clickOptionListener);
+        ov_reward.setOnClickListener(clickListener);
+        ov_joinGroup.setOnClickListener(clickListener);
     }
 
     @Override
