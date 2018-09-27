@@ -7,7 +7,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.tencent.imsdk.ext.group.TIMGroupMemberResult;
@@ -21,11 +20,11 @@ import hello.leavesC.chat.adapter.SelectFriendAdapter;
 import hello.leavesC.chat.cache.FriendCache;
 import hello.leavesC.chat.model.FriendProfile;
 import hello.leavesC.chat.view.base.BaseActivity;
-import hello.leavesC.presenter.listener.ValueCallBackListener;
-import hello.leavesC.presenter.manager.GroupManager;
 import hello.leavesC.common.common.LetterIndexView;
 import hello.leavesC.common.recycler.common.CommonItemDecoration;
 import hello.leavesC.common.recycler.common.CommonRecyclerViewHolder;
+import hello.leavesC.presenter.listener.ValueCallBackListener;
+import hello.leavesC.presenter.manager.GroupManager;
 
 /**
  * 作者：叶应是叶
@@ -46,9 +45,8 @@ public class InviteGroupMemberActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invite_group_member);
-        initToolbar(R.id.toolbar_inviteGroupMember, "邀请好友入群");
+        setToolbarTitle("邀请好友入群");
         final String groupId = getIntent().getStringExtra(GROUP_ID);
-        final Button btn_inviteGroupMember_invite = (Button) findViewById(R.id.btn_inviteGroupMember_invite);
         peerList = new ArrayList<>();
         friendProfileList = new ArrayList<>();
         friendProfileList.addAll(FriendCache.getInstance().getFriendProfileList());
@@ -64,7 +62,7 @@ public class InviteGroupMemberActivity extends BaseActivity {
                     peerList.remove(friendProfile.getIdentifier());
                 }
                 selectFriendAdapter.setData(friendProfileList);
-                btn_inviteGroupMember_invite.setEnabled(peerList.size() > 0);
+                getBtnToolbarSure().setEnabled(peerList.size() > 0);
             }
         });
         RecyclerView rv_inviteGroupMember = (RecyclerView) findViewById(R.id.rv_inviteGroupMember);
@@ -75,7 +73,7 @@ public class InviteGroupMemberActivity extends BaseActivity {
         LetterIndexView liv_inviteGroupMember_letters = (LetterIndexView) findViewById(R.id.liv_inviteGroupMember_letters);
         TextView tv_inviteGroupMember_hint = (TextView) findViewById(R.id.tv_inviteGroupMember_hint);
         liv_inviteGroupMember_letters.bindIndexView(tv_inviteGroupMember_hint, linearLayoutManager, new HashMap<String, Integer>());
-        btn_inviteGroupMember_invite.setOnClickListener(new View.OnClickListener() {
+        setBtnToolbarSureClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showLoadingDialog("正在邀请好友入群");

@@ -4,12 +4,12 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
@@ -30,6 +30,8 @@ public class BaseActivity extends AppCompatActivity {
 
     private MessageDialog messageDialog;
 
+    private Button btn_toolbarSure;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,20 +46,32 @@ public class BaseActivity extends AppCompatActivity {
         dismissMessageDialog();
     }
 
+    public Button getBtnToolbarSure() {
+        if (btn_toolbarSure == null) {
+            btn_toolbarSure = findViewById(R.id.btn_toolbarSure);
+        }
+        return btn_toolbarSure;
+    }
+
+    public void setBtnToolbarSureClickListener(View.OnClickListener clickListener) {
+        getBtnToolbarSure().setOnClickListener(clickListener);
+    }
+
     @Override
     public void finish() {
         super.finish();
         overridePendingTransition(R.anim.slide_still, R.anim.slide_out_right);
     }
 
-    protected void initToolbar(@IdRes int toolbarId, String toolbarTitle, boolean displayHomeAsUpEnabled) {
-        Toolbar toolbar = (Toolbar) findViewById(toolbarId);
+    protected void initToolbar(String toolbarTitle, boolean displayHomeAsUpEnabled) {
+        Toolbar toolbar = findViewById(R.id.toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
-            if (getSupportActionBar() != null) {
-                getSupportActionBar().setTitle(toolbarTitle);
+            ActionBar actionBar = getSupportActionBar();
+            if (actionBar != null) {
+                actionBar.setTitle(toolbarTitle);
                 if (displayHomeAsUpEnabled) {
-                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                    actionBar.setDisplayHomeAsUpEnabled(true);
                     toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -69,28 +83,15 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-    protected void initToolbar(@IdRes int toolbarId, @StringRes int toolbarTitleRes, boolean displayHomeAsUpEnabled) {
-        String toolbarTitle = getString(toolbarTitleRes);
-        initToolbar(toolbarId, toolbarTitle, displayHomeAsUpEnabled);
+    protected void setToolbarTitle(String toolbarTitle) {
+        initToolbar(toolbarTitle, true);
     }
 
-    protected void initToolbar(@IdRes int toolbarId, @StringRes int toolbarTitleRes) {
-        String toolbarTitle = getString(toolbarTitleRes);
-        initToolbar(toolbarId, toolbarTitle, true);
-    }
-
-    protected void initToolbar(@IdRes int toolbarId, String toolbarTitle) {
-        initToolbar(toolbarId, toolbarTitle, true);
-    }
-
-    protected void setToolbarTitle(String title) {
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(title);
+    protected void setSureBtnText(String content) {
+        if (btn_toolbarSure == null) {
+            btn_toolbarSure = findViewById(R.id.btn_toolbarSure);
         }
-    }
-
-    protected void initToolbar(@IdRes int toolbarId) {
-        initToolbar(toolbarId, "", true);
+        btn_toolbarSure.setText(content);
     }
 
     protected void onToolbarBack() {

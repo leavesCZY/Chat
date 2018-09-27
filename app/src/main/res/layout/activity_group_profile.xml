@@ -6,14 +6,12 @@
     android:background="@color/white"
     android:fitsSystemWindows="true">
 
-    <include
-        android:id="@+id/toolbar_groupProfile"
-        layout="@layout/common_toolbar" />
+    <include layout="@layout/layout_tool_bar" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar_groupProfile"
+        android:layout_below="@id/toolbar"
         android:scrollbars="none">
 
         <RelativeLayout
@@ -84,10 +82,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/ov_groupProfile_receiveMessageOpt"
-                android:layout_marginBottom="20dp"
-                android:layout_marginEnd="20dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
                 android:text="邀请好友入群" />
 
             <Button
@@ -96,9 +94,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/btn_groupProfile_inviteGroupMember"
-                android:layout_marginBottom="20dp"
-                android:layout_marginEnd="20dp"
                 android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
                 android:text="退出聊天群" />
 
         </RelativeLayout>

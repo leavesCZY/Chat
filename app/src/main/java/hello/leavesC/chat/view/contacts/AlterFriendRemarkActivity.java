@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
 import hello.leavesC.chat.R;
@@ -38,10 +37,9 @@ public class AlterFriendRemarkActivity extends BaseActivity {
     }
 
     private void initView() {
-        initToolbar(R.id.toolbar_alterFriendRemark, "设置备注");
-        final Button btn_alterFriendRemark = (Button) findViewById(R.id.btn_alterFriendRemark);
-        final EditText et_alterFriendRemark = (EditText) findViewById(R.id.et_alterFriendRemark);
-        btn_alterFriendRemark.setOnClickListener(new View.OnClickListener() {
+        setToolbarTitle("设置备注");
+        final EditText et_alterFriendRemark = findViewById(R.id.et_alterFriendRemark);
+        setBtnToolbarSureClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showLoadingDialog("正在修改备注", false, false);
@@ -82,9 +80,9 @@ public class AlterFriendRemarkActivity extends BaseActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.toString().trim().equals(original)) {
-                    btn_alterFriendRemark.setEnabled(false);
+                    getBtnToolbarSure().setEnabled(false);
                 } else {
-                    btn_alterFriendRemark.setEnabled(true);
+                    getBtnToolbarSure().setEnabled(true);
                 }
             }
         });

@@ -106,7 +106,7 @@ public class SearchUserResultActivity extends BaseActivity {
     }
 
     private void initView(TIMFriendGenderType genderType, String nickname, String signature) {
-        initToolbar(R.id.toolbar_searchUserResult, "个人名片", true);
+        initToolbar( "个人名片", true);
         TextView tv_searchUserResult_identifier = (TextView) findViewById(R.id.tv_searchUserResult_identifier);
         tv_searchUserResult_identifier.setText(identifier);
         if (genderType != null && genderType != TIMFriendGenderType.Unknow) {

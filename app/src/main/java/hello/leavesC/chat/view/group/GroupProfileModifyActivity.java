@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
 import hello.leavesC.chat.R;
@@ -37,8 +36,6 @@ public class GroupProfileModifyActivity extends BaseActivity {
 
     public int code;
 
-    private Button btn_groupProfileAlter_completed;
-
     private EditText et_groupProfileAlter;
 
     private String origin;
@@ -54,21 +51,21 @@ public class GroupProfileModifyActivity extends BaseActivity {
             finish();
             return;
         }
-        btn_groupProfileAlter_completed = (Button) findViewById(R.id.btn_groupProfileAlter_completed);
-        et_groupProfileAlter = (EditText) findViewById(R.id.et_groupProfileAlter);
+        setSureBtnText("保存");
+        et_groupProfileAlter = findViewById(R.id.et_groupProfileAlter);
         switch (code) {
             case ALTER_GROUP_NAME: {
-                initToolbar(R.id.toolbar_groupProfileAlter, "修改群名");
+                setToolbarTitle("修改群名");
                 origin = groupProfile.getName();
                 break;
             }
             case ALTER_GROUP_INTRODUCTION: {
-                initToolbar(R.id.toolbar_groupProfileAlter, "修改群简介");
+                setToolbarTitle("修改群简介");
                 origin = groupProfile.getIntroduction();
                 break;
             }
             case ALTER_GROUP_NOTIFICATION: {
-                initToolbar(R.id.toolbar_groupProfileAlter, "修改群公告");
+                setToolbarTitle("修改群公告");
                 origin = groupProfile.getNotification();
                 break;
             }
@@ -92,13 +89,13 @@ public class GroupProfileModifyActivity extends BaseActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.toString().equals(origin)) {
-                    btn_groupProfileAlter_completed.setEnabled(false);
+                    getBtnToolbarSure().setEnabled(false);
                 } else {
-                    btn_groupProfileAlter_completed.setEnabled(true);
+                    getBtnToolbarSure().setEnabled(true);
                 }
             }
         });
-        btn_groupProfileAlter_completed.setOnClickListener(new View.OnClickListener() {
+        setBtnToolbarSureClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showLoadingDialog("正在修改");

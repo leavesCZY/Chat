@@ -5,14 +5,12 @@
     android:background="@color/white"
     android:fitsSystemWindows="true">
 
-    <include
-        android:id="@+id/toolbar_groupList"
-        layout="@layout/common_toolbar" />
+    <include layout="@layout/layout_tool_bar" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_groupList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar_groupList" />
+        android:layout_below="@id/toolbar" />
 
 </RelativeLayout>

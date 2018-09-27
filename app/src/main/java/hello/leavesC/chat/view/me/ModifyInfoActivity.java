@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -32,8 +31,6 @@ public class ModifyInfoActivity extends BaseActivity {
 
     private String original;
 
-    private Button btn_alterInfo_completed;
-
     private EditText et_alterInfo;
 
     private int requestType;
@@ -52,9 +49,9 @@ public class ModifyInfoActivity extends BaseActivity {
         @Override
         public void afterTextChanged(Editable s) {
             if (s.toString().equals(original)) {
-                btn_alterInfo_completed.setEnabled(false);
+                getBtnToolbarSure().setEnabled(false);
             } else {
-                btn_alterInfo_completed.setEnabled(true);
+                getBtnToolbarSure().setEnabled(true);
             }
         }
     };
@@ -95,15 +92,16 @@ public class ModifyInfoActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modify_info);
         requestType = getIntent().getIntExtra(REQUEST_TYPE, 0);
+        setSureBtnText("保存");
         if (requestType == REQUEST_ALTER_NICKNAME) {
             initView();
             setToolbarTitle("设置昵称");
-            TextView tv_alterInfo_hint = (TextView) findViewById(R.id.tv_alterInfo_hint);
+            TextView tv_alterInfo_hint = findViewById(R.id.tv_alterInfo_hint);
             tv_alterInfo_hint.setText("好名字可以让你的朋友更容易记住你。");
         } else if (requestType == REQUEST_ALTER_SIGNATURE) {
             initView();
             setToolbarTitle("设置个性签名");
-            TextView tv_alterInfo_hint = (TextView) findViewById(R.id.tv_alterInfo_hint);
+            TextView tv_alterInfo_hint = findViewById(R.id.tv_alterInfo_hint);
             tv_alterInfo_hint.setText("写写你的想法。");
         } else {
             finish();
@@ -111,13 +109,11 @@ public class ModifyInfoActivity extends BaseActivity {
     }
 
     private void initView() {
-        btn_alterInfo_completed = (Button) findViewById(R.id.btn_alterInfo_completed);
         et_alterInfo = (EditText) findViewById(R.id.et_alterInfo);
-        initToolbar(R.id.toolbar_alterInfo);
         original = getIntent().getStringExtra(ORIGINAL);
         et_alterInfo.setText(original);
         et_alterInfo.addTextChangedListener(textWatcher);
-        btn_alterInfo_completed.setOnClickListener(clickListener);
+        setBtnToolbarSureClickListener(clickListener);
     }
 
     public static void navigation(Context context, int requestType, String original) {

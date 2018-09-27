@@ -27,7 +27,7 @@ public class AppIntroductionActivity extends BaseActivity {
         String content = getIntent().getStringExtra(CONTENT);
         TextView tv_introduction = (TextView) findViewById(R.id.tv_appIntroduction);
         tv_introduction.setText(content);
-        initToolbar(R.id.toolbar_appIntroduction, title);
+        setToolbarTitle(title);
     }
 
     public static void navigation(Context context, String title, String content) {

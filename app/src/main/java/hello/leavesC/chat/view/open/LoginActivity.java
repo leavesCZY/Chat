@@ -41,7 +41,7 @@ public class LoginActivity extends BaseActivity implements LoginListener {
     }
 
     private void initView() {
-        initToolbar(R.id.toolbar_login, "登录");
+        setToolbarTitle("登录");
         et_login_identifier = (EditText) findViewById(R.id.et_login_identifier);
         et_login_password = (EditText) findViewById(R.id.et_login_password);
         String identifier = getIntent().getStringExtra(OpenActivity.IDENTIFIER);

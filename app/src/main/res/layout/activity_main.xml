@@ -6,9 +6,7 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <include
-        android:id="@+id/toolbar_main"
-        layout="@layout/common_toolbar" />
+    <include layout="@layout/layout_tool_bar" />
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayout_main"

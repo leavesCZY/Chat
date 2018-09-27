@@ -51,7 +51,7 @@ public class GroupMembersActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_members);
         final String groupId = getIntent().getStringExtra(GROUP_ID);
-        initToolbar(R.id.toolbar_groupMembers, "群成员");
+        setToolbarTitle("群成员");
         GroupManager.getGroupMembers(groupId, callBackListener);
         groupMemberInfoList = new ArrayList<>();
         groupMembersAdapter = new GroupMembersAdapter(this, groupMemberInfoList);

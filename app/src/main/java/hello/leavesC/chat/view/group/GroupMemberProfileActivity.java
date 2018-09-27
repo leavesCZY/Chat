@@ -15,10 +15,10 @@ import hello.leavesC.chat.model.FriendProfile;
 import hello.leavesC.chat.utils.TimeUtil;
 import hello.leavesC.chat.utils.TransformUtil;
 import hello.leavesC.chat.view.base.BaseActivity;
+import hello.leavesC.common.common.OptionView;
 import hello.leavesC.presenter.listener.ValueCallBackListener;
 import hello.leavesC.presenter.log.Logger;
 import hello.leavesC.presenter.manager.GroupProfileManager;
-import hello.leavesC.common.common.OptionView;
 
 /**
  * 作者：叶应是叶
@@ -37,7 +37,7 @@ public class GroupMemberProfileActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_member_profile);
-        initToolbar(R.id.toolbar_groupMemberProfile, "群成员信息");
+        setToolbarTitle("群成员信息");
         String groupId = getIntent().getStringExtra(GROUP_ID);
         String identifier = getIntent().getStringExtra(IDENTIFIER);
         GroupProfileManager.getGroupMemberInfo(groupId, identifier, new ValueCallBackListener<TIMGroupMemberInfo>() {

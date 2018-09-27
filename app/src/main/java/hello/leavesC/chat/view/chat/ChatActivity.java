@@ -37,13 +37,13 @@ import hello.leavesC.chat.view.base.BaseActivity;
 import hello.leavesC.chat.view.contacts.FriendProfileActivity;
 import hello.leavesC.chat.view.group.GroupMemberProfileActivity;
 import hello.leavesC.chat.view.group.GroupProfileActivity;
-import hello.leavesC.presenter.log.Logger;
-import hello.leavesC.presenter.presenter.ChatPresenter;
-import hello.leavesC.presenter.view.ChatView;
 import hello.leavesC.common.input.EmojiFragment;
 import hello.leavesC.common.input.EmojiKeyboard;
 import hello.leavesC.common.input.utils.EmojiUtils;
 import hello.leavesC.common.input.utils.SpanStringUtils;
+import hello.leavesC.presenter.log.Logger;
+import hello.leavesC.presenter.presenter.ChatPresenter;
+import hello.leavesC.presenter.view.ChatView;
 
 import static com.tencent.imsdk.TIMConversationType.C2C;
 
@@ -94,10 +94,10 @@ public class ChatActivity extends BaseActivity implements ChatView, EmojiFragmen
     private void initView() {
         if (conversationType == TIMConversationType.C2C) {
             FriendProfile friendProfile = FriendCache.getInstance().getProfile(peer);
-            initToolbar(R.id.toolbar_chat, friendProfile == null ? peer : friendProfile.getName());
+            setToolbarTitle(friendProfile == null ? peer : friendProfile.getName());
         } else if (conversationType == TIMConversationType.Group) {
             GroupProfile groupProfile = GroupCache.getInstance().getGroupProfile(peer);
-            initToolbar(R.id.toolbar_chat, groupProfile == null ? peer : groupProfile.getName());
+            setToolbarTitle(groupProfile == null ? peer : groupProfile.getName());
         }
         EmojiFragment emojiFragment = EmojiFragment.newInstance(EmojiUtils.EMOJI_TYPE_CLASSICS);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();

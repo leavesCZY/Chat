@@ -19,11 +19,11 @@ import hello.leavesC.chat.presenter.GroupProfilePresenter;
 import hello.leavesC.chat.utils.TimeUtil;
 import hello.leavesC.chat.utils.TransformUtil;
 import hello.leavesC.chat.view.base.BaseActivity;
+import hello.leavesC.common.common.CircleImageView;
+import hello.leavesC.common.common.OptionView;
 import hello.leavesC.presenter.listener.CallBackListener;
 import hello.leavesC.presenter.manager.GroupManager;
 import hello.leavesC.presenter.manager.GroupProfileManager;
-import hello.leavesC.common.common.CircleImageView;
-import hello.leavesC.common.common.OptionView;
 
 /**
  * 作者：叶应是叶
@@ -54,7 +54,7 @@ public class GroupProfileActivity extends BaseActivity implements Observer {
     }
 
     private void initView(final GroupProfile groupProfile) {
-        initToolbar(R.id.toolbar_groupProfile, groupProfile.getName());
+        setToolbarTitle(groupProfile.getName());
         CircleImageView iv_groupProfile_avatar = (CircleImageView) findViewById(R.id.iv_groupProfile_avatar);
         OptionView ov_groupProfile_groupName = (OptionView) findViewById(R.id.ov_groupProfile_groupName);
         OptionView ov_groupProfile_groupOwner = (OptionView) findViewById(R.id.ov_groupProfile_groupOwner);

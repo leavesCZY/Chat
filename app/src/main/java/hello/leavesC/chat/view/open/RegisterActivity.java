@@ -31,7 +31,7 @@ public class RegisterActivity extends BaseActivity implements RegisterListener, 
     }
 
     private void initView() {
-        initToolbar(R.id.toolbar_register, "注册", true);
+        setToolbarTitle("注册");
         et_register_identifier = (EditText) findViewById(R.id.et_register_identifier);
         et_register_password = (EditText) findViewById(R.id.et_register_password);
         Button btn_register = (Button) findViewById(R.id.btn_register);

@@ -6,14 +6,12 @@
     android:background="@color/white"
     android:fitsSystemWindows="true">
 
-    <include
-        android:id="@+id/toolbar_groupMemberProfile"
-        layout="@layout/common_toolbar" />
+    <include layout="@layout/layout_tool_bar" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar_groupMemberProfile"
+        android:layout_below="@id/toolbar"
         android:scrollbars="none">
 
         <RelativeLayout
@@ -63,10 +61,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/ov_groupMemberProfile_joinTime"
-                android:layout_marginBottom="20dp"
-                android:layout_marginEnd="20dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
                 android:text="加为好友"
                 android:visibility="gone" />
 

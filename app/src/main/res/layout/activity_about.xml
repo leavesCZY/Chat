@@ -6,34 +6,18 @@
     android:background="@color/white"
     android:fitsSystemWindows="true">
 
-    <!--<android.support.v7.widget.Toolbar-->
-    <!--android:id="@+id/toolbar_about"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="?attr/actionBarSize"-->
-    <!--android:background="@color/white"-->
-    <!--app:layout_constraintEnd_toEndOf="parent"-->
-    <!--app:layout_constraintStart_toStartOf="parent"-->
-    <!--app:layout_constraintTop_toBottomOf="parent"-->
-    <!--app:layout_constraintTop_toTopOf="parent"-->
-    <!--app:popupTheme="@style/AppTheme.PopupOverlay"-->
-    <!--app:titleTextAppearance="@style/toolbarTextAppearance"-->
-    <!--app:titleTextColor="@color/black" />-->
-
-    <com.qmuiteam.qmui.widget.QMUITopBar
-        android:id="@+id/toolbar_about"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/qmui_topbar_height" />
+    <include layout="@layout/layout_tool_bar" />
 
     <hello.leavesC.common.common.CircleImageView
         android:id="@+id/iv_about_avatar"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:src="@drawable/avatar_me"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_about" />
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
     <hello.leavesC.common.common.OptionView
         android:id="@+id/ov_summary"

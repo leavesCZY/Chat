@@ -6,14 +6,12 @@
     android:background="@color/white"
     android:fitsSystemWindows="true">
 
-    <include
-        android:id="@+id/toolbar_searchUserResult"
-        layout="@layout/common_toolbar" />
+    <include layout="@layout/layout_tool_bar" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar_searchUserResult"
+        android:layout_below="@id/toolbar"
         android:scrollbars="none">
 
         <RelativeLayout
@@ -34,9 +32,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/civ_searchUserResult_avatar"
                 android:layout_centerHorizontal="true"
-                android:layout_marginEnd="20dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="4dp"
+                android:layout_marginEnd="20dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -75,9 +73,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/ov_searchUserResult_signature"
-                android:layout_marginEnd="18dp"
                 android:layout_marginStart="18dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="18dp"
                 android:text="加为好友" />
 
         </RelativeLayout>

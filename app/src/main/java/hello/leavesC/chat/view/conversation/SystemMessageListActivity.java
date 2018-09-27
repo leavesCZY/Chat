@@ -21,10 +21,10 @@ import hello.leavesC.chat.model.BaseMessage;
 import hello.leavesC.chat.utils.SystemMessageComparator;
 import hello.leavesC.chat.view.MessageFactory;
 import hello.leavesC.chat.view.base.BaseActivity;
+import hello.leavesC.common.recycler.common.CommonItemDecoration;
 import hello.leavesC.presenter.log.Logger;
 import hello.leavesC.presenter.presenter.ChatPresenter;
 import hello.leavesC.presenter.view.ChatView;
-import hello.leavesC.common.recycler.common.CommonItemDecoration;
 
 /**
  * 作者：叶应是叶
@@ -49,7 +49,7 @@ public class SystemMessageListActivity extends BaseActivity implements ChatView 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_system_message_list);
-        initToolbar(R.id.toolbar_systemMessageList, "系统消息");
+        setToolbarTitle("系统消息");
         RecyclerView rv_systemMessageList = (RecyclerView) findViewById(R.id.rv_systemMessageList);
         linearLayoutManager = new LinearLayoutManager(this);
         rv_systemMessageList.setLayoutManager(linearLayoutManager);

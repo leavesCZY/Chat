@@ -6,14 +6,12 @@
     android:background="@color/white"
     android:fitsSystemWindows="true">
 
-    <include
-        android:id="@+id/toolbar_friendProfile"
-        layout="@layout/common_toolbar" />
+    <include layout="@layout/layout_tool_bar" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar_friendProfile"
+        android:layout_below="@id/toolbar"
         android:scrollbars="none">
 
         <RelativeLayout
@@ -34,9 +32,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/civ_friendProfile_avatar"
                 android:layout_centerHorizontal="true"
-                android:layout_marginEnd="20dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="4dp"
+                android:layout_marginEnd="20dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -83,9 +81,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/ov_friendProfile_signature"
-                android:layout_marginEnd="18dp"
                 android:layout_marginStart="18dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="18dp"
                 android:text="聊天去" />
 
             <Button
@@ -94,10 +92,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/btn_friendProfile_startChat"
-                android:layout_marginBottom="16dp"
-                android:layout_marginEnd="18dp"
                 android:layout_marginStart="18dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="18dp"
+                android:layout_marginBottom="16dp"
                 android:text="删除好友" />
 
         </RelativeLayout>

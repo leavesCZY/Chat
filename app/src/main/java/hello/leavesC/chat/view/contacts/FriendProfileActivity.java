@@ -105,7 +105,7 @@ public class FriendProfileActivity extends BaseActivity implements Observer {
     }
 
     private void initView() {
-        initToolbar(R.id.toolbar_friendProfile, "个人名片", true);
+        setToolbarTitle("个人名片");
         tv_friendProfile_name = (TextView) findViewById(R.id.tv_friendProfile_name);
         iv_friendProfile_gender = (ImageView) findViewById(R.id.iv_friendProfile_gender);
         ov_friendProfile_identifier = (OptionView) findViewById(R.id.ov_friendProfile_identifier);

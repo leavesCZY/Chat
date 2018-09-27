@@ -1,40 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_alterInfo"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_alignParentTop="true"
-        android:background="@color/toolbarBackground"
-        app:titleTextAppearance="@style/toolbarTextAppearance">
-
-        <Button
-            android:id="@+id/btn_alterInfo_completed"
-            style="@style/blueButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginBottom="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="10dp"
-            android:enabled="false"
-            android:text="保存" />
-
-    </android.support.v7.widget.Toolbar>
+    <include layout="@layout/layout_tool_bar_with_btn" />
 
     <EditText
         android:id="@+id/et_alterInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar_alterInfo"
-        android:layout_marginEnd="5dp"
+        android:layout_below="@id/toolbar"
         android:layout_marginStart="5dp"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="5dp"
         android:maxLength="12" />
 
     <TextView

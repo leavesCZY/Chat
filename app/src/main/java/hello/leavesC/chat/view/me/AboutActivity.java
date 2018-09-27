@@ -7,16 +7,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
-
-import com.qmuiteam.qmui.widget.QMUITopBar;
 
 import hello.leavesC.chat.R;
 import hello.leavesC.chat.view.base.BaseActivity;
+import hello.leavesC.common.common.OptionView;
 import hello.leavesC.presenter.listener.CallBackListener;
 import hello.leavesC.presenter.manager.GroupManager;
-import hello.leavesC.common.common.OptionView;
 
 /**
  * 作者：叶应是叶
@@ -33,9 +30,7 @@ public class AboutActivity extends BaseActivity {
     }
 
     private void initView() {
-        QMUITopBar toolbar_about = findViewById(R.id.toolbar_about);
-        toolbar_about.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-//        initToolbar(R.id.toolbar_about, "关于");
+        setToolbarTitle("关于");
         View.OnClickListener clickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,12 +95,12 @@ public class AboutActivity extends BaseActivity {
                 }
             }
         };
-        OptionView ov_summary = (OptionView) findViewById(R.id.ov_summary);
-        OptionView ov_changelog = (OptionView) findViewById(R.id.ov_changelog);
-        OptionView ov_gitHub = (OptionView) findViewById(R.id.ov_gitHub);
-        OptionView ov_reward = (OptionView) findViewById(R.id.ov_reward);
-        OptionView ov_contact = (OptionView) findViewById(R.id.ov_contact);
-        OptionView ov_joinGroup = (OptionView) findViewById(R.id.ov_joinGroup);
+        OptionView ov_summary = findViewById(R.id.ov_summary);
+        OptionView ov_changelog = findViewById(R.id.ov_changelog);
+        OptionView ov_gitHub = findViewById(R.id.ov_gitHub);
+        OptionView ov_reward = findViewById(R.id.ov_reward);
+        OptionView ov_contact = findViewById(R.id.ov_contact);
+        OptionView ov_joinGroup = findViewById(R.id.ov_joinGroup);
         ov_summary.setOnClickListener(clickListener);
         ov_changelog.setOnClickListener(clickListener);
         ov_gitHub.setOnClickListener(clickListener);

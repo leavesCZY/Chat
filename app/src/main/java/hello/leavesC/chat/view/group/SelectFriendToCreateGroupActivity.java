@@ -5,7 +5,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -18,11 +17,11 @@ import hello.leavesC.chat.cache.FriendCache;
 import hello.leavesC.chat.cache.GroupCache;
 import hello.leavesC.chat.model.FriendProfile;
 import hello.leavesC.chat.view.base.BaseActivity;
-import hello.leavesC.presenter.listener.ValueCallBackListener;
-import hello.leavesC.presenter.manager.GroupManager;
 import hello.leavesC.common.common.LetterIndexView;
 import hello.leavesC.common.recycler.common.CommonItemDecoration;
 import hello.leavesC.common.recycler.common.CommonRecyclerViewHolder;
+import hello.leavesC.presenter.listener.ValueCallBackListener;
+import hello.leavesC.presenter.manager.GroupManager;
 
 /**
  * 作者：叶应是叶
@@ -41,8 +40,7 @@ public class SelectFriendToCreateGroupActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_friend);
-        initToolbar(R.id.toolbar_selectFriend, "至少选择两位好友");
-        final Button btn_selectFriend_createGroup = (Button) findViewById(R.id.btn_selectFriend_createGroup);
+        setToolbarTitle("至少选择两位好友");
         peerList = new ArrayList<>();
         friendProfileList = new ArrayList<>();
         friendProfileList.addAll(FriendCache.getInstance().getFriendProfileList());
@@ -58,7 +56,7 @@ public class SelectFriendToCreateGroupActivity extends BaseActivity {
                     peerList.remove(friendProfile.getIdentifier());
                 }
                 selectFriendAdapter.setData(friendProfileList);
-                btn_selectFriend_createGroup.setEnabled(peerList.size() > 1);
+                getBtnToolbarSure().setEnabled(peerList.size() > 1);
             }
         });
         RecyclerView rv_selectFriend = (RecyclerView) findViewById(R.id.rv_selectFriend);
@@ -69,7 +67,7 @@ public class SelectFriendToCreateGroupActivity extends BaseActivity {
         LetterIndexView liv_letters = (LetterIndexView) findViewById(R.id.liv_selectFriend_letters);
         TextView tv_selectFriend_hint = (TextView) findViewById(R.id.tv_selectFriend_hint);
         liv_letters.bindIndexView(tv_selectFriend_hint, linearLayoutManager, new HashMap<String, Integer>());
-        btn_selectFriend_createGroup.setOnClickListener(new View.OnClickListener() {
+        setBtnToolbarSureClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showLoadingDialog("正在创建聊天群");
