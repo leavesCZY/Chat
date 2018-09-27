@@ -56,7 +56,7 @@ public class EmojiFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_emoticon, container, false);
-            RecyclerView rv_emoticonList = (RecyclerView) view.findViewById(R.id.rv_emoticonList);
+            RecyclerView rv_emoticonList = view.findViewById(R.id.rv_emoticonList);
             rv_emoticonList.setLayoutManager(new GridLayoutManager(getContext(), RECYCLER_VIEW_SPAN_COUNT));
             initData(rv_emoticonList);
         }

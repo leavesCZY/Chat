@@ -49,9 +49,9 @@ public class ModifyInfoActivity extends BaseActivity {
         @Override
         public void afterTextChanged(Editable s) {
             if (s.toString().equals(original)) {
-                getBtnToolbarSure().setEnabled(false);
+                getToolbarBtn().setEnabled(false);
             } else {
-                getBtnToolbarSure().setEnabled(true);
+                getToolbarBtn().setEnabled(true);
             }
         }
     };
@@ -92,7 +92,7 @@ public class ModifyInfoActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modify_info);
         requestType = getIntent().getIntExtra(REQUEST_TYPE, 0);
-        setSureBtnText("保存");
+        setToolbarBtnText("保存");
         if (requestType == REQUEST_ALTER_NICKNAME) {
             initView();
             setToolbarTitle("设置昵称");
@@ -109,11 +109,11 @@ public class ModifyInfoActivity extends BaseActivity {
     }
 
     private void initView() {
-        et_alterInfo = (EditText) findViewById(R.id.et_alterInfo);
+        et_alterInfo = findViewById(R.id.et_alterInfo);
         original = getIntent().getStringExtra(ORIGINAL);
         et_alterInfo.setText(original);
         et_alterInfo.addTextChangedListener(textWatcher);
-        setBtnToolbarSureClickListener(clickListener);
+        setToolbarBtnClickListener(clickListener);
     }
 
     public static void navigation(Context context, int requestType, String original) {

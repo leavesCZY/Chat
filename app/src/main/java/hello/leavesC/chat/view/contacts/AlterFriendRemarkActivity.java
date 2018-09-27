@@ -39,7 +39,7 @@ public class AlterFriendRemarkActivity extends BaseActivity {
     private void initView() {
         setToolbarTitle("设置备注");
         final EditText et_alterFriendRemark = findViewById(R.id.et_alterFriendRemark);
-        setBtnToolbarSureClickListener(new View.OnClickListener() {
+        setToolbarBtnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showLoadingDialog("正在修改备注", false, false);
@@ -80,9 +80,9 @@ public class AlterFriendRemarkActivity extends BaseActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.toString().trim().equals(original)) {
-                    getBtnToolbarSure().setEnabled(false);
+                    getToolbarBtn().setEnabled(false);
                 } else {
-                    getBtnToolbarSure().setEnabled(true);
+                    getToolbarBtn().setEnabled(true);
                 }
             }
         });

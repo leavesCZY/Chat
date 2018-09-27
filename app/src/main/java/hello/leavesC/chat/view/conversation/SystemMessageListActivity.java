@@ -22,7 +22,6 @@ import hello.leavesC.chat.utils.SystemMessageComparator;
 import hello.leavesC.chat.view.MessageFactory;
 import hello.leavesC.chat.view.base.BaseActivity;
 import hello.leavesC.common.recycler.common.CommonItemDecoration;
-import hello.leavesC.presenter.log.Logger;
 import hello.leavesC.presenter.presenter.ChatPresenter;
 import hello.leavesC.presenter.view.ChatView;
 
@@ -50,7 +49,7 @@ public class SystemMessageListActivity extends BaseActivity implements ChatView 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_system_message_list);
         setToolbarTitle("系统消息");
-        RecyclerView rv_systemMessageList = (RecyclerView) findViewById(R.id.rv_systemMessageList);
+        RecyclerView rv_systemMessageList = findViewById(R.id.rv_systemMessageList);
         linearLayoutManager = new LinearLayoutManager(this);
         rv_systemMessageList.setLayoutManager(linearLayoutManager);
         rv_systemMessageList.addItemDecoration(new CommonItemDecoration(ContextCompat.getDrawable(getContext(), R.drawable.divider), LinearLayoutManager.VERTICAL));
@@ -76,9 +75,8 @@ public class SystemMessageListActivity extends BaseActivity implements ChatView 
     @Override
     public void showMessage(TIMMessage message) {
         if (message == null) {
-            Logger.e(TAG, "showMessage message == null");
+
         } else {
-            Logger.e(TAG, "showMessage message != null");
             BaseMessage baseMessage = MessageFactory.getMessage(message);
             if (baseMessage != null) {
                 messageList.add(baseMessage);
@@ -91,7 +89,6 @@ public class SystemMessageListActivity extends BaseActivity implements ChatView 
 
     @Override
     public void showMessage(List<TIMMessage> messageList) {
-        Logger.e(TAG, "showMessage messageList size: " + messageList.size());
         if (messageList.size() == 0) {
             return;
         }

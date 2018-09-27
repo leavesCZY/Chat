@@ -55,7 +55,7 @@ public class ContactsFragment extends BaseFragment implements Observer {
                     FriendProfileActivity.navigation(getContext(), friendProfileList.get(position - 1).getIdentifier());
                 }
             });
-            RecyclerView rv_friendList = (RecyclerView) view.findViewById(R.id.rv_friendList);
+            RecyclerView rv_friendList = view.findViewById(R.id.rv_friendList);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
             rv_friendList.setLayoutManager(linearLayoutManager);
             WrapRecyclerViewAdapter wrapRecyclerViewAdapter = new WrapRecyclerViewAdapter(friendWrapAdapter);
@@ -72,8 +72,8 @@ public class ContactsFragment extends BaseFragment implements Observer {
             itemDecoration.setLeftMargin(64);
             itemDecoration.setRightMargin(24);
             rv_friendList.addItemDecoration(itemDecoration);
-            LetterIndexView liv_letters = (LetterIndexView) view.findViewById(R.id.liv_letters);
-            TextView tv_hint = (TextView) view.findViewById(R.id.tv_hint);
+            LetterIndexView liv_letters = view.findViewById(R.id.liv_letters);
+            TextView tv_hint = view.findViewById(R.id.tv_hint);
             liv_letters.bindIndexView(tv_hint, linearLayoutManager, getLetterMap(friendProfileList));
             FriendCache.getInstance().addObserver(this);
         }
@@ -108,8 +108,6 @@ public class ContactsFragment extends BaseFragment implements Observer {
         if (o instanceof FriendCache) {
             friendProfileList.clear();
             friendProfileList.addAll(FriendCache.getInstance().getFriendProfileList());
-//            viewIndexControl.setLetterMap(getLetterMap(friendProfileList));
-//            friendWrapAdapter.notifyDataSetChanged();
             friendWrapAdapter.setData(friendProfileList);
         }
     }

@@ -29,12 +29,12 @@ import hello.leavesC.chat.utils.ConversationComparator;
 import hello.leavesC.chat.view.MessageFactory;
 import hello.leavesC.chat.view.base.BaseFragment;
 import hello.leavesC.chat.view.chat.ChatActivity;
-import hello.leavesC.presenter.log.Logger;
-import hello.leavesC.presenter.presenter.ConversationPresenter;
-import hello.leavesC.presenter.view.ConversationView;
 import hello.leavesC.common.dialog.ListPickerDialog;
 import hello.leavesC.common.recycler.common.CommonItemDecoration;
 import hello.leavesC.common.recycler.common.CommonRecyclerViewHolder;
+import hello.leavesC.presenter.log.Logger;
+import hello.leavesC.presenter.presenter.ConversationPresenter;
+import hello.leavesC.presenter.view.ConversationView;
 
 /**
  * 作者：叶应是叶
@@ -90,7 +90,7 @@ public class ConversationFragment extends BaseFragment implements ConversationVi
                     });
                 }
             });
-            RecyclerView rv_conversationList = (RecyclerView) view.findViewById(R.id.rv_conversationList);
+            RecyclerView rv_conversationList = view.findViewById(R.id.rv_conversationList);
             linearLayoutManager = new LinearLayoutManager(getContext());
             rv_conversationList.setLayoutManager(linearLayoutManager);
             rv_conversationList.setAdapter(conversationAdapter);
@@ -136,7 +136,6 @@ public class ConversationFragment extends BaseFragment implements ConversationVi
 
     @Override
     public synchronized void updateC2CMessage(TIMMessage message) {
-        Logger.e(TAG, "updateC2CMessage");
         String peer = message.getConversation().getPeer();
         for (BaseConversation conversation : conversationList) {
             if (conversation.getPeer().equals(peer) && conversation.getConversationType() == TIMConversationType.C2C) {
@@ -153,7 +152,6 @@ public class ConversationFragment extends BaseFragment implements ConversationVi
 
     @Override
     public synchronized void updateGroupMessage(TIMMessage message) {
-        Logger.e(TAG, "updateGroupMessage");
         String peer = message.getConversation().getPeer();
         for (BaseConversation conversation : conversationList) {
             if (conversation.getPeer().equals(peer) && conversation.getConversationType() == TIMConversationType.Group) {
@@ -170,7 +168,6 @@ public class ConversationFragment extends BaseFragment implements ConversationVi
 
     @Override
     public synchronized void updateSystemMessage(TIMMessage message) {
-        Logger.e(TAG, "updateSystemMessage");
         String peer = message.getConversation().getPeer();
         for (BaseConversation conversation : conversationList) {
             if (conversation.getPeer().equals(peer) && conversation.getConversationType() == TIMConversationType.System) {
@@ -187,18 +184,16 @@ public class ConversationFragment extends BaseFragment implements ConversationVi
 
     @Override
     public synchronized void updateFriendshipMessage() {
-        Logger.e(TAG, "updateFriendshipMessage");
+
     }
 
     @Override
     public synchronized void updateGroupInfo(TIMGroupCacheInfo info) {
-        Log.e(TAG, "updateGroupInfo");
         refresh();
     }
 
     @Override
     public synchronized void updateFriendProfile(List<String> identifierList) {
-        Logger.e(TAG, "updateFriendProfile");
         for (String identifier : identifierList) {
             ChatConversation chatConversation = null;
             for (BaseConversation conversation : conversationList) {

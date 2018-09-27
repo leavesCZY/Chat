@@ -28,8 +28,8 @@ import hello.leavesC.presenter.event.MessageEvent;
 import hello.leavesC.presenter.event.RefreshEvent;
 import hello.leavesC.presenter.log.Logger;
 import hello.leavesC.presenter.presenter.SplashPresenter;
-import hello.leavesC.presenter.view.SplashView;
 import hello.leavesC.presenter.tls.service.TlsService;
+import hello.leavesC.presenter.view.SplashView;
 
 /**
  * 作者：叶应是叶
@@ -56,7 +56,7 @@ public class OpenActivity extends BaseActivity implements SplashView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_open);
-        ll_login_register = (LinearLayout) findViewById(R.id.ll_login_register);
+        ll_login_register = findViewById(R.id.ll_login_register);
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE_PERMISSION);
     }
 
@@ -100,8 +100,8 @@ public class OpenActivity extends BaseActivity implements SplashView {
                 }
             }
         };
-        Button btn_open_login = (Button) findViewById(R.id.btn_open_login);
-        Button btn_open_register = (Button) findViewById(R.id.btn_open_register);
+        Button btn_open_login = findViewById(R.id.btn_open_login);
+        Button btn_open_register = findViewById(R.id.btn_open_register);
         btn_open_login.setOnClickListener(clickListener);
         btn_open_register.setOnClickListener(clickListener);
         AlphaAnimation alphaAnimation = new AlphaAnimation(0, 1);
@@ -124,7 +124,6 @@ public class OpenActivity extends BaseActivity implements SplashView {
         userConfig.setUserStatusListener(new TIMUserStatusListener() {
             @Override
             public void onForceOffline() {
-                Logger.e(TAG, "被其他终端踢下线");
                 if (!isDestroyed()) {
                     showToast("在其他设备上登录了本账号，请重新登录");
                     TlsService.getInstance(OpenActivity.this).clearUserInfo();
@@ -140,17 +139,17 @@ public class OpenActivity extends BaseActivity implements SplashView {
         userConfig.setConnectionListener(new TIMConnListener() {
             @Override
             public void onConnected() {
-                Logger.e(TAG, "onConnected");
+
             }
 
             @Override
             public void onDisconnected(int i, String s) {
-                Logger.e(TAG, "onDisconnected: " + i + " " + s);
+
             }
 
             @Override
             public void onWifiNeedAuth(String s) {
-                Logger.e(TAG, "onWifiNeedAuth:" + s);
+
             }
         });
         TIMManager.getInstance().setUserConfig(userConfig);

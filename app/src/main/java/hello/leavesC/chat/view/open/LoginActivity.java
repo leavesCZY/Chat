@@ -42,15 +42,15 @@ public class LoginActivity extends BaseActivity implements LoginListener {
 
     private void initView() {
         setToolbarTitle("登录");
-        et_login_identifier = (EditText) findViewById(R.id.et_login_identifier);
-        et_login_password = (EditText) findViewById(R.id.et_login_password);
+        et_login_identifier = findViewById(R.id.et_login_identifier);
+        et_login_password = findViewById(R.id.et_login_password);
         String identifier = getIntent().getStringExtra(OpenActivity.IDENTIFIER);
         if (TextUtils.isEmpty(identifier)) {
             SharedPreferences sharedPreferences = getSharedPreferences(NAME_USER_INFO, Context.MODE_PRIVATE);
             identifier = sharedPreferences.getString(LAST_IDENTIFIER, "");
         }
         et_login_identifier.setText(identifier);
-        Button btn_login = (Button) findViewById(R.id.btn_login);
+        Button btn_login = findViewById(R.id.btn_login);
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -7,18 +7,17 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
 import hello.leavesC.chat.R;
 import hello.leavesC.chat.adapter.GroupMembersAdapter;
 import hello.leavesC.chat.view.base.BaseActivity;
+import hello.leavesC.common.recycler.common.CommonItemDecoration;
+import hello.leavesC.common.recycler.common.CommonRecyclerViewHolder;
 import hello.leavesC.presenter.listener.ValueCallBackListener;
 import hello.leavesC.presenter.manager.GroupManager;
 import hello.leavesC.presenter.model.GroupMemberInfo;
-import hello.leavesC.common.recycler.common.CommonItemDecoration;
-import hello.leavesC.common.recycler.common.CommonRecyclerViewHolder;
 
 /**
  * 作者：叶应是叶
@@ -55,7 +54,7 @@ public class GroupMembersActivity extends BaseActivity {
         GroupManager.getGroupMembers(groupId, callBackListener);
         groupMemberInfoList = new ArrayList<>();
         groupMembersAdapter = new GroupMembersAdapter(this, groupMemberInfoList);
-        RecyclerView rv_groupMembers = (RecyclerView) findViewById(R.id.rv_groupMembers);
+        RecyclerView rv_groupMembers = findViewById(R.id.rv_groupMembers);
         rv_groupMembers.addItemDecoration(new CommonItemDecoration(ContextCompat.getDrawable(getContext(), R.drawable.divider), LinearLayoutManager.VERTICAL));
         rv_groupMembers.setLayoutManager(new LinearLayoutManager(this));
         rv_groupMembers.setAdapter(groupMembersAdapter);

@@ -48,11 +48,11 @@ public class OptionView extends RelativeLayout {
         showDivider = typedArray.getBoolean(R.styleable.OptionView_showDivider, true);
         typedArray.recycle();
         if (!TextUtils.isEmpty(title)) {
-            TextView tv_optionTitle = (TextView) findViewById(R.id.tv_optionTitle);
+            TextView tv_optionTitle = findViewById(R.id.tv_optionTitle);
             tv_optionTitle.setText(title);
         }
         if (!TextUtils.isEmpty(content)) {
-            TextView tv_optionContent = (TextView) findViewById(R.id.tv_optionContent);
+            TextView tv_optionContent = findViewById(R.id.tv_optionContent);
             tv_optionContent.setText(content);
         }
         if (!showDivider) {
@@ -68,7 +68,7 @@ public class OptionView extends RelativeLayout {
             return;
         }
         this.title = title;
-        TextView tv_optionTitle = (TextView) findViewById(R.id.tv_optionTitle);
+        TextView tv_optionTitle = findViewById(R.id.tv_optionTitle);
         tv_optionTitle.setText(title);
     }
 
@@ -77,7 +77,7 @@ public class OptionView extends RelativeLayout {
             return;
         }
         this.content = content;
-        TextView tv_optionContent = (TextView) findViewById(R.id.tv_optionContent);
+        TextView tv_optionContent = findViewById(R.id.tv_optionContent);
         tv_optionContent.setText(content);
     }
 

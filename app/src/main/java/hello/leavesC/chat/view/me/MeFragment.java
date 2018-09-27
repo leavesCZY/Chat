@@ -16,12 +16,11 @@ import hello.leavesC.chat.R;
 import hello.leavesC.chat.utils.TransformUtil;
 import hello.leavesC.chat.view.MainActivity;
 import hello.leavesC.chat.view.base.BaseFragment;
+import hello.leavesC.common.common.OptionView;
 import hello.leavesC.presenter.business.LoginBusiness;
-import hello.leavesC.presenter.log.Logger;
 import hello.leavesC.presenter.manager.SelfProfileManager;
 import hello.leavesC.presenter.presenter.ProfilePresenter;
 import hello.leavesC.presenter.view.ProfileView;
-import hello.leavesC.common.common.OptionView;
 
 /**
  * 作者：叶应是叶
@@ -50,14 +49,14 @@ public class MeFragment extends BaseFragment implements ProfileView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_me, container, false);
-            rl_avatar = (RelativeLayout) view.findViewById(R.id.rl_avatar);
-            OptionView ov_identifier = (OptionView) view.findViewById(R.id.ov_identifier);
+            rl_avatar = view.findViewById(R.id.rl_avatar);
+            OptionView ov_identifier = view.findViewById(R.id.ov_identifier);
             ov_identifier.setContent(ChatApplication.identifier);
-            ov_nickname = (OptionView) view.findViewById(R.id.ov_nickname);
-            ov_gender = (OptionView) view.findViewById(R.id.ov_gender);
-            ov_signature = (OptionView) view.findViewById(R.id.ov_signature);
-            ov_allowType = (OptionView) view.findViewById(R.id.ov_allowType);
-            btn_logout = (Button) view.findViewById(R.id.btn_logout);
+            ov_nickname = view.findViewById(R.id.ov_nickname);
+            ov_gender = view.findViewById(R.id.ov_gender);
+            ov_signature = view.findViewById(R.id.ov_signature);
+            ov_allowType = view.findViewById(R.id.ov_allowType);
+            btn_logout = view.findViewById(R.id.btn_logout);
         }
         return view;
     }
@@ -73,7 +72,6 @@ public class MeFragment extends BaseFragment implements ProfileView {
         ov_nickname.setContent(userProfile.getNickName());
         ov_gender.setContent(TransformUtil.parseGender(userProfile.getGender()));
         ov_signature.setContent(userProfile.getSelfSignature());
-        Logger.e(TAG, "all： " + userProfile.getAllowType());
         ov_allowType.setContent(TransformUtil.parseAllowType(userProfile.getAllowType()));
         initListener();
     }

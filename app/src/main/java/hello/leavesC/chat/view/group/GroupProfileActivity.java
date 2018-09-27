@@ -55,16 +55,16 @@ public class GroupProfileActivity extends BaseActivity implements Observer {
 
     private void initView(final GroupProfile groupProfile) {
         setToolbarTitle(groupProfile.getName());
-        CircleImageView iv_groupProfile_avatar = (CircleImageView) findViewById(R.id.iv_groupProfile_avatar);
-        OptionView ov_groupProfile_groupName = (OptionView) findViewById(R.id.ov_groupProfile_groupName);
-        OptionView ov_groupProfile_groupOwner = (OptionView) findViewById(R.id.ov_groupProfile_groupOwner);
-        OptionView ov_groupProfile_members = (OptionView) findViewById(R.id.ov_groupProfile_members);
-        OptionView ov_groupProfile_introduction = (OptionView) findViewById(R.id.ov_groupProfile_introduction);
-        OptionView ov_groupProfile_notification = (OptionView) findViewById(R.id.ov_groupProfile_notification);
-        OptionView ov_groupProfile_createTime = (OptionView) findViewById(R.id.ov_groupProfile_createTime);
-        final OptionView ov_groupProfile_receiveMessageOpt = (OptionView) findViewById(R.id.ov_groupProfile_receiveMessageOpt);
-        Button btn_groupProfile_inviteGroupMember = (Button) findViewById(R.id.btn_groupProfile_inviteGroupMember);
-        Button btn_groupProfile_quitGroup = (Button) findViewById(R.id.btn_groupProfile_quitGroup);
+        CircleImageView iv_groupProfile_avatar = findViewById(R.id.iv_groupProfile_avatar);
+        OptionView ov_groupProfile_groupName = findViewById(R.id.ov_groupProfile_groupName);
+        OptionView ov_groupProfile_groupOwner = findViewById(R.id.ov_groupProfile_groupOwner);
+        OptionView ov_groupProfile_members = findViewById(R.id.ov_groupProfile_members);
+        OptionView ov_groupProfile_introduction = findViewById(R.id.ov_groupProfile_introduction);
+        OptionView ov_groupProfile_notification = findViewById(R.id.ov_groupProfile_notification);
+        OptionView ov_groupProfile_createTime = findViewById(R.id.ov_groupProfile_createTime);
+        final OptionView ov_groupProfile_receiveMessageOpt = findViewById(R.id.ov_groupProfile_receiveMessageOpt);
+        Button btn_groupProfile_inviteGroupMember = findViewById(R.id.btn_groupProfile_inviteGroupMember);
+        Button btn_groupProfile_quitGroup = findViewById(R.id.btn_groupProfile_quitGroup);
         ov_groupProfile_groupName.setContent(groupProfile.getName());
         ov_groupProfile_groupOwner.setContent(FriendCache.getInstance().getFriendName(groupProfile.getOwner()));
         ov_groupProfile_members.setContent(String.valueOf(groupProfile.getMemberNumber()));
@@ -161,7 +161,7 @@ public class GroupProfileActivity extends BaseActivity implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         if (o instanceof GroupProfilePresenter) {
-            if (arg != null && arg instanceof GroupProfile) {
+            if (arg instanceof GroupProfile) {
                 initView((GroupProfile) arg);
             }
         }

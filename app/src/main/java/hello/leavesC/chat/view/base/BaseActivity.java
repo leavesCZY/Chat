@@ -30,7 +30,7 @@ public class BaseActivity extends AppCompatActivity {
 
     private MessageDialog messageDialog;
 
-    private Button btn_toolbarSure;
+    private Button btnToolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,17 +44,6 @@ public class BaseActivity extends AppCompatActivity {
         super.onDestroy();
         dismissLoadingDialog();
         dismissMessageDialog();
-    }
-
-    public Button getBtnToolbarSure() {
-        if (btn_toolbarSure == null) {
-            btn_toolbarSure = findViewById(R.id.btn_toolbarSure);
-        }
-        return btn_toolbarSure;
-    }
-
-    public void setBtnToolbarSureClickListener(View.OnClickListener clickListener) {
-        getBtnToolbarSure().setOnClickListener(clickListener);
     }
 
     @Override
@@ -87,11 +76,22 @@ public class BaseActivity extends AppCompatActivity {
         initToolbar(toolbarTitle, true);
     }
 
-    protected void setSureBtnText(String content) {
-        if (btn_toolbarSure == null) {
-            btn_toolbarSure = findViewById(R.id.btn_toolbarSure);
+    public Button getToolbarBtn() {
+        if (btnToolbar == null) {
+            btnToolbar = findViewById(R.id.btn_toolbarSure);
         }
-        btn_toolbarSure.setText(content);
+        return btnToolbar;
+    }
+
+    public void setToolbarBtnClickListener(View.OnClickListener clickListener) {
+        getToolbarBtn().setOnClickListener(clickListener);
+    }
+
+    protected void setToolbarBtnText(String content) {
+        if (btnToolbar == null) {
+            btnToolbar = findViewById(R.id.btn_toolbarSure);
+        }
+        btnToolbar.setText(content);
     }
 
     protected void onToolbarBack() {
@@ -127,13 +127,13 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     protected void dismissLoadingDialog() {
-        if (loadingDialog != null) {
+        if (loadingDialog != null && loadingDialog.isShowing()) {
             loadingDialog.dismiss();
         }
     }
 
     protected void dismissMessageDialog() {
-        if (messageDialog != null) {
+        if (messageDialog != null && loadingDialog.isShowing()) {
             messageDialog.dismiss();
         }
     }

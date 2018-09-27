@@ -56,18 +56,18 @@ public class SelectFriendToCreateGroupActivity extends BaseActivity {
                     peerList.remove(friendProfile.getIdentifier());
                 }
                 selectFriendAdapter.setData(friendProfileList);
-                getBtnToolbarSure().setEnabled(peerList.size() > 1);
+                getToolbarBtn().setEnabled(peerList.size() > 1);
             }
         });
-        RecyclerView rv_selectFriend = (RecyclerView) findViewById(R.id.rv_selectFriend);
+        RecyclerView rv_selectFriend = findViewById(R.id.rv_selectFriend);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rv_selectFriend.setLayoutManager(linearLayoutManager);
         rv_selectFriend.setAdapter(selectFriendAdapter);
         rv_selectFriend.addItemDecoration(new CommonItemDecoration(ContextCompat.getDrawable(getContext(), R.drawable.divider), LinearLayoutManager.VERTICAL));
-        LetterIndexView liv_letters = (LetterIndexView) findViewById(R.id.liv_selectFriend_letters);
-        TextView tv_selectFriend_hint = (TextView) findViewById(R.id.tv_selectFriend_hint);
+        LetterIndexView liv_letters = findViewById(R.id.liv_selectFriend_letters);
+        TextView tv_selectFriend_hint = findViewById(R.id.tv_selectFriend_hint);
         liv_letters.bindIndexView(tv_selectFriend_hint, linearLayoutManager, new HashMap<String, Integer>());
-        setBtnToolbarSureClickListener(new View.OnClickListener() {
+        setToolbarBtnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showLoadingDialog("正在创建聊天群");

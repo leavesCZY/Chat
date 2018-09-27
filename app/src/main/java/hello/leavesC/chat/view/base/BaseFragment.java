@@ -70,13 +70,13 @@ public class BaseFragment extends Fragment {
     }
 
     protected void dismissLoadingDialog() {
-        if (loadingDialog != null) {
+        if (loadingDialog != null && loadingDialog.isShowing()) {
             loadingDialog.dismiss();
         }
     }
 
     protected void dismissMessageDialog() {
-        if (messageDialog != null) {
+        if (messageDialog != null && loadingDialog.isShowing()) {
             messageDialog.dismiss();
         }
     }

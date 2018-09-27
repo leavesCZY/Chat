@@ -65,10 +65,10 @@ public class SearchUserActivity extends BaseActivity {
     }
 
     private void initView() {
-        sv_searchUser = (SearchView) findViewById(R.id.sv_searchUser);
-        rl_searchUserHint = (RelativeLayout) findViewById(R.id.rl_searchUserHint);
-        tv_searchUser_identifier = (TextView) findViewById(R.id.tv_searchUser_identifier);
-        tv_searchUser_noResult = (TextView) findViewById(R.id.tv_searchUser_noResult);
+        sv_searchUser = findViewById(R.id.sv_searchUser);
+        rl_searchUserHint = findViewById(R.id.rl_searchUserHint);
+        tv_searchUser_identifier = findViewById(R.id.tv_searchUser_identifier);
+        tv_searchUser_noResult = findViewById(R.id.tv_searchUser_noResult);
         sv_searchUser.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

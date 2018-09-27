@@ -25,9 +25,9 @@ import hello.leavesC.chat.cache.FriendCache;
 import hello.leavesC.chat.model.FriendProfile;
 import hello.leavesC.chat.view.base.BaseActivity;
 import hello.leavesC.chat.view.chat.ChatActivity;
+import hello.leavesC.common.common.OptionView;
 import hello.leavesC.presenter.listener.ValueCallBackListener;
 import hello.leavesC.presenter.manager.FriendManager;
-import hello.leavesC.common.common.OptionView;
 
 /**
  * 作者：叶应是叶
@@ -106,13 +106,13 @@ public class FriendProfileActivity extends BaseActivity implements Observer {
 
     private void initView() {
         setToolbarTitle("个人名片");
-        tv_friendProfile_name = (TextView) findViewById(R.id.tv_friendProfile_name);
-        iv_friendProfile_gender = (ImageView) findViewById(R.id.iv_friendProfile_gender);
-        ov_friendProfile_identifier = (OptionView) findViewById(R.id.ov_friendProfile_identifier);
-        ov_friendProfile_nickname = (OptionView) findViewById(R.id.ov_friendProfile_nickname);
-        ov_friendProfile_signature = (OptionView) findViewById(R.id.ov_friendProfile_signature);
-        btn_friendProfile_startChat = (Button) findViewById(R.id.btn_friendProfile_startChat);
-        btn_friendProfile_deleteFriend = (Button) findViewById(R.id.btn_friendProfile_deleteFriend);
+        tv_friendProfile_name = findViewById(R.id.tv_friendProfile_name);
+        iv_friendProfile_gender = findViewById(R.id.iv_friendProfile_gender);
+        ov_friendProfile_identifier = findViewById(R.id.ov_friendProfile_identifier);
+        ov_friendProfile_nickname = findViewById(R.id.ov_friendProfile_nickname);
+        ov_friendProfile_signature = findViewById(R.id.ov_friendProfile_signature);
+        btn_friendProfile_startChat = findViewById(R.id.btn_friendProfile_startChat);
+        btn_friendProfile_deleteFriend = findViewById(R.id.btn_friendProfile_deleteFriend);
     }
 
     private void getProfile() {

@@ -37,7 +37,7 @@ public class GroupListActivity extends BaseActivity implements Observer {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_list);
         setToolbarTitle("群");
-        RecyclerView rv_groupList = (RecyclerView) findViewById(R.id.rv_groupList);
+        RecyclerView rv_groupList = findViewById(R.id.rv_groupList);
         rv_groupList.setLayoutManager(new LinearLayoutManager(this));
         rv_groupList.addItemDecoration(new CommonItemDecoration(ContextCompat.getDrawable(getContext(), R.drawable.divider), LinearLayoutManager.VERTICAL));
         groupProfileList = new ArrayList<>();

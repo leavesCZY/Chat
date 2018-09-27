@@ -25,7 +25,7 @@ public class AppIntroductionActivity extends BaseActivity {
         setContentView(R.layout.activity_app_introduction);
         String title = getIntent().getStringExtra(TITLE);
         String content = getIntent().getStringExtra(CONTENT);
-        TextView tv_introduction = (TextView) findViewById(R.id.tv_appIntroduction);
+        TextView tv_introduction = findViewById(R.id.tv_appIntroduction);
         tv_introduction.setText(content);
         setToolbarTitle(title);
     }

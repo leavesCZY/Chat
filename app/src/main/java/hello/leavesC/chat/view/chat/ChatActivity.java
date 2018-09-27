@@ -103,7 +103,7 @@ public class ChatActivity extends BaseActivity implements ChatView, EmojiFragmen
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.ll_emoji, emojiFragment, "EmojiFragment");
         fragmentTransaction.commit();
-        et_input = (EditText) findViewById(R.id.et_input);
+        et_input = findViewById(R.id.et_input);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         linearLayoutManager.setStackFromEnd(true);
         messageList = new ArrayList<>();
@@ -132,11 +132,11 @@ public class ChatActivity extends BaseActivity implements ChatView, EmojiFragmen
                 showToast("长按");
             }
         });
-        RecyclerView rv_chat = (RecyclerView) findViewById(R.id.rv_chat);
+        RecyclerView rv_chat = findViewById(R.id.rv_chat);
         rv_chat.setLayoutManager(linearLayoutManager);
         rv_chat.setAdapter(chatAdapter);
-        LinearLayout ll_emojiPanel = (LinearLayout) findViewById(R.id.ll_emoji);
-        ImageView iv_showEmoji = (ImageView) findViewById(R.id.iv_showEmoji);
+        LinearLayout ll_emojiPanel = findViewById(R.id.ll_emoji);
+        ImageView iv_showEmoji = findViewById(R.id.iv_showEmoji);
         emojiKeyboard = new EmojiKeyboard(this, et_input, ll_emojiPanel, iv_showEmoji, rv_chat);
         emojiKeyboard.setEmoticonPanelVisibilityChangeListener(new EmojiKeyboard.OnEmojiPanelVisibilityChangeListener() {
             @Override
@@ -212,10 +212,8 @@ public class ChatActivity extends BaseActivity implements ChatView, EmojiFragmen
     @Override
     public void showMessage(TIMMessage message) {
         if (message == null) {
-            Logger.e(TAG, "showMessage message == null");
             chatAdapter.setData(messageList);
         } else {
-            Logger.e(TAG, "showMessage message != null");
             BaseMessage baseMessage = MessageFactory.getMessage(message);
             if (baseMessage != null) {
                 messageList.add(baseMessage);
@@ -255,7 +253,6 @@ public class ChatActivity extends BaseActivity implements ChatView, EmojiFragmen
 
     @Override
     public void onSendMessageFail(int code, String desc, TIMMessage message) {
-        Logger.e(TAG, "onSendMessageFail: " + code + " " + desc);
         chatAdapter.setData(messageList);
     }
 

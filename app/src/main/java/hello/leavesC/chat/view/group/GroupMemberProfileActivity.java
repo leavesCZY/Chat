@@ -17,7 +17,6 @@ import hello.leavesC.chat.utils.TransformUtil;
 import hello.leavesC.chat.view.base.BaseActivity;
 import hello.leavesC.common.common.OptionView;
 import hello.leavesC.presenter.listener.ValueCallBackListener;
-import hello.leavesC.presenter.log.Logger;
 import hello.leavesC.presenter.manager.GroupProfileManager;
 
 /**
@@ -44,7 +43,6 @@ public class GroupMemberProfileActivity extends BaseActivity {
             @Override
             public void onSuccess(TIMGroupMemberInfo result) {
                 initView(result);
-                Logger.e(TAG, "result: " + result);
             }
 
             @Override
@@ -55,10 +53,10 @@ public class GroupMemberProfileActivity extends BaseActivity {
     }
 
     private void initView(TIMGroupMemberInfo memberInfo) {
-        OptionView ov_groupMemberProfile_identifier = (OptionView) findViewById(R.id.ov_groupMemberProfile_identifier);
-        OptionView ov_groupMemberProfile_role = (OptionView) findViewById(R.id.ov_groupMemberProfile_role);
-        OptionView ov_groupMemberProfile_joinTime = (OptionView) findViewById(R.id.ov_groupMemberProfile_joinTime);
-        OptionView ov_groupMemberProfile_remark = (OptionView) findViewById(R.id.ov_groupMemberProfile_remark);
+        OptionView ov_groupMemberProfile_identifier = findViewById(R.id.ov_groupMemberProfile_identifier);
+        OptionView ov_groupMemberProfile_role = findViewById(R.id.ov_groupMemberProfile_role);
+        OptionView ov_groupMemberProfile_joinTime = findViewById(R.id.ov_groupMemberProfile_joinTime);
+        OptionView ov_groupMemberProfile_remark = findViewById(R.id.ov_groupMemberProfile_remark);
         ov_groupMemberProfile_identifier.setContent(memberInfo.getUser());
         ov_groupMemberProfile_role.setContent(TransformUtil.parseGroupMemberRoleType(memberInfo.getRole()));
         ov_groupMemberProfile_joinTime.setContent(TimeUtil.formatTime(memberInfo.getJoinTime() * 1000, TimeUtil.FORMAT_YYYY_MM_DD_HH_MM));
@@ -67,7 +65,7 @@ public class GroupMemberProfileActivity extends BaseActivity {
         }
         FriendProfile friendProfile = FriendCache.getInstance().getProfile(memberInfo.getUser());
         if (friendProfile == null) {
-            Button btn_groupProfile_addFriend = (Button) findViewById(R.id.btn_groupProfile_addFriend);
+            Button btn_groupProfile_addFriend = findViewById(R.id.btn_groupProfile_addFriend);
             btn_groupProfile_addFriend.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

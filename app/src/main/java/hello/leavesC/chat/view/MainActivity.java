@@ -78,9 +78,9 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initView() {
-        initToolbar("云聊",false);
-        viewPager = (ViewPager) findViewById(R.id.viewpager_main);
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout_main);
+        initToolbar("云聊", false);
+        viewPager = findViewById(R.id.viewpager_main);
+        TabLayout tabLayout = findViewById(R.id.tabLayout_main);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
     }

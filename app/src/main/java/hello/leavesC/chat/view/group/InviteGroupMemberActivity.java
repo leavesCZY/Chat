@@ -62,18 +62,18 @@ public class InviteGroupMemberActivity extends BaseActivity {
                     peerList.remove(friendProfile.getIdentifier());
                 }
                 selectFriendAdapter.setData(friendProfileList);
-                getBtnToolbarSure().setEnabled(peerList.size() > 0);
+                getToolbarBtn().setEnabled(peerList.size() > 0);
             }
         });
-        RecyclerView rv_inviteGroupMember = (RecyclerView) findViewById(R.id.rv_inviteGroupMember);
+        RecyclerView rv_inviteGroupMember = findViewById(R.id.rv_inviteGroupMember);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rv_inviteGroupMember.setLayoutManager(linearLayoutManager);
         rv_inviteGroupMember.setAdapter(selectFriendAdapter);
         rv_inviteGroupMember.addItemDecoration(new CommonItemDecoration(ContextCompat.getDrawable(getContext(), R.drawable.divider), LinearLayoutManager.VERTICAL));
-        LetterIndexView liv_inviteGroupMember_letters = (LetterIndexView) findViewById(R.id.liv_inviteGroupMember_letters);
-        TextView tv_inviteGroupMember_hint = (TextView) findViewById(R.id.tv_inviteGroupMember_hint);
+        LetterIndexView liv_inviteGroupMember_letters = findViewById(R.id.liv_inviteGroupMember_letters);
+        TextView tv_inviteGroupMember_hint = findViewById(R.id.tv_inviteGroupMember_hint);
         liv_inviteGroupMember_letters.bindIndexView(tv_inviteGroupMember_hint, linearLayoutManager, new HashMap<String, Integer>());
-        setBtnToolbarSureClickListener(new View.OnClickListener() {
+        setToolbarBtnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showLoadingDialog("正在邀请好友入群");

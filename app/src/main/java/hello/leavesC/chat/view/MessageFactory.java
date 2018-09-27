@@ -23,7 +23,6 @@ public class MessageFactory {
     }
 
     public static BaseMessage getMessage(TIMMessage message) {
-//        Logger.e(TAG, "getMessage Type: " + message.getElement(0).getType());
         switch (message.getElement(0).getType()) {
             case Text:
                 return new TextMessage(message);

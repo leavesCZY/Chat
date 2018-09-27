@@ -51,7 +51,7 @@ public class GroupProfileModifyActivity extends BaseActivity {
             finish();
             return;
         }
-        setSureBtnText("保存");
+        setToolbarBtnText("保存");
         et_groupProfileAlter = findViewById(R.id.et_groupProfileAlter);
         switch (code) {
             case ALTER_GROUP_NAME: {
@@ -89,13 +89,13 @@ public class GroupProfileModifyActivity extends BaseActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.toString().equals(origin)) {
-                    getBtnToolbarSure().setEnabled(false);
+                    getToolbarBtn().setEnabled(false);
                 } else {
-                    getBtnToolbarSure().setEnabled(true);
+                    getToolbarBtn().setEnabled(true);
                 }
             }
         });
-        setBtnToolbarSureClickListener(new View.OnClickListener() {
+        setToolbarBtnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showLoadingDialog("正在修改");

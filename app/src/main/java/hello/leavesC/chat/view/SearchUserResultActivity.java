@@ -17,9 +17,9 @@ import com.tencent.imsdk.ext.sns.TIMFriendResult;
 import hello.leavesC.chat.R;
 import hello.leavesC.chat.view.base.BaseActivity;
 import hello.leavesC.chat.view.contacts.FriendProfileActivity;
+import hello.leavesC.common.common.OptionView;
 import hello.leavesC.presenter.listener.ValueCallBackListener;
 import hello.leavesC.presenter.manager.FriendManager;
-import hello.leavesC.common.common.OptionView;
 
 /**
  * 作者：叶应是叶
@@ -106,22 +106,22 @@ public class SearchUserResultActivity extends BaseActivity {
     }
 
     private void initView(TIMFriendGenderType genderType, String nickname, String signature) {
-        initToolbar( "个人名片", true);
-        TextView tv_searchUserResult_identifier = (TextView) findViewById(R.id.tv_searchUserResult_identifier);
+        initToolbar("个人名片", true);
+        TextView tv_searchUserResult_identifier = findViewById(R.id.tv_searchUserResult_identifier);
         tv_searchUserResult_identifier.setText(identifier);
         if (genderType != null && genderType != TIMFriendGenderType.Unknow) {
-            ImageView iv_searchUserResult_gender = (ImageView) findViewById(R.id.iv_searchUserResult_gender);
+            ImageView iv_searchUserResult_gender = findViewById(R.id.iv_searchUserResult_gender);
             iv_searchUserResult_gender.setImageResource(genderType == TIMFriendGenderType.Male ? R.drawable.gender_male : R.drawable.gender_female);
         }
         if (!TextUtils.isEmpty(nickname)) {
-            OptionView ov_searchUserResult_nickname = (OptionView) findViewById(R.id.ov_searchUserResult_nickname);
+            OptionView ov_searchUserResult_nickname = findViewById(R.id.ov_searchUserResult_nickname);
             ov_searchUserResult_nickname.setContent(nickname);
         }
         if (!TextUtils.isEmpty(signature)) {
-            OptionView ov_searchUserResult_signature = (OptionView) findViewById(R.id.ov_searchUserResult_signature);
+            OptionView ov_searchUserResult_signature = findViewById(R.id.ov_searchUserResult_signature);
             ov_searchUserResult_signature.setContent(signature);
         }
-        Button btn_searchUserResult_addFriend = (Button) findViewById(R.id.btn_searchUserResult_addFriend);
+        Button btn_searchUserResult_addFriend = findViewById(R.id.btn_searchUserResult_addFriend);
         btn_searchUserResult_addFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
