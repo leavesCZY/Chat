@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-//apply from: 'and_res_guard.gradle'
+apply from: 'and_res_guard.gradle'
 
 def globalConfiguration = rootProject.ext
 def presentationDependencies = globalConfiguration.dependencies

@@ -117,10 +117,10 @@ public class OpenActivity extends BaseActivity implements SplashView {
     public void loginImServer() {
         //登录之前要先初始化群和好友关系链缓存
         TIMUserConfig userConfig = new TIMUserConfig();
-        FriendEvent.getInstance().init(userConfig);
-        GroupEvent.getInstance().init(userConfig);
-        MessageEvent.getInstance().init(userConfig);
-        RefreshEvent.getInstance().init(userConfig);
+        userConfig = FriendEvent.getInstance().init(userConfig);
+        userConfig = GroupEvent.getInstance().init(userConfig);
+        userConfig = MessageEvent.getInstance().init(userConfig);
+        userConfig = RefreshEvent.getInstance().init(userConfig);
         userConfig.setUserStatusListener(new TIMUserStatusListener() {
             @Override
             public void onForceOffline() {

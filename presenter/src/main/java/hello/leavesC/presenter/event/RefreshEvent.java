@@ -35,7 +35,7 @@ public class RefreshEvent extends Observable {
         return sInstance;
     }
 
-    public void init(TIMUserConfig userConfig) {
+    public TIMUserConfig init(TIMUserConfig userConfig) {
         userConfig.setRefreshListener(new TIMRefreshListener() {
             //数据刷新通知，如未读计数、会话列表等
             @Override
@@ -55,6 +55,7 @@ public class RefreshEvent extends Observable {
                 notifyObservers();
             }
         });
+        return userConfig;
     }
 
     public void clean() {

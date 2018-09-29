@@ -60,7 +60,7 @@ public class FriendEvent extends Observable {
         return sInstance;
     }
 
-    public void init(TIMUserConfig userConfig) {
+    public TIMUserConfig init(TIMUserConfig userConfig) {
         TIMFriendshipSettings friendshipSettings = new TIMFriendshipSettings();
         //设置关系链默认拉取资料标识
         long flags = 0;
@@ -77,6 +77,7 @@ public class FriendEvent extends Observable {
         userConfigSnsExt.enableFriendshipStorage(true);
         //设置关系链变更事件监听器
         userConfigSnsExt.setFriendshipProxyListener(friendshipProxyListener);
+        return userConfigSnsExt;
     }
 
     private TIMFriendshipProxyListener friendshipProxyListener = new TIMFriendshipProxyListener() {
