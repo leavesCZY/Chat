@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply from: 'and_res_guard.gradle'
+//apply from: 'and_res_guard.gradle'
 
 def globalConfiguration = rootProject.ext
 def presentationDependencies = globalConfiguration.dependencies
@@ -46,12 +46,18 @@ android {
             minifyEnabled globalConfiguration["debugMinifyEnabled"]
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug
+            buildConfigField "boolean", "isRelease", "false"
         }
         release {
             minifyEnabled globalConfiguration["releaseMinifyEnabled"]
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
+            buildConfigField "boolean", "isRelease", "true"
         }
+    }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
     }
 }
 

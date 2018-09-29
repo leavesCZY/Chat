@@ -9,25 +9,33 @@ import android.widget.EditText;
 
 import hello.leavesC.chat.R;
 import hello.leavesC.chat.view.base.BaseActivity;
-import hello.leavesC.presenter.tls.callback.RegisterListener;
-import hello.leavesC.presenter.tls.service.RegisterService;
+import hello.leavesC.presenter.event.RegisterEvent;
+import hello.leavesC.presenter.viewModel.RegisterViewModel;
 
 /**
  * 作者：叶应是叶
  * 时间：2017/11/29 21:17
  * 说明：注册页面
  */
-public class RegisterActivity extends BaseActivity implements RegisterListener, View.OnClickListener {
+public class RegisterActivity extends BaseActivity implements View.OnClickListener {
 
     private EditText et_register_identifier;
 
     private EditText et_register_password;
+
+    private RegisterViewModel registerViewModel;
+
+    public static void navigation(Activity activity, int requestCode) {
+        Intent intent = new Intent(activity, RegisterActivity.class);
+        activity.startActivityForResult(intent, requestCode);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         initView();
+        initViewModel();
     }
 
     private void initView() {
@@ -36,6 +44,31 @@ public class RegisterActivity extends BaseActivity implements RegisterListener, 
         et_register_password = findViewById(R.id.et_register_password);
         Button btn_register = findViewById(R.id.btn_register);
         btn_register.setOnClickListener(this);
+    }
+
+    private void initViewModel() {
+        registerViewModel = new RegisterViewModel(getApplication());
+        registerViewModel.getRegisterEventLiveData().observe(this, this::handleRegisterEvent);
+    }
+
+    private void handleRegisterEvent(RegisterEvent registerEvent) {
+        switch (registerEvent.getAction()) {
+            case RegisterEvent.REG_SUCCESS: {
+                dismissLoadingDialog();
+                showToast("注册成功");
+                Intent intent = new Intent();
+                intent.putExtra(OpenActivity.IDENTIFIER, registerEvent.getIdentifier());
+                setResult(RESULT_OK, intent);
+                finish();
+                break;
+            }
+            case RegisterEvent.REG_FAIL:
+            case RegisterEvent.FORMAT_INVALID: {
+                dismissLoadingDialog();
+                showToast(registerEvent.getErrorMsg());
+                break;
+            }
+        }
     }
 
     @Override
@@ -52,43 +85,10 @@ public class RegisterActivity extends BaseActivity implements RegisterListener, 
                     showToast("密码至少八位");
                     return;
                 }
-                showLoadingDialog("正在注册...", false, false);
-                new RegisterService(RegisterActivity.this).register(identifier, password, RegisterActivity.this);
+                showLoadingDialog("正在注册...");
+                registerViewModel.register(identifier, password);
                 break;
         }
-    }
-
-    public static void navigation(Activity activity, int requestCode) {
-        Intent intent = new Intent(activity, RegisterActivity.class);
-        activity.startActivityForResult(intent, requestCode);
-    }
-
-    @Override
-    public void onRegisterSuccess(String identifier) {
-        dismissLoadingDialog();
-        showToast("注册成功");
-        Intent intent = new Intent();
-        intent.putExtra(OpenActivity.IDENTIFIER, identifier);
-        setResult(RESULT_OK, intent);
-        finish();
-    }
-
-    @Override
-    public void onRegisterFail(String error) {
-        dismissLoadingDialog();
-        showToast("注册失败");
-    }
-
-    @Override
-    public void onRegisterTimeout() {
-        dismissLoadingDialog();
-        showToast("注册超时");
-    }
-
-    @Override
-    public void onFormatInvalid() {
-        dismissLoadingDialog();
-        showToast("输入参数有误");
     }
 
 }

@@ -4,8 +4,10 @@ import android.content.Context;
 
 import hello.leavesC.sdk.Constants;
 import tencent.tls.platform.TLSAccountHelper;
+import tencent.tls.platform.TLSErrInfo;
 import tencent.tls.platform.TLSLoginHelper;
 import tencent.tls.platform.TLSPwdLoginListener;
+import tencent.tls.platform.TLSRefreshUserSigListener;
 import tencent.tls.platform.TLSStrAccRegListener;
 import tencent.tls.platform.TLSUserInfo;
 
@@ -74,6 +76,25 @@ public class TlsService {
      */
     private TLSUserInfo getLastUserInfo() {
         return loginHelper.getLastUserInfo();
+    }
+
+    public void refreshUserSig(String identify) {
+        loginHelper.TLSRefreshUserSig(identify, new TLSRefreshUserSigListener() {
+            @Override
+            public void OnRefreshUserSigSuccess(TLSUserInfo tlsUserInfo) {
+
+            }
+
+            @Override
+            public void OnRefreshUserSigFail(TLSErrInfo tlsErrInfo) {
+
+            }
+
+            @Override
+            public void OnRefreshUserSigTimeout(TLSErrInfo tlsErrInfo) {
+
+            }
+        });
     }
 
     /**

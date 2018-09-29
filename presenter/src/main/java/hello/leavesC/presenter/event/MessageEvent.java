@@ -49,7 +49,7 @@ public class MessageEvent extends Observable {
         return sInstance;
     }
 
-    public TIMUserConfig init(TIMUserConfig userConfig) {
+    public void init(TIMUserConfig userConfig) {
         TIMUserConfigMsgExt userConfigMsgExt = new TIMUserConfigMsgExt(userConfig);
         //设置是否开启已读上报功能，默认开启
         userConfigMsgExt.enableAutoReport(false);
@@ -59,7 +59,6 @@ public class MessageEvent extends Observable {
         userConfigMsgExt.enableRecentContactNotify(true);
         //设置是否开启消息本地储存
         userConfigMsgExt.enableStorage(true);
-        return userConfigMsgExt;
     }
 
     /**

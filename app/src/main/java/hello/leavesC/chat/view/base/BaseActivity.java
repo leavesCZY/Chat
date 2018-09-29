@@ -106,10 +106,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     protected void showLoadingDialog(String hintText) {
-        if (loadingDialog == null) {
-            loadingDialog = new LoadingDialog(this);
-        }
-        loadingDialog.show(hintText, false, false);
+        showLoadingDialog(hintText, false, false);
     }
 
     protected void showMessageDialog(String title, String message, DialogInterface.OnClickListener positiveCallback) {

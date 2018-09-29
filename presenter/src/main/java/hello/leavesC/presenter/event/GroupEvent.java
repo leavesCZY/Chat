@@ -61,7 +61,7 @@ public class GroupEvent extends Observable {
         return sInstance;
     }
 
-    public TIMUserConfig init(TIMUserConfig userConfig) {
+    public void init(TIMUserConfig userConfig) {
         TIMGroupSettings groupSettings = new TIMGroupSettings();
         userConfig.setGroupSettings(groupSettings);
         TIMUserConfigGroupExt userConfigGroupExt = new TIMUserConfigGroupExt(userConfig);
@@ -69,7 +69,6 @@ public class GroupEvent extends Observable {
         userConfigGroupExt.enableGroupStorage(true);
         //设置群组资料变更事件监听器
         userConfigGroupExt.setGroupAssistantListener(groupAssistantListener);
-        return userConfigGroupExt;
     }
 
     private TIMGroupAssistantListener groupAssistantListener = new TIMGroupAssistantListener() {

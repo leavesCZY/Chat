@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.tencent.imsdk.TIMCallBack;
-import com.tencent.imsdk.TIMConnListener;
 import com.tencent.imsdk.TIMManager;
 import com.tencent.imsdk.TIMUserConfig;
 import com.tencent.imsdk.TIMUserStatusListener;
@@ -46,7 +45,7 @@ public class OpenActivity extends BaseActivity implements SplashView {
 
     public static final String IDENTIFIER = "identifier";
 
-    private LinearLayout ll_login_register;
+    private LinearLayout ll_loginRegister;
 
     private static final String TAG = "OpenActivity";
 
@@ -56,8 +55,9 @@ public class OpenActivity extends BaseActivity implements SplashView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_open);
-        ll_login_register = findViewById(R.id.ll_login_register);
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE_PERMISSION);
+        ll_loginRegister = findViewById(R.id.ll_loginRegister);
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE_PERMISSION);
     }
 
     @Override
@@ -106,8 +106,8 @@ public class OpenActivity extends BaseActivity implements SplashView {
         btn_open_register.setOnClickListener(clickListener);
         AlphaAnimation alphaAnimation = new AlphaAnimation(0, 1);
         alphaAnimation.setDuration(600);
-        ll_login_register.setVisibility(View.VISIBLE);
-        ll_login_register.startAnimation(alphaAnimation);
+        ll_loginRegister.setVisibility(View.VISIBLE);
+        ll_loginRegister.startAnimation(alphaAnimation);
     }
 
     /**
@@ -117,9 +117,9 @@ public class OpenActivity extends BaseActivity implements SplashView {
     public void loginImServer() {
         //登录之前要先初始化群和好友关系链缓存
         TIMUserConfig userConfig = new TIMUserConfig();
-        userConfig = FriendEvent.getInstance().init(userConfig);
-        userConfig = GroupEvent.getInstance().init(userConfig);
-        userConfig = MessageEvent.getInstance().init(userConfig);
+        FriendEvent.getInstance().init(userConfig);
+        GroupEvent.getInstance().init(userConfig);
+        MessageEvent.getInstance().init(userConfig);
         RefreshEvent.getInstance().init(userConfig);
         userConfig.setUserStatusListener(new TIMUserStatusListener() {
             @Override
@@ -136,40 +136,25 @@ public class OpenActivity extends BaseActivity implements SplashView {
                 Logger.e(TAG, "用户签名过期了，需要刷新userSig重新登录SDK");
             }
         });
-        userConfig.setConnectionListener(new TIMConnListener() {
-            @Override
-            public void onConnected() {
-
-            }
-
-            @Override
-            public void onDisconnected(int i, String s) {
-
-            }
-
-            @Override
-            public void onWifiNeedAuth(String s) {
-
-            }
-        });
         TIMManager.getInstance().setUserConfig(userConfig);
         final TlsService tlsService = TlsService.getInstance(this);
-        LoginBusiness.loginImServer(tlsService.getLastUserIdentifier(), tlsService.getUserSignature(tlsService.getLastUserIdentifier()), new TIMCallBack() {
-            @Override
-            public void onError(int i, String s) {
-                showToast("登录失败");
-                navToLoginTls();
-            }
+        LoginBusiness.loginImServer(tlsService.getLastUserIdentifier(),
+                tlsService.getUserSignature(tlsService.getLastUserIdentifier()), new TIMCallBack() {
+                    @Override
+                    public void onError(int i, String s) {
+                        showToast("登录失败");
+                        navToLoginTls();
+                    }
 
-            @Override
-            public void onSuccess() {
-                showToast("登录成功");
-                ChatApplication.identifier = tlsService.getLastUserIdentifier();
-                ll_login_register.setVisibility(View.INVISIBLE);
-                startActivityForResult(MainActivity.class, REQUEST_CODE_MAIN);
-                finish();
-            }
-        });
+                    @Override
+                    public void onSuccess() {
+                        showToast("登录成功");
+                        ChatApplication.identifier = tlsService.getLastUserIdentifier();
+                        ll_loginRegister.setVisibility(View.INVISIBLE);
+                        startActivityForResult(MainActivity.class, REQUEST_CODE_MAIN);
+                        finish();
+                    }
+                });
     }
 
     @Override
@@ -182,14 +167,14 @@ public class OpenActivity extends BaseActivity implements SplashView {
         switch (requestCode) {
             case REQUEST_CODE_LOGIN: {
                 if (resultCode == RESULT_OK) {
-                    ll_login_register.setVisibility(View.GONE);
+                    ll_loginRegister.setVisibility(View.GONE);
                     loginImServer();
                 }
                 break;
             }
             case REQUEST_CODE_REGISTER: {
                 if (resultCode == RESULT_OK) {
-                    ll_login_register.setVisibility(View.GONE);
+                    ll_loginRegister.setVisibility(View.GONE);
                     LoginActivity.navigation(this, REQUEST_CODE_LOGIN, data.getStringExtra(OpenActivity.IDENTIFIER));
                 }
                 break;
