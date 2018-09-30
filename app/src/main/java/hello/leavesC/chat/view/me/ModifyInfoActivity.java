@@ -13,6 +13,7 @@ import hello.leavesC.chat.R;
 import hello.leavesC.chat.view.base.BaseActivity;
 import hello.leavesC.presenter.listener.CallBackListener;
 import hello.leavesC.presenter.manager.SelfProfileManager;
+import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
 /**
  * 作者：叶应是叶
@@ -106,6 +107,11 @@ public class ModifyInfoActivity extends BaseActivity {
         } else {
             finish();
         }
+    }
+
+    @Override
+    protected BaseViewModel initViewModel() {
+        return null;
     }
 
     private void initView() {

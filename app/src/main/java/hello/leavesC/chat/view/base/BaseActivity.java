@@ -17,6 +17,8 @@ import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import hello.leavesC.chat.R;
 import hello.leavesC.common.dialog.LoadingDialog;
 import hello.leavesC.common.dialog.MessageDialog;
+import hello.leavesC.presenter.event.BaseActionEvent;
+import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
 /**
  * 作者：叶应是叶
@@ -24,7 +26,7 @@ import hello.leavesC.common.dialog.MessageDialog;
  * 说明：基类Activity
  */
 @SuppressLint("Registered")
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     private LoadingDialog loadingDialog;
 
@@ -37,6 +39,33 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         QMUIStatusBarHelper.translucent(this);
         QMUIStatusBarHelper.setStatusBarLightMode(this);
+        initViewModelEvent();
+    }
+
+    protected abstract BaseViewModel initViewModel();
+
+    private void initViewModelEvent() {
+        BaseViewModel baseViewModel = initViewModel();
+        if (baseViewModel != null) {
+            baseViewModel.getActionLiveData().observe(this, baseActionEvent -> {
+                if (baseActionEvent != null) {
+                    switch (baseActionEvent.getAction()) {
+                        case BaseActionEvent.SHOW_LOADING_DIALOG: {
+                            showLoadingDialog(baseActionEvent.getMessage());
+                            break;
+                        }
+                        case BaseActionEvent.DISMISS_LOADING_DIALOG: {
+                            dismissLoadingDialog();
+                            break;
+                        }
+                        case BaseActionEvent.SHOW_TOAST: {
+                            showToast(baseActionEvent.getMessage());
+                            break;
+                        }
+                    }
+                }
+            });
+        }
     }
 
     @Override
@@ -44,12 +73,6 @@ public class BaseActivity extends AppCompatActivity {
         super.onDestroy();
         dismissLoadingDialog();
         dismissMessageDialog();
-    }
-
-    @Override
-    public void finish() {
-        super.finish();
-        overridePendingTransition(R.anim.slide_still, R.anim.slide_out_right);
     }
 
     protected void initToolbar(String toolbarTitle, boolean displayHomeAsUpEnabled) {

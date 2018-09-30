@@ -44,6 +44,7 @@ import hello.leavesC.common.input.utils.SpanStringUtils;
 import hello.leavesC.presenter.log.Logger;
 import hello.leavesC.presenter.presenter.ChatPresenter;
 import hello.leavesC.presenter.view.ChatView;
+import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
 import static com.tencent.imsdk.TIMConversationType.C2C;
 
@@ -89,6 +90,11 @@ public class ChatActivity extends BaseActivity implements ChatView, EmojiFragmen
         initView();
         chatPresenter = new ChatPresenter(this, peer, conversationType);
         chatPresenter.start();
+    }
+
+    @Override
+    protected BaseViewModel initViewModel() {
+        return null;
     }
 
     private void initView() {

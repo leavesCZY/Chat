@@ -13,6 +13,7 @@ import hello.leavesC.chat.cache.FriendCache;
 import hello.leavesC.chat.view.base.BaseActivity;
 import hello.leavesC.presenter.listener.CallBackListener;
 import hello.leavesC.presenter.manager.FriendManager;
+import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
 /**
  * 作者：叶应是叶
@@ -34,6 +35,11 @@ public class AlterFriendRemarkActivity extends BaseActivity {
         identifier = getIntent().getStringExtra(IDENTIFIER);
         original = FriendCache.getInstance().getProfile(identifier).getRemark();
         initView();
+    }
+
+    @Override
+    protected BaseViewModel initViewModel() {
+        return null;
     }
 
     private void initView() {

@@ -14,6 +14,7 @@ import hello.leavesC.chat.model.GroupProfile;
 import hello.leavesC.chat.view.base.BaseActivity;
 import hello.leavesC.presenter.listener.CallBackListener;
 import hello.leavesC.presenter.manager.GroupProfileManager;
+import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
 /**
  * 作者：叶应是叶
@@ -134,6 +135,11 @@ public class GroupProfileModifyActivity extends BaseActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected BaseViewModel initViewModel() {
+        return null;
     }
 
     public static void navigation(Context context, String groupId, int code) {

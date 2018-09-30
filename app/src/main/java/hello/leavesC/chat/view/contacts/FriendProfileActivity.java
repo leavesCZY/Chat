@@ -28,6 +28,7 @@ import hello.leavesC.chat.view.chat.ChatActivity;
 import hello.leavesC.common.common.OptionView;
 import hello.leavesC.presenter.listener.ValueCallBackListener;
 import hello.leavesC.presenter.manager.FriendManager;
+import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
 /**
  * 作者：叶应是叶
@@ -102,6 +103,11 @@ public class FriendProfileActivity extends BaseActivity implements Observer {
         initView();
         getProfile();
         FriendCache.getInstance().addObserver(this);
+    }
+
+    @Override
+    protected BaseViewModel initViewModel() {
+        return null;
     }
 
     private void initView() {

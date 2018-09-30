@@ -18,6 +18,7 @@ import hello.leavesC.chat.view.base.BaseActivity;
 import hello.leavesC.common.common.OptionView;
 import hello.leavesC.presenter.listener.ValueCallBackListener;
 import hello.leavesC.presenter.manager.GroupProfileManager;
+import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
 /**
  * 作者：叶应是叶
@@ -50,6 +51,11 @@ public class GroupMemberProfileActivity extends BaseActivity {
                 showToast("获取群成员资料失败，" + desc);
             }
         });
+    }
+
+    @Override
+    protected BaseViewModel initViewModel() {
+        return null;
     }
 
     private void initView(TIMGroupMemberInfo memberInfo) {

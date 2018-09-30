@@ -2,16 +2,20 @@ package hello.leavesC.presenter.event;
 
 /**
  * 作者：叶应是叶
- * 时间：2018/9/29 22:39
+ * 时间：2018/9/30 23:39
  * 描述：
  */
-public class RegisterEvent extends BaseEvent {
+public class SplashEvent extends BaseEvent {
 
-    public static final int REG_SUCCESS = 10;
+    public static final int LOGIN_OR_REGISTER = 10;
+
+    public static final int NAV_TO_LOGIN = 20;
+
+    public static final int LOGIN_SUCCESS = 30;
 
     private String identifier;
 
-    public RegisterEvent(int action) {
+    public SplashEvent(int action) {
         super(action);
     }
 

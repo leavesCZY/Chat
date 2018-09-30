@@ -1,11 +1,11 @@
 package hello.leavesC.presenter.viewModel;
 
 import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 
 import hello.leavesC.presenter.event.RegisterEvent;
+import hello.leavesC.presenter.viewModel.base.BaseAndroidViewModel;
 import hello.leavesC.sdk.Constants;
 import tencent.tls.platform.TLSAccountHelper;
 import tencent.tls.platform.TLSErrInfo;
@@ -17,7 +17,7 @@ import tencent.tls.platform.TLSUserInfo;
  * 时间：2018/9/29 22:36
  * 描述：
  */
-public class RegisterViewModel extends AndroidViewModel {
+public class RegisterViewModel extends BaseAndroidViewModel {
 
     private TLSAccountHelper accountHelper;
 
@@ -30,16 +30,20 @@ public class RegisterViewModel extends AndroidViewModel {
         registerEventLiveData = new MutableLiveData<>();
     }
 
-    /**
-     * 根据用户名与密码来注册
-     *
-     * @param identify 用户名
-     * @param password 密码
-     */
-    public void register(String identify, String password) {
-        int action = accountHelper.TLSStrAccReg(identify, password, new TLSStrAccRegListener() {
+    public void register(String identifier, String password) {
+        if (identifier.length() < 5) {
+            showToast("用户名至少五位");
+            return;
+        }
+        if (password.length() < 8) {
+            showToast("密码至少八位");
+            return;
+        }
+        int action = accountHelper.TLSStrAccReg(identifier, password, new TLSStrAccRegListener() {
             @Override
             public void OnStrAccRegSuccess(TLSUserInfo tlsUserInfo) {
+                dismissLoadingDialog();
+                showToast("注册成功");
                 RegisterEvent registerEvent = new RegisterEvent(RegisterEvent.REG_SUCCESS);
                 registerEvent.setIdentifier(tlsUserInfo.identifier);
                 registerEventLiveData.setValue(registerEvent);
@@ -47,24 +51,20 @@ public class RegisterViewModel extends AndroidViewModel {
 
             @Override
             public void OnStrAccRegFail(TLSErrInfo tlsErrInfo) {
-                RegisterEvent registerEvent = new RegisterEvent(RegisterEvent.REG_FAIL);
-                registerEvent.setErrorCode(tlsErrInfo.ErrCode);
-                registerEvent.setErrorMsg(tlsErrInfo.Msg);
-                registerEventLiveData.setValue(registerEvent);
+                dismissLoadingDialog();
+                showToast(tlsErrInfo.Msg);
             }
 
             @Override
             public void OnStrAccRegTimeout(TLSErrInfo tlsErrInfo) {
-                RegisterEvent registerEvent = new RegisterEvent(RegisterEvent.REG_FAIL);
-                registerEvent.setErrorCode(tlsErrInfo.ErrCode);
-                registerEvent.setErrorMsg(tlsErrInfo.Msg);
-                registerEventLiveData.setValue(registerEvent);
+                dismissLoadingDialog();
+                showToast(tlsErrInfo.Msg);
             }
         });
         if (action == TLSErrInfo.INPUT_INVALID) {
-            RegisterEvent registerEvent = new RegisterEvent(RegisterEvent.FORMAT_INVALID);
-            registerEvent.setErrorMsg("格式有误，请重新输入");
-            registerEventLiveData.setValue(registerEvent);
+            showToast("格式有误，请重新输入");
+        } else {
+            showLoadingDialog("正在注册...");
         }
     }
 

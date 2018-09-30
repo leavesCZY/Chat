@@ -20,6 +20,7 @@ import hello.leavesC.chat.view.base.BaseActivity;
 import hello.leavesC.chat.view.chat.ChatActivity;
 import hello.leavesC.common.recycler.common.CommonItemDecoration;
 import hello.leavesC.common.recycler.common.CommonRecyclerViewHolder;
+import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
 /**
  * 作者：叶应是叶
@@ -52,6 +53,11 @@ public class GroupListActivity extends BaseActivity implements Observer {
         });
         rv_groupList.setAdapter(groupListAdapter);
         GroupCache.getInstance().addObserver(this);
+    }
+
+    @Override
+    protected BaseViewModel initViewModel() {
+        return null;
     }
 
     @Override

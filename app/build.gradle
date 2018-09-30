@@ -59,6 +59,14 @@ android {
         sourceCompatibility = '1.8'
         targetCompatibility = '1.8'
     }
+    applicationVariants.all { variant ->
+        def buildType = variant.buildType.name
+        def flavorName = variant.flavorName
+        def createTime = new Date().format("YYYY-MM-dd_hh_mm_ss", TimeZone.getTimeZone("GMT+08:00"))
+        variant.outputs.all {
+            outputFileName = flavorName + "_" + buildType + "_v" + defaultConfig.versionName + "_" + createTime + ".apk"
+        }
+    }
 }
 
 dependencies {

@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import hello.leavesC.chat.R;
 import hello.leavesC.chat.view.base.BaseActivity;
+import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
 /**
  * 作者：叶应是叶
@@ -28,6 +29,11 @@ public class AppIntroductionActivity extends BaseActivity {
         TextView tv_introduction = findViewById(R.id.tv_appIntroduction);
         tv_introduction.setText(content);
         setToolbarTitle(title);
+    }
+
+    @Override
+    protected BaseViewModel initViewModel() {
+        return null;
     }
 
     public static void navigation(Context context, String title, String content) {

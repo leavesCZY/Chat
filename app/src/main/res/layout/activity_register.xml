@@ -21,7 +21,7 @@
             android:src="@drawable/bird" />
 
         <EditText
-            android:id="@+id/et_register_identifier"
+            android:id="@+id/et_registerIdentifier"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/iv_register_logo"
@@ -38,10 +38,10 @@
             android:paddingBottom="10dp" />
 
         <EditText
-            android:id="@+id/et_register_password"
+            android:id="@+id/et_registerPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/et_register_identifier"
+            android:layout_below="@id/et_registerIdentifier"
             android:layout_marginStart="30dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="30dp"
@@ -59,7 +59,7 @@
             style="@style/redButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/et_register_password"
+            android:layout_below="@id/et_registerPassword"
             android:layout_marginStart="25dp"
             android:layout_marginTop="35dp"
             android:layout_marginEnd="25dp"

@@ -8,6 +8,7 @@ import android.view.View;
 import hello.leavesC.chat.R;
 import hello.leavesC.chat.view.base.BaseActivity;
 import hello.leavesC.common.common.OptionView;
+import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
 /**
  * 作者：叶应是叶
@@ -21,6 +22,11 @@ public class AboutActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
         initView();
+    }
+
+    @Override
+    protected BaseViewModel initViewModel() {
+        return null;
     }
 
     private void initView() {

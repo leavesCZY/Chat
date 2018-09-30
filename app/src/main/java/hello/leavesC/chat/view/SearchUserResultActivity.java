@@ -20,6 +20,7 @@ import hello.leavesC.chat.view.contacts.FriendProfileActivity;
 import hello.leavesC.common.common.OptionView;
 import hello.leavesC.presenter.listener.ValueCallBackListener;
 import hello.leavesC.presenter.manager.FriendManager;
+import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
 /**
  * 作者：叶应是叶
@@ -103,6 +104,11 @@ public class SearchUserResultActivity extends BaseActivity {
         String nickname = getIntent().getStringExtra(NICKNAME);
         String signature = getIntent().getStringExtra(SIGNATURE);
         initView(genderType, nickname, signature);
+    }
+
+    @Override
+    protected BaseViewModel initViewModel() {
+        return null;
     }
 
     private void initView(TIMFriendGenderType genderType, String nickname, String signature) {

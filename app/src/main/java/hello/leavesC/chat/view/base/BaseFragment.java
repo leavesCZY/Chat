@@ -76,7 +76,7 @@ public class BaseFragment extends Fragment {
     }
 
     protected void dismissMessageDialog() {
-        if (messageDialog != null && loadingDialog.isShowing()) {
+        if (messageDialog != null && messageDialog.getShowsDialog()) {
             messageDialog.dismiss();
         }
     }

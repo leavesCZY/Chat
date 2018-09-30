@@ -24,6 +24,7 @@ import hello.leavesC.common.common.OptionView;
 import hello.leavesC.presenter.listener.CallBackListener;
 import hello.leavesC.presenter.manager.GroupManager;
 import hello.leavesC.presenter.manager.GroupProfileManager;
+import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
 /**
  * 作者：叶应是叶
@@ -51,6 +52,11 @@ public class GroupProfileActivity extends BaseActivity implements Observer {
             groupProfilePresenter = new GroupProfilePresenter(groupId);
             groupProfilePresenter.addObserver(this);
         }
+    }
+
+    @Override
+    protected BaseViewModel initViewModel() {
+        return null;
     }
 
     private void initView(final GroupProfile groupProfile) {

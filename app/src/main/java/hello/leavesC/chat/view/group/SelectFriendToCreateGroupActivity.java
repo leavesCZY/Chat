@@ -22,6 +22,7 @@ import hello.leavesC.common.recycler.common.CommonItemDecoration;
 import hello.leavesC.common.recycler.common.CommonRecyclerViewHolder;
 import hello.leavesC.presenter.listener.ValueCallBackListener;
 import hello.leavesC.presenter.manager.GroupManager;
+import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
 /**
  * 作者：叶应是叶
@@ -91,6 +92,11 @@ public class SelectFriendToCreateGroupActivity extends BaseActivity {
                 });
             }
         });
+    }
+
+    @Override
+    protected BaseViewModel initViewModel() {
+        return null;
     }
 
     @Override

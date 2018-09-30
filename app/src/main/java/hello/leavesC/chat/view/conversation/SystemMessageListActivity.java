@@ -24,6 +24,7 @@ import hello.leavesC.chat.view.base.BaseActivity;
 import hello.leavesC.common.recycler.common.CommonItemDecoration;
 import hello.leavesC.presenter.presenter.ChatPresenter;
 import hello.leavesC.presenter.view.ChatView;
+import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
 /**
  * 作者：叶应是叶
@@ -58,6 +59,11 @@ public class SystemMessageListActivity extends BaseActivity implements ChatView 
         rv_systemMessageList.setAdapter(systemMessageAdapter);
         chatPresenter = new ChatPresenter(this, getIntent().getStringExtra(PEER), TIMConversationType.System);
         chatPresenter.start();
+    }
+
+    @Override
+    protected BaseViewModel initViewModel() {
+        return null;
     }
 
     @Override

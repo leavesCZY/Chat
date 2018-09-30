@@ -15,6 +15,7 @@ import hello.leavesC.chat.view.base.BaseActivity;
 import hello.leavesC.chat.view.contacts.FriendProfileActivity;
 import hello.leavesC.presenter.presenter.ProfilePresenter;
 import hello.leavesC.presenter.view.ProfileView;
+import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
 /**
  * 作者：叶应是叶
@@ -62,6 +63,11 @@ public class SearchUserActivity extends BaseActivity {
         setContentView(R.layout.activity_search_user);
         initView();
         profilePresenter = new ProfilePresenter(profileView);
+    }
+
+    @Override
+    protected BaseViewModel initViewModel() {
+        return null;
     }
 
     private void initView() {

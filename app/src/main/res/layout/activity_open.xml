@@ -33,13 +33,12 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="45dp"
         android:orientation="horizontal"
-        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
-            android:id="@+id/btn_open_login"
+            android:id="@+id/btn_openLogin"
             style="@style/blueButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -49,7 +48,7 @@
             android:text="登录" />
 
         <Button
-            android:id="@+id/btn_open_register"
+            android:id="@+id/btn_openRegister"
             style="@style/redButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

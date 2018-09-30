@@ -18,6 +18,7 @@ import hello.leavesC.common.recycler.common.CommonRecyclerViewHolder;
 import hello.leavesC.presenter.listener.ValueCallBackListener;
 import hello.leavesC.presenter.manager.GroupManager;
 import hello.leavesC.presenter.model.GroupMemberInfo;
+import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
 /**
  * 作者：叶应是叶
@@ -64,6 +65,11 @@ public class GroupMembersActivity extends BaseActivity {
                 GroupMemberProfileActivity.navigation(GroupMembersActivity.this, groupId, groupMemberInfoList.get(position).getIdentifier());
             }
         });
+    }
+
+    @Override
+    protected BaseViewModel initViewModel() {
+        return null;
     }
 
     @Override

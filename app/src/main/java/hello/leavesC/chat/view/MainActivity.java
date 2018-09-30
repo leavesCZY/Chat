@@ -25,6 +25,7 @@ import hello.leavesC.presenter.event.GroupEvent;
 import hello.leavesC.presenter.event.MessageEvent;
 import hello.leavesC.presenter.event.RefreshEvent;
 import hello.leavesC.presenter.tls.service.TlsService;
+import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
 /**
  * 作者：叶应是叶
@@ -48,6 +49,11 @@ public class MainActivity extends BaseActivity {
         initData();
         initView();
         viewPager.setAdapter(adapter);
+    }
+
+    @Override
+    protected BaseViewModel initViewModel() {
+        return null;
     }
 
     private void initData() {
