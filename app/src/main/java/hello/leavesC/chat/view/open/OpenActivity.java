@@ -1,9 +1,13 @@
 package hello.leavesC.chat.view.open;
 
 import android.Manifest;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -14,8 +18,8 @@ import hello.leavesC.chat.R;
 import hello.leavesC.chat.view.MainActivity;
 import hello.leavesC.chat.view.base.BaseActivity;
 import hello.leavesC.presenter.event.SplashEvent;
+import hello.leavesC.presenter.model.ProfileModel;
 import hello.leavesC.presenter.viewModel.SplashViewModel;
-import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
 /**
  * 作者：叶应是叶
@@ -54,9 +58,13 @@ public class OpenActivity extends BaseActivity {
     }
 
     @Override
-    protected BaseViewModel initViewModel() {
-        splashViewModel = new SplashViewModel(getApplication());
+    protected ViewModel initViewModel() {
+        splashViewModel = ViewModelProviders.of(this).get(SplashViewModel.class);
         splashViewModel.getEventLiveData().observe(this, this::handleEvent);
+        splashViewModel.getNavToLoginLiveData().observe(this, profileModel -> {
+            LoginActivity.navToLogin(OpenActivity.this, splashViewModel.getLastUserIdentifier());
+            finish();
+        });
         return splashViewModel;
     }
 
@@ -64,11 +72,6 @@ public class OpenActivity extends BaseActivity {
         switch (splashEvent.getAction()) {
             case SplashEvent.LOGIN_OR_REGISTER: {
                 showLoginRegister();
-                break;
-            }
-            case SplashEvent.NAV_TO_LOGIN: {
-                LoginActivity.navToLogin(this, splashViewModel.getLastUserIdentifier());
-                finish();
                 break;
             }
             case SplashEvent.LOGIN_SUCCESS: {

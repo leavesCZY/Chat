@@ -14,7 +14,7 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="5dp"
-        android:maxLength="12" />
+        android:maxLines="3" />
 
     <TextView
         android:id="@+id/tv_alterInfo_hint"

@@ -13,8 +13,8 @@ import java.util.Observer;
 
 import hello.leavesC.chat.model.FriendProfile;
 import hello.leavesC.chat.utils.FriendProfileComparator;
-import hello.leavesC.presenter.event.FriendEvent;
-import hello.leavesC.presenter.event.RefreshEvent;
+import hello.leavesC.presenter.extra.FriendEvent;
+import hello.leavesC.presenter.extra.RefreshEvent;
 
 /**
  * 作者：叶应是叶

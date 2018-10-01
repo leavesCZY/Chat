@@ -1,5 +1,7 @@
 package hello.leavesC.chat.view.open;
 
+import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,9 +12,7 @@ import hello.leavesC.chat.ChatApplication;
 import hello.leavesC.chat.R;
 import hello.leavesC.chat.view.MainActivity;
 import hello.leavesC.chat.view.base.BaseActivity;
-import hello.leavesC.presenter.event.LoginEvent;
 import hello.leavesC.presenter.viewModel.LoginViewModel;
-import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
 /**
  * 作者：叶应是叶
@@ -31,10 +31,6 @@ public class LoginActivity extends BaseActivity {
         context.startActivity(intent);
     }
 
-    public static void navToLogin(Context context) {
-        navToLogin(context, null);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +47,9 @@ public class LoginActivity extends BaseActivity {
             identifier = loginViewModel.getLastUserIdentifier();
         }
         et_loginIdentifier.setText(identifier);
+        if (!TextUtils.isEmpty(et_loginIdentifier.getText())) {
+            et_loginPassword.requestFocus();
+        }
         findViewById(R.id.btn_login).setOnClickListener(v -> {
             String identifier1 = et_loginIdentifier.getText().toString();
             String password = et_loginPassword.getText().toString();
@@ -59,17 +58,12 @@ public class LoginActivity extends BaseActivity {
     }
 
     @Override
-    protected BaseViewModel initViewModel() {
-        loginViewModel = new LoginViewModel(getApplication());
+    protected ViewModel initViewModel() {
+        loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
         loginViewModel.getLoginEventLiveData().observe(this, loginEvent -> {
-            switch (loginEvent.getAction()) {
-                case LoginEvent.LOGIN_IM_SERVER_SUCCESS: {
-                    ChatApplication.identifier = loginEvent.getIdentifier();
-                    startActivity(MainActivity.class);
-                    finish();
-                    break;
-                }
-            }
+            ChatApplication.identifier = loginEvent.getIdentifier();
+            startActivity(MainActivity.class);
+            finish();
         });
         return loginViewModel;
     }

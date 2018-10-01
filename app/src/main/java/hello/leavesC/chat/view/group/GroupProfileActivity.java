@@ -17,7 +17,7 @@ import hello.leavesC.chat.cache.GroupCache;
 import hello.leavesC.chat.model.GroupProfile;
 import hello.leavesC.chat.presenter.GroupProfilePresenter;
 import hello.leavesC.chat.utils.TimeUtil;
-import hello.leavesC.chat.utils.TransformUtil;
+import hello.leavesC.presenter.TransformUtil;
 import hello.leavesC.chat.view.base.BaseActivity;
 import hello.leavesC.common.common.CircleImageView;
 import hello.leavesC.common.common.OptionView;

@@ -35,6 +35,7 @@ import hello.leavesC.common.recycler.common.CommonRecyclerViewHolder;
 import hello.leavesC.presenter.log.Logger;
 import hello.leavesC.presenter.presenter.ConversationPresenter;
 import hello.leavesC.presenter.view.ConversationView;
+import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
 /**
  * 作者：叶应是叶
@@ -115,6 +116,11 @@ public class ConversationFragment extends BaseFragment implements ConversationVi
         super.onDestroy();
         conversationPresenter.clean();
         conversationPresenter = null;
+    }
+
+    @Override
+    protected BaseViewModel initViewModel() {
+        return null;
     }
 
     @Override

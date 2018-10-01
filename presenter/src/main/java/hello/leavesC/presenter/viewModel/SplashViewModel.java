@@ -9,12 +9,12 @@ import com.tencent.imsdk.TIMCallBack;
 import com.tencent.imsdk.TIMManager;
 import com.tencent.imsdk.TIMUserConfig;
 
-import hello.leavesC.presenter.event.FriendEvent;
-import hello.leavesC.presenter.event.GroupEvent;
-import hello.leavesC.presenter.event.MessageEvent;
-import hello.leavesC.presenter.event.RefreshEvent;
 import hello.leavesC.presenter.event.SplashEvent;
-import hello.leavesC.presenter.log.Logger;
+import hello.leavesC.presenter.extra.FriendEvent;
+import hello.leavesC.presenter.extra.GroupEvent;
+import hello.leavesC.presenter.extra.MessageEvent;
+import hello.leavesC.presenter.extra.RefreshEvent;
+import hello.leavesC.presenter.model.ProfileModel;
 import hello.leavesC.presenter.viewModel.base.BaseAndroidViewModel;
 import hello.leavesC.sdk.Constants;
 import tencent.tls.platform.TLSLoginHelper;
@@ -32,6 +32,8 @@ public class SplashViewModel extends BaseAndroidViewModel {
     private MediatorLiveData<SplashEvent> eventLiveData = new MediatorLiveData<>();
 
     private TLSLoginHelper loginHelper;
+
+    private MediatorLiveData<ProfileModel> navToLoginLiveData = new MediatorLiveData<>();
 
     public SplashViewModel(@NonNull Application application) {
         super(application);
@@ -51,9 +53,9 @@ public class SplashViewModel extends BaseAndroidViewModel {
             return;
         }
         if (loginHelper.needLogin(identifier)) {
-            SplashEvent splashEvent = new SplashEvent(SplashEvent.NAV_TO_LOGIN);
-            splashEvent.setIdentifier(identifier);
-            eventLiveData.setValue(splashEvent);
+            ProfileModel profileModel = new ProfileModel();
+            profileModel.setIdentifier(identifier);
+            navToLoginLiveData.setValue(profileModel);
         } else {
             loginImServer(identifier);
         }
@@ -77,7 +79,6 @@ public class SplashViewModel extends BaseAndroidViewModel {
             @Override
             public void onSuccess() {
                 eventLiveData.setValue(new SplashEvent(SplashEvent.LOGIN_SUCCESS));
-                Logger.e(TAG, "onSuccess");
             }
         });
     }
@@ -94,4 +95,7 @@ public class SplashViewModel extends BaseAndroidViewModel {
         return eventLiveData;
     }
 
+    public MediatorLiveData<ProfileModel> getNavToLoginLiveData() {
+        return navToLoginLiveData;
+    }
 }

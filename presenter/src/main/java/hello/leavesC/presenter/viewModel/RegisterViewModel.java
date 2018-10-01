@@ -4,7 +4,7 @@ import android.app.Application;
 import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 
-import hello.leavesC.presenter.event.RegisterEvent;
+import hello.leavesC.presenter.model.ProfileModel;
 import hello.leavesC.presenter.viewModel.base.BaseAndroidViewModel;
 import hello.leavesC.sdk.Constants;
 import tencent.tls.platform.TLSAccountHelper;
@@ -21,13 +21,13 @@ public class RegisterViewModel extends BaseAndroidViewModel {
 
     private TLSAccountHelper accountHelper;
 
-    private MutableLiveData<RegisterEvent> registerEventLiveData;
+    private MutableLiveData<ProfileModel> regSuccessLiveData;
 
     public RegisterViewModel(@NonNull Application application) {
         super(application);
         accountHelper = TLSAccountHelper.getInstance().init(application,
                 Constants.SDK_APP_ID, Constants.ACCOUNT_TYPE, Constants.APP_VERSION);
-        registerEventLiveData = new MutableLiveData<>();
+        regSuccessLiveData = new MutableLiveData<>();
     }
 
     public void register(String identifier, String password) {
@@ -44,9 +44,9 @@ public class RegisterViewModel extends BaseAndroidViewModel {
             public void OnStrAccRegSuccess(TLSUserInfo tlsUserInfo) {
                 dismissLoadingDialog();
                 showToast("注册成功");
-                RegisterEvent registerEvent = new RegisterEvent(RegisterEvent.REG_SUCCESS);
-                registerEvent.setIdentifier(tlsUserInfo.identifier);
-                registerEventLiveData.setValue(registerEvent);
+                ProfileModel profileModel = new ProfileModel();
+                profileModel.setIdentifier(tlsUserInfo.identifier);
+                regSuccessLiveData.setValue(profileModel);
             }
 
             @Override
@@ -68,8 +68,8 @@ public class RegisterViewModel extends BaseAndroidViewModel {
         }
     }
 
-    public MutableLiveData<RegisterEvent> getRegisterEventLiveData() {
-        return registerEventLiveData;
+    public MutableLiveData<ProfileModel> getRegSuccessLiveData() {
+        return regSuccessLiveData;
     }
 
 }

@@ -26,6 +26,7 @@ import hello.leavesC.common.common.LetterIndexView;
 import hello.leavesC.common.recycler.common.CommonItemDecoration;
 import hello.leavesC.common.recycler.common.CommonRecyclerViewHolder;
 import hello.leavesC.common.recycler.wrap.WrapRecyclerViewAdapter;
+import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
 /**
  * 作者：叶应是叶
@@ -101,6 +102,11 @@ public class ContactsFragment extends BaseFragment implements Observer {
     public void onDestroy() {
         super.onDestroy();
         FriendCache.getInstance().deleteObserver(this);
+    }
+
+    @Override
+    protected BaseViewModel initViewModel() {
+        return null;
     }
 
     @Override

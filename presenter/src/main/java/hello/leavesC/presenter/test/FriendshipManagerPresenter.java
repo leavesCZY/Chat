@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import hello.leavesC.presenter.event.FriendEvent;
+import hello.leavesC.presenter.extra.FriendEvent;
 import hello.leavesC.presenter.view.FriendInfoView;
 import hello.leavesC.presenter.view.FriendshipManageView;
 import hello.leavesC.presenter.view.FriendshipMessageView;

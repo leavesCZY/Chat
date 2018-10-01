@@ -1,13 +1,14 @@
 package hello.leavesC.chat.view.open;
 
+import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.widget.EditText;
 
 import hello.leavesC.chat.R;
 import hello.leavesC.chat.view.base.BaseActivity;
-import hello.leavesC.presenter.event.RegisterEvent;
+import hello.leavesC.presenter.model.ProfileModel;
 import hello.leavesC.presenter.viewModel.RegisterViewModel;
-import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
 /**
  * 作者：叶应是叶
@@ -37,20 +38,15 @@ public class RegisterActivity extends BaseActivity {
     }
 
     @Override
-    protected BaseViewModel initViewModel() {
-        registerViewModel = new RegisterViewModel(getApplication());
-        registerViewModel.getRegisterEventLiveData().observe(this, this::handleRegisterEvent);
+    protected ViewModel initViewModel() {
+        registerViewModel = ViewModelProviders.of(this).get(RegisterViewModel.class);
+        registerViewModel.getRegSuccessLiveData().observe(this, this::handleRegisterEvent);
         return registerViewModel;
     }
 
-    private void handleRegisterEvent(RegisterEvent registerEvent) {
-        switch (registerEvent.getAction()) {
-            case RegisterEvent.REG_SUCCESS: {
-                LoginActivity.navToLogin(this, registerEvent.getIdentifier());
-                finish();
-                break;
-            }
-        }
+    private void handleRegisterEvent(ProfileModel profileModel) {
+        LoginActivity.navToLogin(this, profileModel.getIdentifier());
+        finish();
     }
 
 }

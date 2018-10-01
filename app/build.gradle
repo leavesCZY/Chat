@@ -62,7 +62,7 @@ android {
     applicationVariants.all { variant ->
         def buildType = variant.buildType.name
         def flavorName = variant.flavorName
-        def createTime = new Date().format("YYYY-MM-dd_hh_mm_ss", TimeZone.getTimeZone("GMT+08:00"))
+        def createTime = new Date().format("YYYY-MM-dd_HH_mm_ss", TimeZone.getTimeZone("GMT+08:00"))
         variant.outputs.all {
             outputFileName = flavorName + "_" + buildType + "_v" + defaultConfig.versionName + "_" + createTime + ".apk"
         }
@@ -80,4 +80,7 @@ dependencies {
     implementation project(':presenter')
     implementation project(':common')
     implementation presentationDependencies.qmuiteam
+    implementation presentationDependencies.butterknife
+    annotationProcessor presentationDependencies.butterknifeCompiler
+    implementation presentationDependencies.lifecycleExtensions
 }

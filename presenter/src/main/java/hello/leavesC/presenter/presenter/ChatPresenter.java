@@ -15,8 +15,8 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import hello.leavesC.presenter.event.MessageEvent;
-import hello.leavesC.presenter.event.RefreshEvent;
+import hello.leavesC.presenter.extra.MessageEvent;
+import hello.leavesC.presenter.extra.RefreshEvent;
 import hello.leavesC.presenter.log.Logger;
 import hello.leavesC.presenter.view.ChatView;
 

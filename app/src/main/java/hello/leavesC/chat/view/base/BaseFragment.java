@@ -1,21 +1,26 @@
 package hello.leavesC.chat.view.base;
 
+import android.arch.lifecycle.ViewModel;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.View;
 import android.widget.Toast;
 
 import hello.leavesC.common.dialog.LoadingDialog;
 import hello.leavesC.common.dialog.MessageDialog;
+import hello.leavesC.presenter.event.base.BaseActionEvent;
+import hello.leavesC.presenter.viewModel.base.IViewModelAction;
 
 /**
  * 作者：叶应是叶
  * 时间：2017/11/29 21:04
  * 说明：基类Fragment
  */
-public class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment {
 
     private LoadingDialog loadingDialog;
 
@@ -24,6 +29,13 @@ public class BaseFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initViewModelEvent();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+//        initViewModelEvent();
     }
 
     @Override
@@ -31,6 +43,33 @@ public class BaseFragment extends Fragment {
         super.onDestroy();
         dismissLoadingDialog();
         dismissMessageDialog();
+    }
+
+    protected abstract ViewModel initViewModel();
+
+    private void initViewModelEvent() {
+        ViewModel viewModel = initViewModel();
+        if (viewModel instanceof IViewModelAction) {
+            IViewModelAction viewModelAction = (IViewModelAction) viewModel;
+            viewModelAction.getActionLiveData().observe(this, baseActionEvent -> {
+                if (baseActionEvent != null) {
+                    switch (baseActionEvent.getAction()) {
+                        case BaseActionEvent.SHOW_LOADING_DIALOG: {
+                            showLoadingDialog(baseActionEvent.getMessage());
+                            break;
+                        }
+                        case BaseActionEvent.DISMISS_LOADING_DIALOG: {
+                            dismissLoadingDialog();
+                            break;
+                        }
+                        case BaseActionEvent.SHOW_TOAST: {
+                            showToast(baseActionEvent.getMessage());
+                            break;
+                        }
+                    }
+                }
+            });
+        }
     }
 
     protected void startActivity(Class cl) {
@@ -49,10 +88,7 @@ public class BaseFragment extends Fragment {
     }
 
     protected void showLoadingDialog(String hintText) {
-        if (loadingDialog == null) {
-            loadingDialog = new LoadingDialog(getContext());
-        }
-        loadingDialog.show(hintText, false, false);
+        showLoadingDialog(hintText, false, false);
     }
 
     protected void showMessageDialog(String title, String message, DialogInterface.OnClickListener positiveCallback) {
@@ -76,7 +112,7 @@ public class BaseFragment extends Fragment {
     }
 
     protected void dismissMessageDialog() {
-        if (messageDialog != null && messageDialog.getShowsDialog()) {
+        if (messageDialog != null && loadingDialog.isShowing()) {
             messageDialog.dismiss();
         }
     }

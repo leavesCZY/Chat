@@ -13,7 +13,7 @@ import hello.leavesC.chat.R;
 import hello.leavesC.chat.cache.FriendCache;
 import hello.leavesC.chat.model.FriendProfile;
 import hello.leavesC.chat.utils.TimeUtil;
-import hello.leavesC.chat.utils.TransformUtil;
+import hello.leavesC.presenter.TransformUtil;
 import hello.leavesC.chat.view.base.BaseActivity;
 import hello.leavesC.common.common.OptionView;
 import hello.leavesC.presenter.listener.ValueCallBackListener;

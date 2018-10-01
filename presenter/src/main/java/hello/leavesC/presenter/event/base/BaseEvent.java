@@ -1,4 +1,4 @@
-package hello.leavesC.presenter.event;
+package hello.leavesC.presenter.event.base;
 
 /**
  * 作者：叶应是叶
@@ -15,10 +15,6 @@ public class BaseEvent {
 
     public int getAction() {
         return action;
-    }
-
-    public void setAction(int action) {
-        this.action = action;
     }
 
 }

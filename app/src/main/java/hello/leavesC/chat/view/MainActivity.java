@@ -20,10 +20,10 @@ import hello.leavesC.chat.view.conversation.ConversationFragment;
 import hello.leavesC.chat.view.group.SelectFriendToCreateGroupActivity;
 import hello.leavesC.chat.view.me.MeFragment;
 import hello.leavesC.chat.view.open.OpenActivity;
-import hello.leavesC.presenter.event.FriendEvent;
-import hello.leavesC.presenter.event.GroupEvent;
-import hello.leavesC.presenter.event.MessageEvent;
-import hello.leavesC.presenter.event.RefreshEvent;
+import hello.leavesC.presenter.extra.FriendEvent;
+import hello.leavesC.presenter.extra.GroupEvent;
+import hello.leavesC.presenter.extra.MessageEvent;
+import hello.leavesC.presenter.extra.RefreshEvent;
 import hello.leavesC.presenter.tls.service.TlsService;
 import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 

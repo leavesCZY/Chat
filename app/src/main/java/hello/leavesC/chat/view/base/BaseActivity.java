@@ -1,6 +1,7 @@
 package hello.leavesC.chat.view.base;
 
 import android.annotation.SuppressLint;
+import android.arch.lifecycle.ViewModel;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,8 +18,8 @@ import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import hello.leavesC.chat.R;
 import hello.leavesC.common.dialog.LoadingDialog;
 import hello.leavesC.common.dialog.MessageDialog;
-import hello.leavesC.presenter.event.BaseActionEvent;
-import hello.leavesC.presenter.viewModel.base.BaseViewModel;
+import hello.leavesC.presenter.event.base.BaseActionEvent;
+import hello.leavesC.presenter.viewModel.base.IViewModelAction;
 
 /**
  * 作者：叶应是叶
@@ -42,12 +43,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         initViewModelEvent();
     }
 
-    protected abstract BaseViewModel initViewModel();
+    protected abstract ViewModel initViewModel();
 
     private void initViewModelEvent() {
-        BaseViewModel baseViewModel = initViewModel();
-        if (baseViewModel != null) {
-            baseViewModel.getActionLiveData().observe(this, baseActionEvent -> {
+        ViewModel viewModel = initViewModel();
+        if (viewModel instanceof IViewModelAction) {
+            IViewModelAction viewModelAction = (IViewModelAction) viewModel;
+            viewModelAction.getActionLiveData().observe(this, baseActionEvent -> {
                 if (baseActionEvent != null) {
                     switch (baseActionEvent.getAction()) {
                         case BaseActionEvent.SHOW_LOADING_DIALOG: {

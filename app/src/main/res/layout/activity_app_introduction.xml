@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/toolbarBackground"
     android:fitsSystemWindows="true">
 
     <include layout="@layout/layout_tool_bar" />
@@ -14,8 +15,8 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
-        android:text="  我是叶应是叶，我是叶应是叶，我是叶应是叶，我是叶应是叶，我是叶应是叶，我是叶应是叶，我是叶应是叶，我是叶应是叶，我是叶应是叶，我是叶应是叶，我是叶应是叶，我是叶应是叶，我是叶应是叶，我是叶应是叶，我是叶应是叶，我是叶应是叶，我是叶应是叶，我是叶应是叶，我是叶应是叶，我是叶应是叶，"
-        android:textSize="18sp"
+        android:text="@string/about_contact"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar" />

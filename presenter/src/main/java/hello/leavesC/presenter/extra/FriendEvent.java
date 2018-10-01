@@ -1,4 +1,4 @@
-package hello.leavesC.presenter.event;
+package hello.leavesC.presenter.extra;
 
 import com.tencent.imsdk.TIMFriendshipManager;
 import com.tencent.imsdk.TIMFriendshipSettings;

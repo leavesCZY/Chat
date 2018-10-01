@@ -8,11 +8,11 @@ import com.tencent.imsdk.TIMCallBack;
 import com.tencent.imsdk.TIMManager;
 import com.tencent.imsdk.TIMUserConfig;
 
-import hello.leavesC.presenter.event.FriendEvent;
-import hello.leavesC.presenter.event.GroupEvent;
-import hello.leavesC.presenter.event.LoginEvent;
-import hello.leavesC.presenter.event.MessageEvent;
-import hello.leavesC.presenter.event.RefreshEvent;
+import hello.leavesC.presenter.extra.FriendEvent;
+import hello.leavesC.presenter.extra.GroupEvent;
+import hello.leavesC.presenter.extra.MessageEvent;
+import hello.leavesC.presenter.extra.RefreshEvent;
+import hello.leavesC.presenter.model.ProfileModel;
 import hello.leavesC.presenter.viewModel.base.BaseAndroidViewModel;
 import tencent.tls.platform.TLSErrInfo;
 import tencent.tls.platform.TLSLoginHelper;
@@ -30,7 +30,7 @@ public class LoginViewModel extends BaseAndroidViewModel {
 
     private TLSLoginHelper loginHelper;
 
-    private MediatorLiveData<LoginEvent> loginEventLiveData = new MediatorLiveData<>();
+    private MediatorLiveData<ProfileModel> loginEventLiveData = new MediatorLiveData<>();
 
     public LoginViewModel(@NonNull Application application) {
         super(application);
@@ -96,9 +96,9 @@ public class LoginViewModel extends BaseAndroidViewModel {
             @Override
             public void onSuccess() {
                 dismissLoadingDialog();
-                LoginEvent loginEvent = new LoginEvent(LoginEvent.LOGIN_IM_SERVER_SUCCESS);
-                loginEvent.setIdentifier(tlsUserInfo.identifier);
-                loginEventLiveData.setValue(loginEvent);
+                ProfileModel profileModel = new ProfileModel();
+                profileModel.setIdentifier(tlsUserInfo.identifier);
+                loginEventLiveData.setValue(profileModel);
             }
         });
     }
@@ -111,7 +111,7 @@ public class LoginViewModel extends BaseAndroidViewModel {
         return null;
     }
 
-    public MediatorLiveData<LoginEvent> getLoginEventLiveData() {
+    public MediatorLiveData<ProfileModel> getLoginEventLiveData() {
         return loginEventLiveData;
     }
 

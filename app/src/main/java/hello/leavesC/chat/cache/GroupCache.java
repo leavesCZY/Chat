@@ -11,8 +11,8 @@ import java.util.Observable;
 import java.util.Observer;
 
 import hello.leavesC.chat.model.GroupProfile;
-import hello.leavesC.presenter.event.GroupEvent;
-import hello.leavesC.presenter.event.RefreshEvent;
+import hello.leavesC.presenter.extra.GroupEvent;
+import hello.leavesC.presenter.extra.RefreshEvent;
 
 /**
  * 作者：叶应是叶

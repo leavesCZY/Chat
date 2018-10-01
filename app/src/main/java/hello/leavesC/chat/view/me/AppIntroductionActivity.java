@@ -1,5 +1,6 @@
 package hello.leavesC.chat.view.me;
 
+import android.arch.lifecycle.ViewModel;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,7 +8,6 @@ import android.widget.TextView;
 
 import hello.leavesC.chat.R;
 import hello.leavesC.chat.view.base.BaseActivity;
-import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
 /**
  * 作者：叶应是叶
@@ -19,6 +19,13 @@ public class AppIntroductionActivity extends BaseActivity {
     private static final String TITLE = "title";
 
     private static final String CONTENT = "content";
+
+    public static void navigation(Context context, String title, String content) {
+        Intent intent = new Intent(context, AppIntroductionActivity.class);
+        intent.putExtra(TITLE, title);
+        intent.putExtra(CONTENT, content);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,15 +39,8 @@ public class AppIntroductionActivity extends BaseActivity {
     }
 
     @Override
-    protected BaseViewModel initViewModel() {
+    protected ViewModel initViewModel() {
         return null;
-    }
-
-    public static void navigation(Context context, String title, String content) {
-        Intent intent = new Intent(context, AppIntroductionActivity.class);
-        intent.putExtra(TITLE, title);
-        intent.putExtra(CONTENT, content);
-        context.startActivity(intent);
     }
 
 }
