@@ -1,7 +1,5 @@
 package hello.leavesC.presenter.event.base;
 
-import hello.leavesC.presenter.event.base.BaseEvent;
-
 /**
  * 作者：叶应是叶
  * 时间：2018/9/30 22:28

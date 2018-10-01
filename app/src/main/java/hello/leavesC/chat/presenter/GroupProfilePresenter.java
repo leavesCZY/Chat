@@ -1,5 +1,7 @@
 package hello.leavesC.chat.presenter;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -17,18 +19,22 @@ public class GroupProfilePresenter extends Observable implements Observer {
 
     public GroupProfilePresenter(String groupId) {
         this.groupId = groupId;
-        GroupCache.getInstance().addObserver(this);
+        GroupCache.getInstance().observeForever(this::handle);
     }
 
-    @Override
-    public void update(Observable o, Object arg) {
+    private void handle(Map<String, List<GroupProfile>> stringListMap) {
         GroupProfile groupProfile = GroupCache.getInstance().getGroupProfile(groupId);
         setChanged();
         notifyObservers(groupProfile);
     }
 
+    @Override
+    public void update(Observable o, Object arg) {
+
+    }
+
     public void clean() {
-        GroupCache.getInstance().deleteObserver(this);
+        GroupCache.getInstance().removeObserver(this::handle);
     }
 
 }

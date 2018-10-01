@@ -142,7 +142,7 @@ public class FriendEvent extends Observable {
     /**
      * 好友关系链消息已读通知
      */
-    public void OnFriendshipMessageRead() {
+    public void onFriendshipMessageRead() {
         setChanged();
         notifyObservers(new Notify(NotifyType.READ_MESSAGE, null));
     }

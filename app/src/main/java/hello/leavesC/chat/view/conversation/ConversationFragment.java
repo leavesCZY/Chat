@@ -1,11 +1,12 @@
 package hello.leavesC.chat.view.conversation;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,9 +33,9 @@ import hello.leavesC.chat.view.chat.ChatActivity;
 import hello.leavesC.common.dialog.ListPickerDialog;
 import hello.leavesC.common.recycler.common.CommonItemDecoration;
 import hello.leavesC.common.recycler.common.CommonRecyclerViewHolder;
-import hello.leavesC.presenter.log.Logger;
-import hello.leavesC.presenter.presenter.ConversationPresenter;
-import hello.leavesC.presenter.view.ConversationView;
+import hello.leavesC.presenter.event.base.ConversationActionEvent;
+import hello.leavesC.presenter.liveData.ConversationViewModel;
+import hello.leavesC.presenter.model.ConversationModel;
 import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
 /**
@@ -42,7 +43,7 @@ import hello.leavesC.presenter.viewModel.base.BaseViewModel;
  * 时间：2017/11/29 21:14
  * 说明：会话列表界面
  */
-public class ConversationFragment extends BaseFragment implements ConversationView {
+public class ConversationFragment extends BaseFragment {
 
     private List<BaseConversation> conversationList;
 
@@ -50,14 +51,14 @@ public class ConversationFragment extends BaseFragment implements ConversationVi
 
     private View view;
 
-    private ConversationPresenter conversationPresenter;
+    private ConversationViewModel conversationViewModel;
 
     private LinearLayoutManager linearLayoutManager;
 
     private static final String TAG = "ConversationFragment";
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_conversation, container, false);
             conversationList = new ArrayList<>();
@@ -86,7 +87,7 @@ public class ConversationFragment extends BaseFragment implements ConversationVi
                     dialog.show(options, getFragmentManager(), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            conversationPresenter.deleteConversation(peer, conversationType);
+                            conversationViewModel.deleteConversation(peer, conversationType);
                         }
                     });
                 }
@@ -96,8 +97,8 @@ public class ConversationFragment extends BaseFragment implements ConversationVi
             rv_conversationList.setLayoutManager(linearLayoutManager);
             rv_conversationList.setAdapter(conversationAdapter);
             rv_conversationList.addItemDecoration(new CommonItemDecoration(ContextCompat.getDrawable(getContext(), R.drawable.divider), LinearLayoutManager.VERTICAL));
-            conversationPresenter = new ConversationPresenter(this);
-            conversationPresenter.getConversation();
+            conversationViewModel.start(this);
+            conversationViewModel.getConversation();
         }
         return view;
     }
@@ -112,18 +113,28 @@ public class ConversationFragment extends BaseFragment implements ConversationVi
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        conversationPresenter.clean();
-        conversationPresenter = null;
-    }
-
-    @Override
     protected BaseViewModel initViewModel() {
-        return null;
+        conversationViewModel = ViewModelProviders.of(this).get(ConversationViewModel.class);
+        conversationViewModel.getUpdateC2CMessageLiveData().observe(this, this::updateC2CMessage);
+        conversationViewModel.getUpdateGroupMessageLiveData().observe(this, this::updateGroupMessage);
+        conversationViewModel.getUpdateSystemMessageLiveData().observe(this, this::updateSystemMessage);
+        conversationViewModel.getUpdateGroupInfoLiveData().observe(this, this::updateGroupInfo);
+        conversationViewModel.getRemoveConversationLiveData().observe(this, this::removeConversation);
+        conversationViewModel.getUpdateFriendProfileLiveData().observe(this, this::updateFriendProfile);
+        conversationViewModel.getActionEventLiveData().observe(this, this::handleActionEvent);
+        conversationViewModel.getInitConversationLiveData().observe(this, this::initConversation);
+        return conversationViewModel;
     }
 
-    @Override
+    private void handleActionEvent(ConversationActionEvent conversationActionEvent) {
+        switch (conversationActionEvent.getAction()) {
+            case ConversationActionEvent.UPDATE_FRIENDSHIP_MESSAGE: {
+                updateFriendshipMessage();
+                break;
+            }
+        }
+    }
+
     public synchronized void initConversation(List<TIMConversation> conversationList) {
         this.conversationList.clear();
         for (TIMConversation conversation : conversationList) {
@@ -140,7 +151,6 @@ public class ConversationFragment extends BaseFragment implements ConversationVi
         refresh();
     }
 
-    @Override
     public synchronized void updateC2CMessage(TIMMessage message) {
         String peer = message.getConversation().getPeer();
         for (BaseConversation conversation : conversationList) {
@@ -156,7 +166,6 @@ public class ConversationFragment extends BaseFragment implements ConversationVi
         refresh();
     }
 
-    @Override
     public synchronized void updateGroupMessage(TIMMessage message) {
         String peer = message.getConversation().getPeer();
         for (BaseConversation conversation : conversationList) {
@@ -172,7 +181,6 @@ public class ConversationFragment extends BaseFragment implements ConversationVi
         refresh();
     }
 
-    @Override
     public synchronized void updateSystemMessage(TIMMessage message) {
         String peer = message.getConversation().getPeer();
         for (BaseConversation conversation : conversationList) {
@@ -188,17 +196,15 @@ public class ConversationFragment extends BaseFragment implements ConversationVi
         refresh();
     }
 
-    @Override
+
     public synchronized void updateFriendshipMessage() {
 
     }
 
-    @Override
     public synchronized void updateGroupInfo(TIMGroupCacheInfo info) {
         refresh();
     }
 
-    @Override
     public synchronized void updateFriendProfile(List<String> identifierList) {
         for (String identifier : identifierList) {
             ChatConversation chatConversation = null;
@@ -216,11 +222,11 @@ public class ConversationFragment extends BaseFragment implements ConversationVi
         refresh();
     }
 
-    @Override
-    public synchronized void removeConversation(TIMConversationType type, String identifier) {
+    public synchronized void removeConversation(ConversationModel conversationModel) {
         BaseConversation baseConversation = null;
         for (BaseConversation conversation : conversationList) {
-            if (conversation.getPeer().equals(identifier) && conversation.getConversationType() == type) {
+            if (conversation.getPeer().equals(conversationModel.getPeer())
+                    && conversation.getConversationType() == conversationModel.getConversationType()) {
                 baseConversation = conversation;
                 break;
             }
@@ -231,7 +237,6 @@ public class ConversationFragment extends BaseFragment implements ConversationVi
         }
     }
 
-    @Override
     public void refresh() {
         Collections.sort(conversationList, new ConversationComparator());
         conversationAdapter.setData(conversationList);
@@ -239,4 +244,3 @@ public class ConversationFragment extends BaseFragment implements ConversationVi
     }
 
 }
-

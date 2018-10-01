@@ -17,8 +17,7 @@ import com.tencent.imsdk.TIMConversationType;
 import com.tencent.imsdk.TIMFriendGenderType;
 import com.tencent.imsdk.ext.sns.TIMFriendResult;
 
-import java.util.Observable;
-import java.util.Observer;
+import java.util.Map;
 
 import hello.leavesC.chat.R;
 import hello.leavesC.chat.cache.FriendCache;
@@ -35,7 +34,7 @@ import hello.leavesC.presenter.viewModel.base.BaseViewModel;
  * 时间：2017/11/29 21:14
  * 说明：好友资料详情页
  */
-public class FriendProfileActivity extends BaseActivity implements Observer {
+public class FriendProfileActivity extends BaseActivity {
 
     private static final String IDENTIFIER = "identifier";
 
@@ -102,7 +101,11 @@ public class FriendProfileActivity extends BaseActivity implements Observer {
         }
         initView();
         getProfile();
-        FriendCache.getInstance().addObserver(this);
+        FriendCache.getInstance().observe(this, this::handle);
+    }
+
+    private void handle(Map<String, FriendProfile> stringFriendProfileMap) {
+        getProfile();
     }
 
     @Override
@@ -139,13 +142,6 @@ public class FriendProfileActivity extends BaseActivity implements Observer {
     }
 
     @Override
-    public void update(Observable o, Object arg) {
-        if (o instanceof FriendCache) {
-            getProfile();
-        }
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.set_remark, menu);
         return true;
@@ -157,12 +153,6 @@ public class FriendProfileActivity extends BaseActivity implements Observer {
             AlterFriendRemarkActivity.navigation(this, identifier);
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        FriendCache.getInstance().deleteObserver(this);
     }
 
     public static void navigation(Context context, String identifier) {

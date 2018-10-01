@@ -12,6 +12,10 @@ def keyAlias_ = properties.getProperty("key.keyAlias")
 def keyPassword_ = properties.getProperty("key.keyPassword")
 def storeFile_ = file(keyStorePath_)
 
+static def buildTime() {
+    return new Date().format("yyyy-MM-dd HH:mm:ss")
+}
+
 android {
     compileSdkVersion globalConfiguration["compileSdkVersion"]
     buildToolsVersion globalConfiguration["buildToolsVersion"]
@@ -22,6 +26,7 @@ android {
         versionCode globalConfiguration["versionCode"]
         versionName globalConfiguration["versionName"]
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        buildConfigField "String", "buildTime", "\"" + buildTime() + "\""
     }
     signingConfigs {
         debug {

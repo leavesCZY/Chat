@@ -22,24 +22,6 @@ public class ProfilePresenter {
         this.profileView = profileView;
     }
 
-    public void getSelfProfile() {
-        TIMFriendshipManager.getInstance().getSelfProfile(new TIMValueCallBack<TIMUserProfile>() {
-            @Override
-            public void onError(int i, String s) {
-                if (profileView != null) {
-                    profileView.getProfileFail(i, s);
-                }
-            }
-
-            @Override
-            public void onSuccess(TIMUserProfile profile) {
-                if (profileView != null) {
-                    profileView.showProfile(profile);
-                }
-            }
-        });
-    }
-
     public void searchUser(String identifier) {
         List<String> identifierList = new ArrayList<>();
         identifierList.add(identifier);

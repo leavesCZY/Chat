@@ -9,8 +9,7 @@ import com.tencent.imsdk.TIMConversationType;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
+import java.util.Map;
 
 import hello.leavesC.chat.R;
 import hello.leavesC.chat.adapter.GroupListAdapter;
@@ -27,7 +26,7 @@ import hello.leavesC.presenter.viewModel.base.BaseViewModel;
  * 时间：2018/1/7 20:18
  * 说明：群组列表界面
  */
-public class GroupListActivity extends BaseActivity implements Observer {
+public class GroupListActivity extends BaseActivity {
 
     private List<GroupProfile> groupProfileList;
 
@@ -52,19 +51,18 @@ public class GroupListActivity extends BaseActivity implements Observer {
             }
         });
         rv_groupList.setAdapter(groupListAdapter);
-        GroupCache.getInstance().addObserver(this);
+        GroupCache.getInstance().observe(this, this::handle);
+    }
+
+    private void handle(Map<String, List<GroupProfile>> stringListMap) {
+        groupProfileList.clear();
+        groupProfileList.addAll(GroupCache.getInstance().getAllGroup());
+        groupListAdapter.setData(groupProfileList);
     }
 
     @Override
     protected BaseViewModel initViewModel() {
         return null;
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        groupProfileList.clear();
-        groupProfileList.addAll(GroupCache.getInstance().getAllGroup());
-        groupListAdapter.setData(groupProfileList);
     }
 
 }

@@ -13,8 +13,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Observable;
-import java.util.Observer;
 
 import hello.leavesC.chat.R;
 import hello.leavesC.chat.adapter.FriendAdapter;
@@ -33,7 +31,7 @@ import hello.leavesC.presenter.viewModel.base.BaseViewModel;
  * 时间：2017/11/29 21:12
  * 说明：好友列表界面
  */
-public class ContactsFragment extends BaseFragment implements Observer {
+public class ContactsFragment extends BaseFragment {
 
     private List<FriendProfile> friendProfileList;
 
@@ -76,9 +74,15 @@ public class ContactsFragment extends BaseFragment implements Observer {
             LetterIndexView liv_letters = view.findViewById(R.id.liv_letters);
             TextView tv_hint = view.findViewById(R.id.tv_hint);
             liv_letters.bindIndexView(tv_hint, linearLayoutManager, getLetterMap(friendProfileList));
-            FriendCache.getInstance().addObserver(this);
+            FriendCache.getInstance().observe(this, this::handle);
         }
         return view;
+    }
+
+    private void handle(Map<String, FriendProfile> stringFriendProfileMap) {
+        friendProfileList.clear();
+        friendProfileList.addAll(FriendCache.getInstance().getFriendProfileList());
+        friendWrapAdapter.setData(friendProfileList);
     }
 
     private Map<String, Integer> getLetterMap(List<FriendProfile> friendProfileList) {
@@ -99,23 +103,8 @@ public class ContactsFragment extends BaseFragment implements Observer {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        FriendCache.getInstance().deleteObserver(this);
-    }
-
-    @Override
     protected BaseViewModel initViewModel() {
         return null;
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        if (o instanceof FriendCache) {
-            friendProfileList.clear();
-            friendProfileList.addAll(FriendCache.getInstance().getFriendProfileList());
-            friendWrapAdapter.setData(friendProfileList);
-        }
     }
 
 }

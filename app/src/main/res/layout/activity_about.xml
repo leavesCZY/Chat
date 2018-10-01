@@ -33,7 +33,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/ov_gitHub"
-        app:showDivider="false"
         app:title="联系方式" />
+
+    <hello.leavesC.common.common.OptionView
+        android:id="@+id/ov_version"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/ov_contact"
+        app:showDivider="false"
+        app:title="版本" />
 
 </android.support.constraint.ConstraintLayout>

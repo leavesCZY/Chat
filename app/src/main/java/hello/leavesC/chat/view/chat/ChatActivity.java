@@ -1,8 +1,10 @@
 package hello.leavesC.chat.view.chat;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -41,9 +43,9 @@ import hello.leavesC.common.input.EmojiFragment;
 import hello.leavesC.common.input.EmojiKeyboard;
 import hello.leavesC.common.input.utils.EmojiUtils;
 import hello.leavesC.common.input.utils.SpanStringUtils;
+import hello.leavesC.presenter.event.ChatActionEvent;
+import hello.leavesC.presenter.liveData.ChatViewModel;
 import hello.leavesC.presenter.log.Logger;
-import hello.leavesC.presenter.presenter.ChatPresenter;
-import hello.leavesC.presenter.view.ChatView;
 import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
 import static com.tencent.imsdk.TIMConversationType.C2C;
@@ -53,7 +55,7 @@ import static com.tencent.imsdk.TIMConversationType.C2C;
  * 时间：2017/11/29 21:08
  * 说明：聊天界面
  */
-public class ChatActivity extends BaseActivity implements ChatView, EmojiFragment.OnEmoticonClickListener {
+public class ChatActivity extends BaseActivity implements EmojiFragment.OnEmoticonClickListener {
 
     //好友ID或群组ID
     private String peer;
@@ -67,7 +69,7 @@ public class ChatActivity extends BaseActivity implements ChatView, EmojiFragmen
 
     private EditText et_input;
 
-    private ChatPresenter chatPresenter;
+    private ChatViewModel chatViewModel;
 
     private List<BaseMessage> messageList;
 
@@ -81,6 +83,13 @@ public class ChatActivity extends BaseActivity implements ChatView, EmojiFragmen
 
     private static final String TAG = "ChatActivity";
 
+    public static void navigation(Context context, String peer, TIMConversationType conversationType) {
+        Intent intent = new Intent(context, ChatActivity.class);
+        intent.putExtra(PEER, peer);
+        intent.putExtra(CONVERSATION_TYPE, conversationType);
+        context.startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,13 +97,64 @@ public class ChatActivity extends BaseActivity implements ChatView, EmojiFragmen
         peer = getIntent().getStringExtra(PEER);
         conversationType = (TIMConversationType) getIntent().getSerializableExtra(CONVERSATION_TYPE);
         initView();
-        chatPresenter = new ChatPresenter(this, peer, conversationType);
-        chatPresenter.start();
+        chatViewModel.start(peer, conversationType, this);
     }
 
     @Override
     protected BaseViewModel initViewModel() {
-        return null;
+        chatViewModel = ViewModelProviders.of(this).get(ChatViewModel.class);
+        chatViewModel.getChatActionLiveData().observe(this, this::chatActionEvent);
+        chatViewModel.getMessageDraftLiveData().observe(this, this::showDraft);
+        chatViewModel.getShowMessageLiveData().observe(this, this::showMessage);
+        chatViewModel.getShowListMessageLiveData().observe(this, this::showMessage);
+        return chatViewModel;
+    }
+
+    private void chatActionEvent(ChatActionEvent chatActionEvent) {
+        switch (chatActionEvent.getAction()) {
+            case ChatActionEvent.CLEAN_MESSAGE: {
+                messageList.clear();
+                chatAdapter.setData(messageList);
+                break;
+            }
+            case ChatActionEvent.SEND_MESSAGE_FAIL: {
+                chatAdapter.setData(messageList);
+                break;
+            }
+        }
+    }
+
+    public void showDraft(TIMMessageDraft messageDraft) {
+        TextMessage textMessage = new TextMessage(messageDraft);
+        et_input.setText(textMessage.getMessageSummary());
+    }
+
+    public void showMessage(TIMMessage message) {
+        if (message == null) {
+            chatAdapter.setData(messageList);
+        } else {
+            BaseMessage baseMessage = MessageFactory.getMessage(message);
+            if (baseMessage != null) {
+                messageList.add(baseMessage);
+                chatAdapter.setData(messageList);
+            }
+        }
+        linearLayoutManager.scrollToPosition(messageList.size() - 1);
+    }
+
+    public void showMessage(List<TIMMessage> messageList) {
+        if (messageList.size() == 0) {
+            return;
+        }
+        List<BaseMessage> messages = new ArrayList<>();
+        for (int i = 0; i < messageList.size(); i++) {
+            BaseMessage baseMessage = MessageFactory.getMessage(messageList.get(i));
+            if (baseMessage != null) {
+                messages.add(baseMessage);
+            }
+        }
+        this.messageList.addAll(0, messages);
+        chatAdapter.setData(this.messageList);
     }
 
     private void initView() {
@@ -162,7 +222,7 @@ public class ChatActivity extends BaseActivity implements ChatView, EmojiFragmen
                 if (!TextUtils.isEmpty(content)) {
                     if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
                         BaseMessage message = new TextMessage(content);
-                        chatPresenter.sendMessage(message.getMessage());
+                        chatViewModel.sendMessage(message.getMessage());
                         et_input.setText("");
                         linearLayoutManager.scrollToPosition(messageList.size() - 1);
                         return true;
@@ -173,15 +233,15 @@ public class ChatActivity extends BaseActivity implements ChatView, EmojiFragmen
         });
         rv_chat.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
 
             }
 
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 if (linearLayoutManager.findFirstVisibleItemPosition() == 0) {
                     if (messageList.size() > 0) {
-                        chatPresenter.getMessage(messageList.get(0).getMessage());
+                        chatViewModel.getMessage(messageList.get(0).getMessage());
                     }
                 }
             }
@@ -198,10 +258,14 @@ public class ChatActivity extends BaseActivity implements ChatView, EmojiFragmen
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_chat:
-                if (conversationType == C2C) {
-
-                } else {
-                    GroupProfileActivity.navigation(this, peer, CODE_GROUP_PROFILE);
+                switch (conversationType) {
+                    case C2C: {
+                        break;
+                    }
+                    case Group: {
+                        GroupProfileActivity.navigation(this, peer, CODE_GROUP_PROFILE);
+                        break;
+                    }
                 }
                 break;
         }
@@ -213,53 +277,6 @@ public class ChatActivity extends BaseActivity implements ChatView, EmojiFragmen
         if (!emojiKeyboard.interceptBackPress()) {
             super.onBackPressed();
         }
-    }
-
-    @Override
-    public void showMessage(TIMMessage message) {
-        if (message == null) {
-            chatAdapter.setData(messageList);
-        } else {
-            BaseMessage baseMessage = MessageFactory.getMessage(message);
-            if (baseMessage != null) {
-                messageList.add(baseMessage);
-                chatAdapter.setData(messageList);
-            }
-        }
-        linearLayoutManager.scrollToPosition(messageList.size() - 1);
-    }
-
-    @Override
-    public void showMessage(List<TIMMessage> messageList) {
-        if (messageList.size() == 0) {
-            return;
-        }
-        List<BaseMessage> messages = new ArrayList<>();
-        for (int i = 0; i < messageList.size(); i++) {
-            BaseMessage baseMessage = MessageFactory.getMessage(messageList.get(i));
-            if (baseMessage != null) {
-                messages.add(baseMessage);
-            }
-        }
-        this.messageList.addAll(0, messages);
-        chatAdapter.setData(this.messageList);
-    }
-
-    @Override
-    public void showDraft(TIMMessageDraft messageDraft) {
-        TextMessage textMessage = new TextMessage(messageDraft);
-        et_input.setText(textMessage.getMessageSummary());
-    }
-
-    @Override
-    public void clearAllMessage() {
-        messageList.clear();
-        chatAdapter.setData(messageList);
-    }
-
-    @Override
-    public void onSendMessageFail(int code, String desc, TIMMessage message) {
-        chatAdapter.setData(messageList);
     }
 
     @Override
@@ -287,19 +304,10 @@ public class ChatActivity extends BaseActivity implements ChatView, EmojiFragmen
             TIMTextElem textElem = new TIMTextElem();
             textElem.setText(draft);
             timMessage.addElement(textElem);
-            chatPresenter.saveDraft(timMessage);
+            chatViewModel.saveDraft(timMessage);
         } else {
-            chatPresenter.saveDraft(null);
+            chatViewModel.saveDraft(null);
         }
-        chatPresenter.stop();
-        chatPresenter = null;
-    }
-
-    public static void navigation(Context context, String peer, TIMConversationType conversationType) {
-        Intent intent = new Intent(context, ChatActivity.class);
-        intent.putExtra(PEER, peer);
-        intent.putExtra(CONVERSATION_TYPE, conversationType);
-        context.startActivity(intent);
     }
 
 }

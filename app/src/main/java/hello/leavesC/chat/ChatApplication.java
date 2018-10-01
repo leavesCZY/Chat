@@ -15,13 +15,15 @@ import hello.leavesC.sdk.Constants;
  */
 public class ChatApplication extends Application {
 
-    private static final String TAG = "ChatApplication";
-
     public static String identifier = "";
 
     @Override
     public void onCreate() {
         super.onCreate();
+        initIM();
+    }
+
+    private void initIM() {
         TIMSdkConfig sdkConfig = new TIMSdkConfig(Constants.SDK_APP_ID)
                 .enableCrashReport(true)
                 .setLogLevel(BuildConfig.isRelease ? TIMLogLevel.OFF : TIMLogLevel.WARN)

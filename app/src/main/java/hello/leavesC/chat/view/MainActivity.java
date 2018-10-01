@@ -20,11 +20,7 @@ import hello.leavesC.chat.view.conversation.ConversationFragment;
 import hello.leavesC.chat.view.group.SelectFriendToCreateGroupActivity;
 import hello.leavesC.chat.view.me.MeFragment;
 import hello.leavesC.chat.view.open.OpenActivity;
-import hello.leavesC.presenter.extra.FriendEvent;
-import hello.leavesC.presenter.extra.GroupEvent;
-import hello.leavesC.presenter.extra.MessageEvent;
-import hello.leavesC.presenter.extra.RefreshEvent;
-import hello.leavesC.presenter.tls.service.TlsService;
+import hello.leavesC.presenter.tls.TlsService;
 import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
 /**
@@ -84,7 +80,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initView() {
-        initToolbar("云聊", false);
+        initToolbar(getString(R.string.app_name), false);
         viewPager = findViewById(R.id.viewpager_main);
         TabLayout tabLayout = findViewById(R.id.tabLayout_main);
         tabLayout.setupWithViewPager(viewPager);
@@ -121,10 +117,10 @@ public class MainActivity extends BaseActivity {
         super.onDestroy();
         FriendCache.getInstance().clear();
         GroupCache.getInstance().clear();
-        FriendEvent.getInstance().clean();
-        GroupEvent.getInstance().clean();
-        MessageEvent.getInstance().clean();
-        RefreshEvent.getInstance().clean();
+//        FriendEvent.getInstance().clean();
+//        GroupEvent.getInstance().clean();
+//        MessageEvent.getInstance().clean();
+//        RefreshEvent.getInstance().clean();
     }
 
     public void logout() {

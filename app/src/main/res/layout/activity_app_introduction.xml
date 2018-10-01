@@ -16,6 +16,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
         android:text="@string/about_contact"
+        android:textIsSelectable="true"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

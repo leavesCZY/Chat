@@ -8,8 +8,10 @@ import android.view.View;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import hello.leavesC.chat.BuildConfig;
 import hello.leavesC.chat.R;
 import hello.leavesC.chat.view.base.BaseActivity;
+import hello.leavesC.common.common.OptionView;
 
 /**
  * 作者：叶应是叶
@@ -23,6 +25,8 @@ public class AboutActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
         setToolbarTitle("关于");
+        OptionView ov_version = findViewById(R.id.ov_version);
+        ov_version.setContent("version：" + BuildConfig.VERSION_NAME + "\nbuildTime：" + BuildConfig.buildTime);
         ButterKnife.bind(this);
     }
 

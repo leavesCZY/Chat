@@ -1,5 +1,7 @@
 package hello.leavesC.chat.cache;
 
+import android.arch.lifecycle.LiveData;
+
 import com.tencent.imsdk.ext.group.TIMGroupAssistant;
 import com.tencent.imsdk.ext.group.TIMGroupCacheInfo;
 
@@ -7,12 +9,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Observable;
-import java.util.Observer;
 
 import hello.leavesC.chat.model.GroupProfile;
-import hello.leavesC.presenter.extra.GroupEvent;
-import hello.leavesC.presenter.extra.RefreshEvent;
+import hello.leavesC.presenter.event.GroupActionEvent;
+import hello.leavesC.presenter.event.RefreshActionEvent;
+import hello.leavesC.presenter.liveData.GroupEventLiveData;
+import hello.leavesC.presenter.liveData.RefreshEventLiveData;
 
 /**
  * 作者：叶应是叶
@@ -20,7 +22,7 @@ import hello.leavesC.presenter.extra.RefreshEvent;
  * 说明：群组数据缓存，公开群，私有群，聊天室
  * 每当群组链发生变化时，缓存数据均会相应改变
  */
-public class GroupCache extends Observable implements Observer {
+public class GroupCache extends LiveData<Map<String, List<GroupProfile>>> {
 
     private Map<String, List<GroupProfile>> groupMap;
 
@@ -34,13 +36,46 @@ public class GroupCache extends Observable implements Observer {
 
     private static final String TAG = "GroupCache";
 
+    private GroupEventLiveData groupEventLiveData;
+
+    private RefreshEventLiveData refreshEventLiveData;
+
     private GroupCache() {
         groupMap = new HashMap<>();
-        groupMap.put(PUBLIC_GROUP, new ArrayList<GroupProfile>());
-        groupMap.put(PRIVATE_GROUP, new ArrayList<GroupProfile>());
-        groupMap.put(CHAT_ROOM, new ArrayList<GroupProfile>());
-        GroupEvent.getInstance().addObserver(this);
-        RefreshEvent.getInstance().addObserver(this);
+        groupMap.put(PUBLIC_GROUP, new ArrayList<>());
+        groupMap.put(PRIVATE_GROUP, new ArrayList<>());
+        groupMap.put(CHAT_ROOM, new ArrayList<>());
+        groupEventLiveData = GroupEventLiveData.getInstance();
+        refreshEventLiveData = RefreshEventLiveData.getInstance();
+        groupEventLiveData.observeForever(this::handleGroupEvent);
+        refreshEventLiveData.observeForever(this::handleRefreshEvent);
+        refresh();
+    }
+
+    private void handleGroupEvent(GroupActionEvent groupActionEvent) {
+        switch (groupActionEvent.getAction()) {
+            case GroupActionEvent.ADD:
+                refresh();
+                break;
+            case GroupActionEvent.DELETE:
+                refresh();
+                break;
+            case GroupActionEvent.GROUP_PROFILE_UPDATE:
+                refresh();
+                break;
+            case GroupActionEvent.JOIN:
+                refresh();
+                break;
+            case GroupActionEvent.QUIT:
+                refresh();
+                break;
+            case GroupActionEvent.MEMBER_PROFILE_UPDATE:
+                refresh();
+                break;
+        }
+    }
+
+    private void handleRefreshEvent(RefreshActionEvent refreshActionEvent) {
         refresh();
     }
 
@@ -53,37 +88,6 @@ public class GroupCache extends Observable implements Observer {
             }
         }
         return sInstance;
-    }
-
-    @Override
-    public void update(Observable observable, Object data) {
-        if (observable instanceof GroupEvent) {
-            if (data instanceof GroupEvent.Notify) {
-                GroupEvent.Notify notify = (GroupEvent.Notify) data;
-                switch (notify.notifyType) {
-                    case ADD:
-                        refresh();
-                        break;
-                    case DELETE:
-                        refresh();
-                        break;
-                    case GROUP_PROFILE_UPDATE:
-                        refresh();
-                        break;
-                    case JOIN:
-                        refresh();
-                        break;
-                    case QUIT:
-                        refresh();
-                        break;
-                    case MEMBER_PROFILE_UPDATE:
-                        refresh();
-                        break;
-                }
-            }
-        } else if (observable instanceof RefreshEvent) {
-            refresh();
-        }
     }
 
     /**
@@ -104,8 +108,7 @@ public class GroupCache extends Observable implements Observer {
                 groupProfileList.add(new GroupProfile(groupCacheInfo));
             }
         }
-        setChanged();
-        notifyObservers();
+        setValue(groupMap);
     }
 
     /**
@@ -142,9 +145,7 @@ public class GroupCache extends Observable implements Observer {
     public synchronized List<GroupProfile> getAllGroup() {
         List<GroupProfile> profileArrayList = new ArrayList<>();
         for (String key : groupMap.keySet()) {
-            for (GroupProfile groupProfile : groupMap.get(key)) {
-                profileArrayList.add(groupProfile);
-            }
+            profileArrayList.addAll(groupMap.get(key));
         }
         return profileArrayList;
     }
@@ -193,8 +194,8 @@ public class GroupCache extends Observable implements Observer {
      * 清除数据
      */
     public synchronized void clear() {
-        GroupEvent.getInstance().deleteObserver(this);
-        RefreshEvent.getInstance().deleteObserver(this);
+        groupEventLiveData.removeObserver(this::handleGroupEvent);
+        refreshEventLiveData.removeObserver(this::handleRefreshEvent);
         groupMap.clear();
         groupMap = null;
         sInstance = null;

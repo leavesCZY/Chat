@@ -276,7 +276,7 @@ public class FriendshipManagerPresenter {
 
             @Override
             public void onSuccess() {
-                FriendEvent.getInstance().OnFriendshipMessageRead();
+                FriendEvent.getInstance().onFriendshipMessageRead();
             }
         });
         TIMFriendshipManagerExt.getInstance().recommendReport(timestamp, new TIMCallBack() {
@@ -287,7 +287,7 @@ public class FriendshipManagerPresenter {
 
             @Override
             public void onSuccess() {
-                FriendEvent.getInstance().OnFriendshipMessageRead();
+                FriendEvent.getInstance().onFriendshipMessageRead();
             }
         });
     }

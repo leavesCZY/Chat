@@ -1,5 +1,7 @@
 package hello.leavesC.chat.cache;
 
+import android.arch.lifecycle.LiveData;
+
 import com.tencent.imsdk.TIMUserProfile;
 import com.tencent.imsdk.ext.sns.TIMFriendshipProxy;
 
@@ -8,20 +10,20 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Observable;
-import java.util.Observer;
 
 import hello.leavesC.chat.model.FriendProfile;
 import hello.leavesC.chat.utils.FriendProfileComparator;
-import hello.leavesC.presenter.extra.FriendEvent;
-import hello.leavesC.presenter.extra.RefreshEvent;
+import hello.leavesC.presenter.event.FriendActionEvent;
+import hello.leavesC.presenter.event.RefreshActionEvent;
+import hello.leavesC.presenter.liveData.FriendEventLiveData;
+import hello.leavesC.presenter.liveData.RefreshEventLiveData;
 
 /**
  * 作者：叶应是叶
  * 时间：2017/11/29 20:54
  * 说明：好友数据缓存，每当好友链发生变化时，缓存数据会相应改变
  */
-public class FriendCache extends Observable implements Observer {
+public class FriendCache extends LiveData<Map<String, FriendProfile>> {
 
     private static final String TAG = "FriendCache";
 
@@ -29,10 +31,16 @@ public class FriendCache extends Observable implements Observer {
 
     private static FriendCache sInstance;
 
+    private FriendEventLiveData friendEventLiveData;
+
+    private RefreshEventLiveData refreshEventLiveData;
+
     private FriendCache() {
         friendMap = new HashMap<>();
-        FriendEvent.getInstance().addObserver(this);
-        RefreshEvent.getInstance().addObserver(this);
+        friendEventLiveData = FriendEventLiveData.getInstance();
+        refreshEventLiveData = RefreshEventLiveData.getInstance();
+        friendEventLiveData.observeForever(this::handleFriendEvent);
+        refreshEventLiveData.observeForever(this::handleRefreshEvent);
         refresh();
     }
 
@@ -47,24 +55,20 @@ public class FriendCache extends Observable implements Observer {
         return sInstance;
     }
 
-    @Override
-    public synchronized void update(Observable observable, Object data) {
-        if (observable instanceof FriendEvent) {
-            if (data instanceof FriendEvent.Notify) {
-                FriendEvent.Notify notify = (FriendEvent.Notify) data;
-                switch (notify.notifyType) {
-                    case ADD_FRIEND:
-                    case DELETE_FRIEND:
-                    case PROFILE_UPDATE:
-                    case ADD_REQUEST:
-                    case READ_MESSAGE:
-                        refresh();
-                        break;
-                }
-            }
-        } else if (observable instanceof RefreshEvent) {
-            refresh();
+    private void handleFriendEvent(FriendActionEvent friendActionEvent) {
+        switch (friendActionEvent.getAction()) {
+            case FriendActionEvent.ADD_FRIEND:
+            case FriendActionEvent.DELETE_FRIEND:
+            case FriendActionEvent.PROFILE_UPDATE:
+            case FriendActionEvent.ADD_REQUEST:
+            case FriendActionEvent.READ_MESSAGE:
+                refresh();
+                break;
         }
+    }
+
+    private void handleRefreshEvent(RefreshActionEvent refreshActionEvent) {
+        refresh();
     }
 
     /**
@@ -78,8 +82,7 @@ public class FriendCache extends Observable implements Observer {
                 friendMap.put(userProfile.getIdentifier(), new FriendProfile(userProfile));
             }
         }
-        setChanged();
-        notifyObservers();
+        setValue(friendMap);
     }
 
     /**
@@ -130,8 +133,8 @@ public class FriendCache extends Observable implements Observer {
      * 清除数据
      */
     public synchronized void clear() {
-        FriendEvent.getInstance().deleteObserver(this);
-        RefreshEvent.getInstance().deleteObserver(this);
+        friendEventLiveData.removeObserver(this::handleFriendEvent);
+        refreshEventLiveData.removeObserver(this::handleRefreshEvent);
         friendMap.clear();
         friendMap = null;
         sInstance = null;
