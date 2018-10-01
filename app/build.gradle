@@ -27,6 +27,9 @@ android {
         versionName globalConfiguration["versionName"]
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         buildConfigField "String", "buildTime", "\"" + buildTime() + "\""
+        ndk {
+            abiFilters "armeabi"
+        }
     }
     signingConfigs {
         debug {
