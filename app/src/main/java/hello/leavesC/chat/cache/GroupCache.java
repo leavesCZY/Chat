@@ -197,8 +197,6 @@ public class GroupCache extends LiveData<Map<String, List<GroupProfile>>> {
         groupEventLiveData.removeObserver(this::handleGroupEvent);
         refreshEventLiveData.removeObserver(this::handleRefreshEvent);
         groupMap.clear();
-        groupMap = null;
-        sInstance = null;
     }
 
 }

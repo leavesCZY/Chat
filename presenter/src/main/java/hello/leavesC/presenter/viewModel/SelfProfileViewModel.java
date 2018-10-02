@@ -10,7 +10,7 @@ import com.tencent.imsdk.TIMUserProfile;
 import com.tencent.imsdk.TIMValueCallBack;
 
 import hello.leavesC.presenter.TransformUtil;
-import hello.leavesC.presenter.event.SelfProfileEvent;
+import hello.leavesC.presenter.event.SelfProfileActionEvent;
 import hello.leavesC.presenter.model.ProfileModel;
 import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
@@ -23,7 +23,7 @@ public class SelfProfileViewModel extends BaseViewModel {
 
     private MediatorLiveData<ProfileModel> profileModelLiveData = new MediatorLiveData<>();
 
-    private MediatorLiveData<SelfProfileEvent> eventLiveData = new MediatorLiveData<>();
+    private MediatorLiveData<SelfProfileActionEvent> eventLiveData = new MediatorLiveData<>();
 
     private TIMValueCallBack<TIMUserProfile> callBack = new TIMValueCallBack<TIMUserProfile>() {
         @Override
@@ -66,7 +66,7 @@ public class SelfProfileViewModel extends BaseViewModel {
             @Override
             public void onSuccess() {
                 dismissLoadingDialog();
-                eventLiveData.setValue(new SelfProfileEvent(SelfProfileEvent.LOGOUT_SUCCESS));
+                eventLiveData.setValue(new SelfProfileActionEvent(SelfProfileActionEvent.LOGOUT_SUCCESS));
             }
         });
     }
@@ -92,7 +92,7 @@ public class SelfProfileViewModel extends BaseViewModel {
         return profileModelLiveData;
     }
 
-    public MediatorLiveData<SelfProfileEvent> getEventLiveData() {
+    public MediatorLiveData<SelfProfileActionEvent> getEventLiveData() {
         return eventLiveData;
     }
 

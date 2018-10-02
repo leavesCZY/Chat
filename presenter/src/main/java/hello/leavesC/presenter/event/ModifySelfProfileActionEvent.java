@@ -7,11 +7,11 @@ import hello.leavesC.presenter.event.base.BaseEvent;
  * 时间：2018/10/1 14:16
  * 描述：
  */
-public class ModifySelfProfileEvent extends BaseEvent {
+public class ModifySelfProfileActionEvent extends BaseEvent {
 
     public static final int MODIFY_SUCCESS = 10;
 
-    public ModifySelfProfileEvent(int action) {
+    public ModifySelfProfileActionEvent(int action) {
         super(action);
     }
 

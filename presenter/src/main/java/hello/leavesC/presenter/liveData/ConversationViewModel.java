@@ -21,7 +21,7 @@ import hello.leavesC.presenter.event.FriendActionEvent;
 import hello.leavesC.presenter.event.GroupActionEvent;
 import hello.leavesC.presenter.event.MessageActionEvent;
 import hello.leavesC.presenter.event.RefreshActionEvent;
-import hello.leavesC.presenter.event.base.ConversationActionEvent;
+import hello.leavesC.presenter.event.ConversationActionEvent;
 import hello.leavesC.presenter.log.Logger;
 import hello.leavesC.presenter.model.ConversationModel;
 import hello.leavesC.presenter.viewModel.base.BaseViewModel;

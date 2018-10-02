@@ -6,7 +6,7 @@ ext {
     versionCode = 9
     versionName = '1.5.9'
     buildToolsVersion = "28.0.2"
-    debugMinifyEnabled = false
+    debugMinifyEnabled = true
     releaseMinifyEnabled = true
 
     dependencies = [

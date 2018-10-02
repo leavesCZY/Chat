@@ -1,4 +1,6 @@
-package hello.leavesC.presenter.event.base;
+package hello.leavesC.presenter.event;
+
+import hello.leavesC.presenter.event.base.BaseEvent;
 
 /**
  * 作者：叶应是叶

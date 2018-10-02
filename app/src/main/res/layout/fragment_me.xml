@@ -83,7 +83,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/ov_signature"
-            android:visibility="gone"
             app:title="加好友选项" />
 
         <hello.leavesC.common.common.OptionView

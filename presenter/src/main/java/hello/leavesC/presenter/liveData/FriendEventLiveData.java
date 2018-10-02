@@ -18,7 +18,7 @@ import hello.leavesC.presenter.log.Logger;
 /**
  * 作者：叶应是叶
  * 时间：2018/10/1 20:56
- * 描述：
+ * 描述：通过TIMFriendshipProxy提供的接口从内存中同步获取好友关系链资料
  */
 public class FriendEventLiveData extends LiveData<FriendActionEvent> {
 

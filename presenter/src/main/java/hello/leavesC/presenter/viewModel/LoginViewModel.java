@@ -8,10 +8,10 @@ import com.tencent.imsdk.TIMCallBack;
 import com.tencent.imsdk.TIMManager;
 import com.tencent.imsdk.TIMUserConfig;
 
-import hello.leavesC.presenter.extra.FriendEvent;
-import hello.leavesC.presenter.extra.GroupEvent;
-import hello.leavesC.presenter.extra.MessageEvent;
-import hello.leavesC.presenter.extra.RefreshEvent;
+import hello.leavesC.presenter.liveData.FriendEventLiveData;
+import hello.leavesC.presenter.liveData.GroupEventLiveData;
+import hello.leavesC.presenter.liveData.MessageEventLiveData;
+import hello.leavesC.presenter.liveData.RefreshEventLiveData;
 import hello.leavesC.presenter.model.ProfileModel;
 import hello.leavesC.presenter.viewModel.base.BaseAndroidViewModel;
 import tencent.tls.platform.TLSErrInfo;
@@ -81,10 +81,10 @@ public class LoginViewModel extends BaseAndroidViewModel {
     private void loginImServer(final TLSUserInfo tlsUserInfo) {
         //登录之前要先初始化群和好友关系链缓存
         TIMUserConfig userConfig = new TIMUserConfig();
-        userConfig = FriendEvent.getInstance().init(userConfig);
-        userConfig = GroupEvent.getInstance().init(userConfig);
-        userConfig = MessageEvent.getInstance().init(userConfig);
-        userConfig = RefreshEvent.getInstance().init(userConfig);
+        userConfig = FriendEventLiveData.getInstance().init(userConfig);
+        userConfig = GroupEventLiveData.getInstance().init(userConfig);
+        userConfig = MessageEventLiveData.getInstance().init(userConfig);
+        userConfig = RefreshEventLiveData.getInstance().init(userConfig);
         TIMManager.getInstance().setUserConfig(userConfig);
         TIMManager.getInstance().login(tlsUserInfo.identifier, loginHelper.getUserSig(tlsUserInfo.identifier), new TIMCallBack() {
             @Override

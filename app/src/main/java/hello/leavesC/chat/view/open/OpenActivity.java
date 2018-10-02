@@ -1,13 +1,11 @@
 package hello.leavesC.chat.view.open;
 
 import android.Manifest;
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -17,8 +15,7 @@ import hello.leavesC.chat.ChatApplication;
 import hello.leavesC.chat.R;
 import hello.leavesC.chat.view.MainActivity;
 import hello.leavesC.chat.view.base.BaseActivity;
-import hello.leavesC.presenter.event.SplashEvent;
-import hello.leavesC.presenter.model.ProfileModel;
+import hello.leavesC.presenter.event.SplashActionEvent;
 import hello.leavesC.presenter.viewModel.SplashViewModel;
 
 /**
@@ -68,13 +65,13 @@ public class OpenActivity extends BaseActivity {
         return splashViewModel;
     }
 
-    private void handleEvent(SplashEvent splashEvent) {
-        switch (splashEvent.getAction()) {
-            case SplashEvent.LOGIN_OR_REGISTER: {
+    private void handleEvent(SplashActionEvent splashActionEvent) {
+        switch (splashActionEvent.getAction()) {
+            case SplashActionEvent.LOGIN_OR_REGISTER: {
                 showLoginRegister();
                 break;
             }
-            case SplashEvent.LOGIN_SUCCESS: {
+            case SplashActionEvent.LOGIN_SUCCESS: {
                 ChatApplication.identifier = splashViewModel.getLastUserIdentifier();
                 startActivity(MainActivity.class);
                 finish();

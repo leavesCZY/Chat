@@ -22,7 +22,7 @@ import hello.leavesC.chat.view.MainActivity;
 import hello.leavesC.chat.view.base.BaseFragment;
 import hello.leavesC.common.common.OptionView;
 import hello.leavesC.presenter.TransformUtil;
-import hello.leavesC.presenter.event.SelfProfileEvent;
+import hello.leavesC.presenter.event.SelfProfileActionEvent;
 import hello.leavesC.presenter.manager.SelfProfileManager;
 import hello.leavesC.presenter.model.ProfileModel;
 import hello.leavesC.presenter.viewModel.SelfProfileViewModel;
@@ -76,9 +76,9 @@ public class MeFragment extends BaseFragment {
         return selfProfileViewModel;
     }
 
-    private void handleEvent(SelfProfileEvent selfProfileEvent) {
-        switch (selfProfileEvent.getAction()) {
-            case SelfProfileEvent.LOGOUT_SUCCESS: {
+    private void handleEvent(SelfProfileActionEvent selfProfileActionEvent) {
+        switch (selfProfileActionEvent.getAction()) {
+            case SelfProfileActionEvent.LOGOUT_SUCCESS: {
                 if (getActivity() != null && getActivity() instanceof MainActivity) {
                     MainActivity activity = (MainActivity) getActivity();
                     activity.logout();

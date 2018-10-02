@@ -7,13 +7,13 @@ import hello.leavesC.presenter.event.base.BaseEvent;
  * 时间：2018/9/30 23:39
  * 描述：
  */
-public class SplashEvent extends BaseEvent {
+public class SplashActionEvent extends BaseEvent {
 
     public static final int LOGIN_OR_REGISTER = 10;
 
     public static final int LOGIN_SUCCESS = 30;
 
-    public SplashEvent(int action) {
+    public SplashActionEvent(int action) {
         super(action);
     }
 

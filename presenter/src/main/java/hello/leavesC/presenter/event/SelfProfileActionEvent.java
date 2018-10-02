@@ -7,11 +7,11 @@ import hello.leavesC.presenter.event.base.BaseCallbackEvent;
  * 时间：2018/10/1 10:00
  * 描述：
  */
-public class SelfProfileEvent extends BaseCallbackEvent {
+public class SelfProfileActionEvent extends BaseCallbackEvent {
 
     public static final int LOGOUT_SUCCESS = 10;
 
-    public SelfProfileEvent(int action) {
+    public SelfProfileActionEvent(int action) {
         super(action);
     }
 

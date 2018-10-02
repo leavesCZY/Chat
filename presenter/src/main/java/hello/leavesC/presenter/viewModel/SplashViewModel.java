@@ -9,11 +9,11 @@ import com.tencent.imsdk.TIMCallBack;
 import com.tencent.imsdk.TIMManager;
 import com.tencent.imsdk.TIMUserConfig;
 
-import hello.leavesC.presenter.event.SplashEvent;
-import hello.leavesC.presenter.extra.FriendEvent;
-import hello.leavesC.presenter.extra.GroupEvent;
-import hello.leavesC.presenter.extra.MessageEvent;
-import hello.leavesC.presenter.extra.RefreshEvent;
+import hello.leavesC.presenter.event.SplashActionEvent;
+import hello.leavesC.presenter.liveData.FriendEventLiveData;
+import hello.leavesC.presenter.liveData.GroupEventLiveData;
+import hello.leavesC.presenter.liveData.MessageEventLiveData;
+import hello.leavesC.presenter.liveData.RefreshEventLiveData;
 import hello.leavesC.presenter.model.ProfileModel;
 import hello.leavesC.presenter.viewModel.base.BaseAndroidViewModel;
 import hello.leavesC.sdk.Constants;
@@ -29,7 +29,7 @@ public class SplashViewModel extends BaseAndroidViewModel {
 
     private static final String TAG = "SplashViewModel";
 
-    private MediatorLiveData<SplashEvent> eventLiveData = new MediatorLiveData<>();
+    private MediatorLiveData<SplashActionEvent> eventLiveData = new MediatorLiveData<>();
 
     private TLSLoginHelper loginHelper;
 
@@ -44,12 +44,12 @@ public class SplashViewModel extends BaseAndroidViewModel {
     public void start() {
         TLSUserInfo lastUserInfo = loginHelper.getLastUserInfo();
         if (lastUserInfo == null) {
-            eventLiveData.setValue(new SplashEvent(SplashEvent.LOGIN_OR_REGISTER));
+            eventLiveData.setValue(new SplashActionEvent(SplashActionEvent.LOGIN_OR_REGISTER));
             return;
         }
         String identifier = lastUserInfo.identifier;
         if (TextUtils.isEmpty(identifier)) {
-            eventLiveData.setValue(new SplashEvent(SplashEvent.LOGIN_OR_REGISTER));
+            eventLiveData.setValue(new SplashActionEvent(SplashActionEvent.LOGIN_OR_REGISTER));
             return;
         }
         if (loginHelper.needLogin(identifier)) {
@@ -64,21 +64,21 @@ public class SplashViewModel extends BaseAndroidViewModel {
     private void loginImServer(String identifier) {
         //登录之前要先初始化群和好友关系链缓存
         TIMUserConfig userConfig = new TIMUserConfig();
-        userConfig = FriendEvent.getInstance().init(userConfig);
-        userConfig = GroupEvent.getInstance().init(userConfig);
-        userConfig = MessageEvent.getInstance().init(userConfig);
-        userConfig = RefreshEvent.getInstance().init(userConfig);
+        userConfig = FriendEventLiveData.getInstance().init(userConfig);
+        userConfig = GroupEventLiveData.getInstance().init(userConfig);
+        userConfig = MessageEventLiveData.getInstance().init(userConfig);
+        userConfig = RefreshEventLiveData.getInstance().init(userConfig);
         TIMManager.getInstance().setUserConfig(userConfig);
         TIMManager.getInstance().login(identifier, loginHelper.getUserSig(identifier), new TIMCallBack() {
             @Override
             public void onError(int i, String s) {
                 showToast(s);
-                eventLiveData.setValue(new SplashEvent(SplashEvent.LOGIN_OR_REGISTER));
+                eventLiveData.setValue(new SplashActionEvent(SplashActionEvent.LOGIN_OR_REGISTER));
             }
 
             @Override
             public void onSuccess() {
-                eventLiveData.setValue(new SplashEvent(SplashEvent.LOGIN_SUCCESS));
+                eventLiveData.setValue(new SplashActionEvent(SplashActionEvent.LOGIN_SUCCESS));
             }
         });
     }
@@ -91,7 +91,7 @@ public class SplashViewModel extends BaseAndroidViewModel {
         return null;
     }
 
-    public MediatorLiveData<SplashEvent> getEventLiveData() {
+    public MediatorLiveData<SplashActionEvent> getEventLiveData() {
         return eventLiveData;
     }
 

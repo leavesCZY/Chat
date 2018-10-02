@@ -16,7 +16,7 @@ import hello.leavesC.presenter.log.Logger;
 /**
  * 作者：叶应是叶
  * 时间：2018/10/1 16:53
- * 描述：
+ * 描述：消息通知事件
  */
 public class MessageEventLiveData extends LiveData<MessageActionEvent> {
 

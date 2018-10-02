@@ -15,7 +15,7 @@ import hello.leavesC.presenter.log.Logger;
 /**
  * 作者：叶应是叶
  * 时间：2018/10/1 16:58
- * 描述：
+ * 描述：刷新与被动更新的通知
  */
 public class RefreshEventLiveData extends LiveData<RefreshActionEvent> {
 

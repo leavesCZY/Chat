@@ -9,7 +9,7 @@ import com.tencent.imsdk.TIMFriendAllowType;
 import com.tencent.imsdk.TIMFriendGenderType;
 import com.tencent.imsdk.TIMFriendshipManager;
 
-import hello.leavesC.presenter.event.ModifySelfProfileEvent;
+import hello.leavesC.presenter.event.ModifySelfProfileActionEvent;
 import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
 /**
@@ -19,7 +19,7 @@ import hello.leavesC.presenter.viewModel.base.BaseViewModel;
  */
 public class ModifySelfProfileViewModel extends BaseViewModel {
 
-    private MutableLiveData<ModifySelfProfileEvent> modifySuccessLiveData;
+    private MutableLiveData<ModifySelfProfileActionEvent> modifySuccessLiveData;
 
     public ModifySelfProfileViewModel() {
         modifySuccessLiveData = new MutableLiveData<>();
@@ -36,7 +36,7 @@ public class ModifySelfProfileViewModel extends BaseViewModel {
         public void onSuccess() {
             dismissLoadingDialog();
             showToast("修改成功");
-            modifySuccessLiveData.setValue(new ModifySelfProfileEvent(ModifySelfProfileEvent.MODIFY_SUCCESS));
+            modifySuccessLiveData.setValue(new ModifySelfProfileActionEvent(ModifySelfProfileActionEvent.MODIFY_SUCCESS));
         }
     };
 
@@ -69,7 +69,7 @@ public class ModifySelfProfileViewModel extends BaseViewModel {
         TIMFriendshipManager.getInstance().modifyProfile(param, callBack);
     }
 
-    public MutableLiveData<ModifySelfProfileEvent> getModifySuccessLiveData() {
+    public MutableLiveData<ModifySelfProfileActionEvent> getModifySuccessLiveData() {
         return modifySuccessLiveData;
     }
 

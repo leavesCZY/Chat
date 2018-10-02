@@ -17,7 +17,8 @@ import hello.leavesC.presenter.log.Logger;
 /**
  * 作者：叶应是叶
  * 时间：2018/10/1 16:39
- * 描述：
+ * 描述：如果开启了群信息本地存储，可以通过setGroupAssistantListener方法设置监听感知群事件，
+ * 当有对应事件发生时会进行回调，从而实现群相关数据缓存
  */
 public class GroupEventLiveData extends LiveData<GroupActionEvent> {
 

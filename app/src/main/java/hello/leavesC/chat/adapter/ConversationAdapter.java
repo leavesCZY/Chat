@@ -94,7 +94,7 @@ public class ConversationAdapter extends CommonRecyclerViewAdapter<BaseConversat
         holder.setImageResource(R.id.iv_conversation_avatar, data.getDefaultAvatar())
                 .setText(R.id.tv_conversation_name, data.getName())
                 .setText(R.id.tv_conversation_lastMsgSendTime, TimeUtil.getConversationTimeString(data.getLastMessageTime()))
-                .setText(R.id.tv_conversation_lastMsg, SpanStringUtils.getEmojiContent(context, (TextView) holder.getView(R.id.tv_conversation_lastMsg), data.getLastMessageSummary()));
+                .setText(R.id.tv_conversation_lastMsg, SpanStringUtils.getEmojiContent(context, holder.getView(R.id.tv_conversation_lastMsg), data.getLastMessageSummary()));
     }
 
     @Override

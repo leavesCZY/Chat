@@ -136,8 +136,6 @@ public class FriendCache extends LiveData<Map<String, FriendProfile>> {
         friendEventLiveData.removeObserver(this::handleFriendEvent);
         refreshEventLiveData.removeObserver(this::handleRefreshEvent);
         friendMap.clear();
-        friendMap = null;
-        sInstance = null;
     }
 
 }
