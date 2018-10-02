@@ -10,7 +10,7 @@ import com.tencent.imsdk.ext.group.TIMGroupCacheInfo;
 import com.tencent.imsdk.ext.group.TIMGroupDetailInfo;
 
 import hello.leavesC.chat.R;
-import hello.leavesC.chat.view.MessageFactory;
+import hello.leavesC.chat.utils.MessageFactory;
 
 /**
  * 作者：叶应是叶

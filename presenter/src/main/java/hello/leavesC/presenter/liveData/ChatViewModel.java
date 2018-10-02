@@ -3,11 +3,13 @@ package hello.leavesC.presenter.liveData;
 import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.MediatorLiveData;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 import com.tencent.imsdk.TIMConversation;
 import com.tencent.imsdk.TIMConversationType;
 import com.tencent.imsdk.TIMManager;
 import com.tencent.imsdk.TIMMessage;
+import com.tencent.imsdk.TIMTextElem;
 import com.tencent.imsdk.TIMValueCallBack;
 import com.tencent.imsdk.ext.message.TIMConversationExt;
 import com.tencent.imsdk.ext.message.TIMMessageDraft;
@@ -148,18 +150,17 @@ public class ChatViewModel extends BaseViewModel {
 
     /**
      * 保存草稿
-     *
-     * @param message 消息数据
      */
-    public void saveDraft(TIMMessage message) {
+    public void saveDraft(String draft) {
         TIMConversationExt timConversationExt = new TIMConversationExt(conversation);
-        timConversationExt.setDraft(null);
-        if (message != null && message.getElementCount() > 0) {
-            TIMMessageDraft draft = new TIMMessageDraft();
-            for (int i = 0; i < message.getElementCount(); i++) {
-                draft.addElem(message.getElement(i));
-            }
-            timConversationExt.setDraft(draft);
+        if (TextUtils.isEmpty(draft)) {
+            timConversationExt.setDraft(null);
+        } else {
+            TIMTextElem textElem = new TIMTextElem();
+            textElem.setText(draft);
+            TIMMessageDraft messageDraft = new TIMMessageDraft();
+            messageDraft.addElem(textElem);
+            timConversationExt.setDraft(messageDraft);
         }
     }
 

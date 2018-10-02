@@ -52,16 +52,18 @@ public class ChatApplication extends Application {
         int pid = android.os.Process.myPid();
         String processName = "";
         ActivityManager manager = (ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningAppProcessInfo process : manager.getRunningAppProcesses()) {
-            if (process.pid == pid) {
-                processName = process.processName;
+        if (manager != null) {
+            for (ActivityManager.RunningAppProcessInfo process : manager.getRunningAppProcesses()) {
+                if (process.pid == pid) {
+                    processName = process.processName;
+                }
             }
         }
         return processName;
     }
 
     /**
-     * 包名判断是否为主进程
+     * 判断当前是否为主进程
      */
     public boolean isMainProcess() {
         return getApplicationContext().getPackageName().equals(getCurrentProcessName());

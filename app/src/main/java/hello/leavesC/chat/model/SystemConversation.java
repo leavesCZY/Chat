@@ -8,7 +8,7 @@ import com.tencent.imsdk.ext.message.TIMConversationExt;
 
 import java.util.List;
 
-import hello.leavesC.chat.view.MessageFactory;
+import hello.leavesC.chat.utils.MessageFactory;
 
 /**
  * 作者：叶应是叶

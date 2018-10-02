@@ -19,7 +19,6 @@ import android.widget.LinearLayout;
 
 import com.tencent.imsdk.TIMConversationType;
 import com.tencent.imsdk.TIMMessage;
-import com.tencent.imsdk.TIMTextElem;
 import com.tencent.imsdk.ext.message.TIMMessageDraft;
 
 import java.util.ArrayList;
@@ -34,7 +33,7 @@ import hello.leavesC.chat.model.BaseMessage;
 import hello.leavesC.chat.model.FriendProfile;
 import hello.leavesC.chat.model.GroupProfile;
 import hello.leavesC.chat.model.TextMessage;
-import hello.leavesC.chat.view.MessageFactory;
+import hello.leavesC.chat.utils.MessageFactory;
 import hello.leavesC.chat.view.base.BaseActivity;
 import hello.leavesC.chat.view.contacts.FriendProfileActivity;
 import hello.leavesC.chat.view.group.GroupMemberProfileActivity;
@@ -177,7 +176,7 @@ public class ChatActivity extends BaseActivity implements EmojiFragment.OnEmotic
         chatAdapter.setChatClickListener(new ChatAdapter.OnChatClickListener() {
             @Override
             public void onMyAvatarClick() {
-                if (conversationType == C2C) {
+                if (conversationType == TIMConversationType.C2C) {
 
                 } else if (conversationType == TIMConversationType.Group) {
                     GroupMemberProfileActivity.navigation(ChatActivity.this, peer, ChatApplication.identifier);
@@ -299,15 +298,7 @@ public class ChatActivity extends BaseActivity implements EmojiFragment.OnEmotic
     protected void onDestroy() {
         super.onDestroy();
         String draft = et_input.getText().toString().trim();
-        if (draft.length() != 0) {
-            TIMMessage timMessage = new TIMMessage();
-            TIMTextElem textElem = new TIMTextElem();
-            textElem.setText(draft);
-            timMessage.addElement(textElem);
-            chatViewModel.saveDraft(timMessage);
-        } else {
-            chatViewModel.saveDraft(null);
-        }
+        chatViewModel.saveDraft(draft);
     }
 
 }

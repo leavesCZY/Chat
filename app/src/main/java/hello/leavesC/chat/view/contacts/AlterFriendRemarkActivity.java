@@ -28,6 +28,12 @@ public class AlterFriendRemarkActivity extends BaseActivity {
 
     private String original;
 
+    public static void navigation(Context context, String identifier) {
+        Intent intent = new Intent(context, AlterFriendRemarkActivity.class);
+        intent.putExtra(IDENTIFIER, identifier);
+        context.startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,12 +98,6 @@ public class AlterFriendRemarkActivity extends BaseActivity {
                 }
             }
         });
-    }
-
-    public static void navigation(Context context, String identifier) {
-        Intent intent = new Intent(context, AlterFriendRemarkActivity.class);
-        intent.putExtra(IDENTIFIER, identifier);
-        context.startActivity(intent);
     }
 
 }

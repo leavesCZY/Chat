@@ -1,4 +1,4 @@
-package hello.leavesC.chat.view;
+package hello.leavesC.chat.utils;
 
 import com.tencent.imsdk.TIMMessage;
 

@@ -52,6 +52,17 @@ public class GroupCache extends LiveData<Map<String, List<GroupProfile>>> {
         refresh();
     }
 
+    public static GroupCache getInstance() {
+        if (sInstance == null) {
+            synchronized (GroupCache.class) {
+                if (sInstance == null) {
+                    sInstance = new GroupCache();
+                }
+            }
+        }
+        return sInstance;
+    }
+
     private void handleGroupEvent(GroupActionEvent groupActionEvent) {
         switch (groupActionEvent.getAction()) {
             case GroupActionEvent.ADD:
@@ -77,17 +88,6 @@ public class GroupCache extends LiveData<Map<String, List<GroupProfile>>> {
 
     private void handleRefreshEvent(RefreshActionEvent refreshActionEvent) {
         refresh();
-    }
-
-    public static GroupCache getInstance() {
-        if (sInstance == null) {
-            synchronized (GroupCache.class) {
-                if (sInstance == null) {
-                    sInstance = new GroupCache();
-                }
-            }
-        }
-        return sInstance;
     }
 
     /**
@@ -197,6 +197,7 @@ public class GroupCache extends LiveData<Map<String, List<GroupProfile>>> {
         groupEventLiveData.removeObserver(this::handleGroupEvent);
         refreshEventLiveData.removeObserver(this::handleRefreshEvent);
         groupMap.clear();
+        sInstance = null;
     }
 
 }

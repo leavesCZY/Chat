@@ -42,7 +42,7 @@ public class TlsService {
     /**
      * 获取最后登录用户的账号
      */
-    public String getLastUserIdentifier() {
+    private String getLastUserIdentifier() {
         TLSUserInfo userInfo = getLastUserInfo();
         if (userInfo != null) {
             return userInfo.identifier;

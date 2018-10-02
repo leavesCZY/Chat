@@ -10,7 +10,7 @@ import java.util.List;
 
 import hello.leavesC.chat.cache.FriendCache;
 import hello.leavesC.chat.cache.GroupCache;
-import hello.leavesC.chat.view.MessageFactory;
+import hello.leavesC.chat.utils.MessageFactory;
 
 /**
  * 作者：叶应是叶

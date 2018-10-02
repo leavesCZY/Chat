@@ -13,7 +13,7 @@ public class RecyclerViewUtil {
 
     public static int getRecyclerViewAdapterPosition(RecyclerView recyclerView, int position) {
         RecyclerView.Adapter adapter = recyclerView.getAdapter();
-        if (adapter != null && adapter instanceof WrapRecyclerViewAdapter) {
+        if (adapter instanceof WrapRecyclerViewAdapter) {
             return position - ((WrapRecyclerViewAdapter) adapter).getHeaderViewCount();
         }
         return position;

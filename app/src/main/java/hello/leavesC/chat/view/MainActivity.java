@@ -117,10 +117,6 @@ public class MainActivity extends BaseActivity {
         super.onDestroy();
         FriendCache.getInstance().clear();
         GroupCache.getInstance().clear();
-//        FriendEvent.getInstance().clean();
-//        GroupEvent.getInstance().clean();
-//        MessageEvent.getInstance().clean();
-//        RefreshEvent.getInstance().clean();
     }
 
     public void logout() {

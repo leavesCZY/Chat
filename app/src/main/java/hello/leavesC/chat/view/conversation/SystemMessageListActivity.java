@@ -19,7 +19,7 @@ import hello.leavesC.chat.R;
 import hello.leavesC.chat.adapter.SystemMessageAdapter;
 import hello.leavesC.chat.model.BaseMessage;
 import hello.leavesC.chat.utils.SystemMessageComparator;
-import hello.leavesC.chat.view.MessageFactory;
+import hello.leavesC.chat.utils.MessageFactory;
 import hello.leavesC.chat.view.base.BaseActivity;
 import hello.leavesC.common.recycler.common.CommonItemDecoration;
 import hello.leavesC.presenter.event.ChatActionEvent;

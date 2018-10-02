@@ -27,7 +27,7 @@ import hello.leavesC.chat.model.BaseConversation;
 import hello.leavesC.chat.model.ChatConversation;
 import hello.leavesC.chat.model.SystemConversation;
 import hello.leavesC.chat.utils.ConversationComparator;
-import hello.leavesC.chat.view.MessageFactory;
+import hello.leavesC.chat.utils.MessageFactory;
 import hello.leavesC.chat.view.base.BaseFragment;
 import hello.leavesC.chat.view.chat.ChatActivity;
 import hello.leavesC.common.dialog.ListPickerDialog;
