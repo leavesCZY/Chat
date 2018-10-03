@@ -12,7 +12,6 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -24,6 +23,8 @@ import com.tencent.imsdk.ext.message.TIMMessageDraft;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import hello.leavesC.chat.ChatApplication;
 import hello.leavesC.chat.R;
 import hello.leavesC.chat.adapter.ChatAdapter;
@@ -66,7 +67,8 @@ public class ChatActivity extends BaseActivity implements EmojiFragment.OnEmotic
 
     private static final String CONVERSATION_TYPE = "conversationType";
 
-    private EditText et_input;
+    @BindView(R.id.et_input)
+    EditText et_input;
 
     private ChatViewModel chatViewModel;
 
@@ -157,6 +159,7 @@ public class ChatActivity extends BaseActivity implements EmojiFragment.OnEmotic
     }
 
     private void initView() {
+        ButterKnife.bind(this);
         if (conversationType == TIMConversationType.C2C) {
             FriendProfile friendProfile = FriendCache.getInstance().getProfile(peer);
             setToolbarTitle(friendProfile == null ? peer : friendProfile.getName());
@@ -168,7 +171,6 @@ public class ChatActivity extends BaseActivity implements EmojiFragment.OnEmotic
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.ll_emoji, emojiFragment, "EmojiFragment");
         fragmentTransaction.commit();
-        et_input = findViewById(R.id.et_input);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         linearLayoutManager.setStackFromEnd(true);
         messageList = new ArrayList<>();
@@ -214,21 +216,18 @@ public class ChatActivity extends BaseActivity implements EmojiFragment.OnEmotic
                 Logger.e(TAG, "onHideEmojiPanel");
             }
         });
-        et_input.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                String content = et_input.getText().toString().trim();
-                if (!TextUtils.isEmpty(content)) {
-                    if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
-                        BaseMessage message = new TextMessage(content);
-                        chatViewModel.sendMessage(message.getMessage());
-                        et_input.setText("");
-                        linearLayoutManager.scrollToPosition(messageList.size() - 1);
-                        return true;
-                    }
+        et_input.setOnKeyListener((v, keyCode, event) -> {
+            String content = et_input.getText().toString().trim();
+            if (!TextUtils.isEmpty(content)) {
+                if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
+                    BaseMessage message = new TextMessage(content);
+                    chatViewModel.sendMessage(message.getMessage());
+                    et_input.setText("");
+                    linearLayoutManager.scrollToPosition(messageList.size() - 1);
+                    return true;
                 }
-                return false;
             }
+            return false;
         });
         rv_chat.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -297,8 +296,7 @@ public class ChatActivity extends BaseActivity implements EmojiFragment.OnEmotic
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        String draft = et_input.getText().toString().trim();
-        chatViewModel.saveDraft(draft);
+        chatViewModel.saveDraft(et_input.getText().toString().trim());
     }
 
 }

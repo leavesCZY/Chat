@@ -1,15 +1,13 @@
 package hello.leavesC.chat.view.group;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.TextView;
-
-import com.tencent.imsdk.ext.group.TIMGroupMemberResult;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,8 +21,8 @@ import hello.leavesC.chat.view.base.BaseActivity;
 import hello.leavesC.common.common.LetterIndexView;
 import hello.leavesC.common.recycler.common.CommonItemDecoration;
 import hello.leavesC.common.recycler.common.CommonRecyclerViewHolder;
-import hello.leavesC.presenter.listener.ValueCallBackListener;
-import hello.leavesC.presenter.manager.GroupManager;
+import hello.leavesC.presenter.event.GroupProfileActionEvent;
+import hello.leavesC.presenter.viewModel.GroupProfileViewModel;
 import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
 /**
@@ -41,6 +39,14 @@ public class InviteGroupMemberActivity extends BaseActivity {
     private List<String> peerList;
 
     private static final String GROUP_ID = "groupId";
+
+    private GroupProfileViewModel groupProfileViewModel;
+
+    public static void navigation(Context context, String groupId) {
+        Intent intent = new Intent(context, InviteGroupMemberActivity.class);
+        intent.putExtra(GROUP_ID, groupId);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,35 +80,23 @@ public class InviteGroupMemberActivity extends BaseActivity {
         LetterIndexView liv_inviteGroupMember_letters = findViewById(R.id.liv_inviteGroupMember_letters);
         TextView tv_inviteGroupMember_hint = findViewById(R.id.tv_inviteGroupMember_hint);
         liv_inviteGroupMember_letters.bindIndexView(tv_inviteGroupMember_hint, linearLayoutManager, new HashMap<String, Integer>());
-        setToolbarBtnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showLoadingDialog("正在邀请好友入群");
-                GroupManager.inviteGroup(groupId, peerList, new ValueCallBackListener<List<TIMGroupMemberResult>>() {
-                    @Override
-                    public void onSuccess(List<TIMGroupMemberResult> result) {
-                        if (!isFinishingOrDestroyed()) {
-                            dismissLoadingDialog();
-                            showToast("好友已入群");
-                            finish();
-                        }
-                    }
-
-                    @Override
-                    public void onError(int code, String desc) {
-                        if (!isFinishingOrDestroyed()) {
-                            dismissLoadingDialog();
-                            showToast("Error ：" + code + " " + desc);
-                        }
-                    }
-                });
-            }
-        });
+        setToolbarBtnClickListener(v -> groupProfileViewModel.inviteGroup(groupId, peerList));
     }
 
     @Override
     protected BaseViewModel initViewModel() {
-        return null;
+        groupProfileViewModel = ViewModelProviders.of(this).get(GroupProfileViewModel.class);
+        groupProfileViewModel.getActionEventLiveData().observe(this, this::handleAction);
+        return groupProfileViewModel;
+    }
+
+    private void handleAction(GroupProfileActionEvent groupProfileActionEvent) {
+        switch (groupProfileActionEvent.getAction()) {
+            case GroupProfileActionEvent.INVITE_GROUP_SUCCESS: {
+                finish();
+                break;
+            }
+        }
     }
 
     @Override
@@ -111,12 +105,6 @@ public class InviteGroupMemberActivity extends BaseActivity {
         for (FriendProfile friendProfile : friendProfileList) {
             friendProfile.setSelected(false);
         }
-    }
-
-    public static void navigation(Context context, String groupId) {
-        Intent intent = new Intent(context, InviteGroupMemberActivity.class);
-        intent.putExtra(GROUP_ID, groupId);
-        context.startActivity(intent);
     }
 
 }

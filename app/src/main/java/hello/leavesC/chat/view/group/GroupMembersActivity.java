@@ -1,5 +1,7 @@
 package hello.leavesC.chat.view.group;
 
+import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,11 +16,8 @@ import hello.leavesC.chat.R;
 import hello.leavesC.chat.adapter.GroupMembersAdapter;
 import hello.leavesC.chat.view.base.BaseActivity;
 import hello.leavesC.common.recycler.common.CommonItemDecoration;
-import hello.leavesC.common.recycler.common.CommonRecyclerViewHolder;
-import hello.leavesC.presenter.listener.ValueCallBackListener;
-import hello.leavesC.presenter.manager.GroupManager;
+import hello.leavesC.presenter.viewModel.GroupProfileViewModel;
 import hello.leavesC.presenter.model.GroupMemberInfo;
-import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
 /**
  * 作者：叶应是叶
@@ -33,56 +32,41 @@ public class GroupMembersActivity extends BaseActivity {
 
     private List<GroupMemberInfo> groupMemberInfoList;
 
-    private ValueCallBackListener<List<GroupMemberInfo>> callBackListener = new ValueCallBackListener<List<GroupMemberInfo>>() {
-        @Override
-        public void onSuccess(List<GroupMemberInfo> result) {
-            groupMemberInfoList.addAll(result);
-            groupMembersAdapter.setData(groupMemberInfoList);
-        }
+    private GroupProfileViewModel memberProfileViewModel;
 
-        @Override
-        public void onError(int code, String desc) {
-            showToast("获取群成员失败,Code：" + code + " " + desc);
-        }
-    };
+    public static void navigation(Context context, String groupId) {
+        Intent intent = new Intent(context, GroupMembersActivity.class);
+        intent.putExtra(GROUP_ID, groupId);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_members);
-        final String groupId = getIntent().getStringExtra(GROUP_ID);
+        String groupId = getIntent().getStringExtra(GROUP_ID);
         setToolbarTitle("群成员");
-        GroupManager.getGroupMembers(groupId, callBackListener);
         groupMemberInfoList = new ArrayList<>();
         groupMembersAdapter = new GroupMembersAdapter(this, groupMemberInfoList);
         RecyclerView rv_groupMembers = findViewById(R.id.rv_groupMembers);
         rv_groupMembers.addItemDecoration(new CommonItemDecoration(ContextCompat.getDrawable(getContext(), R.drawable.divider), LinearLayoutManager.VERTICAL));
         rv_groupMembers.setLayoutManager(new LinearLayoutManager(this));
         rv_groupMembers.setAdapter(groupMembersAdapter);
-        groupMembersAdapter.setClickListener(new CommonRecyclerViewHolder.OnClickListener() {
-            @Override
-            public void onClick(int position) {
-                GroupMemberProfileActivity.navigation(GroupMembersActivity.this, groupId, groupMemberInfoList.get(position).getIdentifier());
-            }
-        });
+        groupMembersAdapter.setClickListener(position -> GroupMemberProfileActivity.navigation(GroupMembersActivity.this, groupId, groupMemberInfoList.get(position).getIdentifier()));
+        memberProfileViewModel.getGroupMembers(groupId);
     }
 
-    @Override
-    protected BaseViewModel initViewModel() {
-        return null;
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    private void handleAction(List<GroupMemberInfo> result) {
         groupMemberInfoList.clear();
-        callBackListener = null;
+        groupMemberInfoList.addAll(result);
+        groupMembersAdapter.setData(groupMemberInfoList);
     }
 
-    public static void navigation(Context context, String groupId) {
-        Intent intent = new Intent(context, GroupMembersActivity.class);
-        intent.putExtra(GROUP_ID, groupId);
-        context.startActivity(intent);
+    @Override
+    protected ViewModel initViewModel() {
+        memberProfileViewModel = ViewModelProviders.of(this).get(GroupProfileViewModel.class);
+        memberProfileViewModel.getGroupMemberInfoListLiveData().observe(this, this::handleAction);
+        return memberProfileViewModel;
     }
 
 }

@@ -1,5 +1,6 @@
 package hello.leavesC.chat.view;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
@@ -7,14 +8,12 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.tencent.imsdk.TIMUserProfile;
-
 import hello.leavesC.chat.R;
 import hello.leavesC.chat.cache.FriendCache;
 import hello.leavesC.chat.view.base.BaseActivity;
 import hello.leavesC.chat.view.contacts.FriendProfileActivity;
-import hello.leavesC.presenter.presenter.ProfilePresenter;
-import hello.leavesC.presenter.view.ProfileView;
+import hello.leavesC.presenter.event.SearchUserActionEvent;
+import hello.leavesC.presenter.viewModel.SearchUserViewModel;
 import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
 /**
@@ -32,42 +31,42 @@ public class SearchUserActivity extends BaseActivity {
 
     private TextView tv_searchUser_noResult;
 
-    private ProfilePresenter profilePresenter;
-
     private final int REQUEST_CODE_SEARCH_RESULT = 1;
 
     private final int REQUEST_CODE_SHOW_PROFILE = 2;
 
     private static final String TAG = "SearchUserActivity";
 
-    private ProfileView profileView = new ProfileView() {
-        @Override
-        public void showProfile(TIMUserProfile userProfile) {
-            dismissLoadingDialog();
-            rl_searchUserHint.setVisibility(View.GONE);
-            tv_searchUser_noResult.setVisibility(View.GONE);
-            SearchUserResultActivity.navigation(SearchUserActivity.this, REQUEST_CODE_SEARCH_RESULT, userProfile);
-        }
-
-        @Override
-        public void getProfileFail(int code, String desc) {
-            dismissLoadingDialog();
-            rl_searchUserHint.setVisibility(View.GONE);
-            tv_searchUser_noResult.setVisibility(View.VISIBLE);
-        }
-    };
+    private SearchUserViewModel searchUserViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_user);
         initView();
-        profilePresenter = new ProfilePresenter(profileView);
     }
 
     @Override
     protected BaseViewModel initViewModel() {
-        return null;
+        searchUserViewModel = ViewModelProviders.of(this).get(SearchUserViewModel.class);
+        searchUserViewModel.getSearchUserLiveData().observe(this, this::handleAction);
+        return searchUserViewModel;
+    }
+
+    private void handleAction(SearchUserActionEvent searchUserActionEvent) {
+        switch (searchUserActionEvent.getAction()) {
+            case SearchUserActionEvent.SEARCH_USER_SUCCESS: {
+                rl_searchUserHint.setVisibility(View.GONE);
+                tv_searchUser_noResult.setVisibility(View.GONE);
+                SearchUserResultActivity.navigation(SearchUserActivity.this, REQUEST_CODE_SEARCH_RESULT, searchUserActionEvent.getUserProfile());
+                break;
+            }
+            case SearchUserActionEvent.SEARCH_USER_FAIL: {
+                rl_searchUserHint.setVisibility(View.GONE);
+                tv_searchUser_noResult.setVisibility(View.VISIBLE);
+                break;
+            }
+        }
     }
 
     private void initView() {
@@ -109,8 +108,7 @@ public class SearchUserActivity extends BaseActivity {
         if (FriendCache.getInstance().isFriend(identifier)) {
             FriendProfileActivity.navigation(this, identifier, REQUEST_CODE_SHOW_PROFILE);
         } else {
-            showLoadingDialog("正在搜索", false, false);
-            profilePresenter.searchUser(identifier);
+            searchUserViewModel.searchUser(identifier);
         }
     }
 

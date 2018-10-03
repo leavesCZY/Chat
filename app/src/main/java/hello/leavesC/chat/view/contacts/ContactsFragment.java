@@ -1,6 +1,7 @@
 package hello.leavesC.chat.view.contacts;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,7 +23,6 @@ import hello.leavesC.chat.view.base.BaseFragment;
 import hello.leavesC.chat.view.group.GroupListActivity;
 import hello.leavesC.common.common.LetterIndexView;
 import hello.leavesC.common.recycler.common.CommonItemDecoration;
-import hello.leavesC.common.recycler.common.CommonRecyclerViewHolder;
 import hello.leavesC.common.recycler.wrap.WrapRecyclerViewAdapter;
 import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
@@ -42,29 +42,18 @@ public class ContactsFragment extends BaseFragment {
     private static final String TAG = "ContactsFragment";
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_contacts, container, false);
-            friendProfileList = new ArrayList<>();
-            friendProfileList.addAll(FriendCache.getInstance().getFriendProfileList());
+            friendProfileList = new ArrayList<>(FriendCache.getInstance().getFriendProfileList());
             friendWrapAdapter = new FriendAdapter(getContext(), friendProfileList);
-            friendWrapAdapter.setClickListener(new CommonRecyclerViewHolder.OnClickListener() {
-                @Override
-                public void onClick(int position) {
-                    FriendProfileActivity.navigation(getContext(), friendProfileList.get(position - 1).getIdentifier());
-                }
-            });
+            friendWrapAdapter.setClickListener(position -> FriendProfileActivity.navigation(getContext(), friendProfileList.get(position - 1).getIdentifier()));
             RecyclerView rv_friendList = view.findViewById(R.id.rv_friendList);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
             rv_friendList.setLayoutManager(linearLayoutManager);
             WrapRecyclerViewAdapter wrapRecyclerViewAdapter = new WrapRecyclerViewAdapter(friendWrapAdapter);
             View headerView = LayoutInflater.from(getContext()).inflate(R.layout.header_view_group, rv_friendList, false);
-            headerView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(GroupListActivity.class);
-                }
-            });
+            headerView.setOnClickListener(v -> startActivity(GroupListActivity.class));
             wrapRecyclerViewAdapter.addHeaderView(headerView);
             rv_friendList.setAdapter(wrapRecyclerViewAdapter);
             CommonItemDecoration itemDecoration = new CommonItemDecoration(ContextCompat.getDrawable(getContext(), R.drawable.divider), LinearLayoutManager.VERTICAL);

@@ -1,5 +1,6 @@
 package hello.leavesC.chat.view.contacts;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,8 +12,8 @@ import android.widget.EditText;
 import hello.leavesC.chat.R;
 import hello.leavesC.chat.cache.FriendCache;
 import hello.leavesC.chat.view.base.BaseActivity;
-import hello.leavesC.presenter.listener.CallBackListener;
-import hello.leavesC.presenter.manager.FriendManager;
+import hello.leavesC.presenter.event.ModifyFriendProfileActionEvent;
+import hello.leavesC.presenter.viewModel.ModifyFriendProfileViewModel;
 import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
 /**
@@ -27,6 +28,8 @@ public class AlterFriendRemarkActivity extends BaseActivity {
     private String identifier;
 
     private String original;
+
+    private ModifyFriendProfileViewModel profileViewModel;
 
     public static void navigation(Context context, String identifier) {
         Intent intent = new Intent(context, AlterFriendRemarkActivity.class);
@@ -45,36 +48,28 @@ public class AlterFriendRemarkActivity extends BaseActivity {
 
     @Override
     protected BaseViewModel initViewModel() {
-        return null;
+        profileViewModel = ViewModelProviders.of(this).get(ModifyFriendProfileViewModel.class);
+        profileViewModel.getModifyLiveData().observe(this, this::handleModifyEvent);
+        return profileViewModel;
+    }
+
+    private void handleModifyEvent(ModifyFriendProfileActionEvent modifyFriendProfileActionEvent) {
+        switch (modifyFriendProfileActionEvent.getAction()) {
+            case ModifyFriendProfileActionEvent.MODIFY_SUCCESS: {
+                finish();
+                break;
+            }
+        }
     }
 
     private void initView() {
         setToolbarTitle("设置备注");
-        final EditText et_alterFriendRemark = findViewById(R.id.et_alterFriendRemark);
+        EditText et_alterFriendRemark = findViewById(R.id.et_alterFriendRemark);
         setToolbarBtnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showLoadingDialog("正在修改备注", false, false);
                 String remark = et_alterFriendRemark.getText().toString().trim();
-                FriendManager.setFriendRemark(identifier, remark, new CallBackListener() {
-                    @Override
-                    public void onError(int code, String desc) {
-                        if (isFinishing() || isDestroyed()) {
-                            return;
-                        }
-                        showMessageDialog("修改备注失败", "code:" + code + " desc:" + desc, null);
-                    }
-
-                    @Override
-                    public void onSuccess() {
-                        if (isFinishing() || isDestroyed()) {
-                            return;
-                        }
-                        dismissLoadingDialog();
-                        showToast("备注修改成功");
-                        finish();
-                    }
-                });
+                profileViewModel.modifyFriendRemark(identifier, remark);
             }
         });
         et_alterFriendRemark.setText(original);

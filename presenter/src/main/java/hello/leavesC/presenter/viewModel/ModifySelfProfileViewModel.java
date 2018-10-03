@@ -41,18 +41,25 @@ public class ModifySelfProfileViewModel extends BaseViewModel {
     };
 
     public void setNickname(@NonNull String nickname) {
-        showLoadingDialog("正在修改");
         modifyProfile(nickname, null, null, null, callBack);
     }
 
     public void setSignature(@NonNull String signature) {
-        showLoadingDialog("正在修改");
         modifyProfile(null, null, signature, null, callBack);
+    }
+
+    public void setGender(@NonNull TIMFriendGenderType genderType) {
+        modifyProfile(null, genderType, null, null, callBack);
+    }
+
+    public void setAllowType(@NonNull TIMFriendAllowType allowType) {
+        modifyProfile(null, null, null, allowType, callBack);
     }
 
     private void modifyProfile(String nickname, TIMFriendGenderType genderType,
                                String signature, TIMFriendAllowType allowType,
-                               @Nullable final TIMCallBack callBack) {
+                               TIMCallBack callBack) {
+        showLoadingDialog("正在修改");
         TIMFriendshipManager.ModifyUserProfileParam param = new TIMFriendshipManager.ModifyUserProfileParam();
         if (nickname != null) {
             param.setNickname(nickname);

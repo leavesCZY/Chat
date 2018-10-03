@@ -14,6 +14,9 @@ import android.view.ViewGroup;
 
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -23,8 +26,8 @@ import hello.leavesC.chat.view.base.BaseFragment;
 import hello.leavesC.common.common.OptionView;
 import hello.leavesC.presenter.TransformUtil;
 import hello.leavesC.presenter.event.SelfProfileActionEvent;
-import hello.leavesC.presenter.manager.SelfProfileManager;
 import hello.leavesC.presenter.model.ProfileModel;
+import hello.leavesC.presenter.viewModel.ModifySelfProfileViewModel;
 import hello.leavesC.presenter.viewModel.SelfProfileViewModel;
 
 /**
@@ -53,6 +56,8 @@ public class MeFragment extends BaseFragment {
 
     private SelfProfileViewModel selfProfileViewModel;
 
+    private ModifySelfProfileViewModel modifySelfProfileViewModel;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view == null) {
@@ -70,10 +75,21 @@ public class MeFragment extends BaseFragment {
 
     @Override
     protected ViewModel initViewModel() {
+        return null;
+    }
+
+    @Override
+    protected List<ViewModel> initViewModelList() {
         selfProfileViewModel = ViewModelProviders.of(this).get(SelfProfileViewModel.class);
         selfProfileViewModel.getProfileModelLiveData().observe(this, this::handleSelfProfile);
         selfProfileViewModel.getEventLiveData().observe(this, this::handleEvent);
-        return selfProfileViewModel;
+
+        modifySelfProfileViewModel = ViewModelProviders.of(this).get(ModifySelfProfileViewModel.class);
+
+        List<ViewModel> viewModelList = new ArrayList<>();
+        viewModelList.add(selfProfileViewModel);
+        viewModelList.add(modifySelfProfileViewModel);
+        return viewModelList;
     }
 
     private void handleEvent(SelfProfileActionEvent selfProfileActionEvent) {
@@ -163,7 +179,7 @@ public class MeFragment extends BaseFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         ov_gender.setContent(items[which]);
-                        SelfProfileManager.setGender(TransformUtil.parseGender(items[which]), null);
+                        modifySelfProfileViewModel.setGender(TransformUtil.parseGender(items[which]));
                         dialog.dismiss();
                     }
                 })
@@ -179,7 +195,7 @@ public class MeFragment extends BaseFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         ov_allowType.setContent(items[which]);
-                        SelfProfileManager.setAllowType(TransformUtil.parseAllowType(items[which]), null);
+                        modifySelfProfileViewModel.setAllowType(TransformUtil.parseAllowType(items[which]));
                         dialog.dismiss();
                     }
                 })

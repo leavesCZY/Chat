@@ -32,7 +32,6 @@ import hello.leavesC.chat.view.base.BaseFragment;
 import hello.leavesC.chat.view.chat.ChatActivity;
 import hello.leavesC.common.dialog.ListPickerDialog;
 import hello.leavesC.common.recycler.common.CommonItemDecoration;
-import hello.leavesC.common.recycler.common.CommonRecyclerViewHolder;
 import hello.leavesC.presenter.event.ConversationActionEvent;
 import hello.leavesC.presenter.liveData.ConversationViewModel;
 import hello.leavesC.presenter.model.ConversationModel;
@@ -63,34 +62,28 @@ public class ConversationFragment extends BaseFragment {
             view = inflater.inflate(R.layout.fragment_conversation, container, false);
             conversationList = new ArrayList<>();
             conversationAdapter = new ConversationAdapter(getContext(), conversationList);
-            conversationAdapter.setClickListener(new CommonRecyclerViewHolder.OnClickListener() {
-                @Override
-                public void onClick(int position) {
-                    switch (conversationList.get(position).getConversationType()) {
-                        case C2C:
-                        case Group:
-                            ChatActivity.navigation(getContext(), conversationList.get(position).getPeer(), conversationList.get(position).getConversationType());
-                            break;
-                        case System:
-                            SystemMessageListActivity.navigation(getContext(), conversationList.get(position).getPeer());
-                            break;
-                    }
+            conversationAdapter.setClickListener(position -> {
+                switch (conversationList.get(position).getConversationType()) {
+                    case C2C:
+                    case Group:
+                        ChatActivity.navigation(getContext(), conversationList.get(position).getPeer(), conversationList.get(position).getConversationType());
+                        break;
+                    case System:
+                        SystemMessageListActivity.navigation(getContext(), conversationList.get(position).getPeer());
+                        break;
                 }
             });
-            conversationAdapter.setLongClickListener(new CommonRecyclerViewHolder.OnLongClickListener() {
-                @Override
-                public void onLongClick(int position) {
-                    String[] options = {"删除会话"};
-                    ListPickerDialog dialog = new ListPickerDialog();
-                    final TIMConversationType conversationType = conversationList.get(position).getConversationType();
-                    final String peer = conversationList.get(position).getPeer();
-                    dialog.show(options, getFragmentManager(), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            conversationViewModel.deleteConversation(peer, conversationType);
-                        }
-                    });
-                }
+            conversationAdapter.setLongClickListener(position -> {
+                String[] options = {"删除会话"};
+                ListPickerDialog dialog = new ListPickerDialog();
+                final TIMConversationType conversationType = conversationList.get(position).getConversationType();
+                final String peer = conversationList.get(position).getPeer();
+                dialog.show(options, getFragmentManager(), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        conversationViewModel.deleteConversation(peer, conversationType);
+                    }
+                });
             });
             RecyclerView rv_conversationList = view.findViewById(R.id.rv_conversationList);
             linearLayoutManager = new LinearLayoutManager(getContext());

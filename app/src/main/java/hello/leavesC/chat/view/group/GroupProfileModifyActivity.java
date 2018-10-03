@@ -1,5 +1,6 @@
 package hello.leavesC.chat.view.group;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,8 +13,8 @@ import hello.leavesC.chat.R;
 import hello.leavesC.chat.cache.GroupCache;
 import hello.leavesC.chat.model.GroupProfile;
 import hello.leavesC.chat.view.base.BaseActivity;
-import hello.leavesC.presenter.listener.CallBackListener;
-import hello.leavesC.presenter.manager.GroupProfileManager;
+import hello.leavesC.presenter.viewModel.GroupProfileViewModel;
+import hello.leavesC.presenter.event.GroupProfileActionEvent;
 import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
 /**
@@ -40,6 +41,15 @@ public class GroupProfileModifyActivity extends BaseActivity {
     private EditText et_groupProfileAlter;
 
     private String origin;
+
+    private GroupProfileViewModel groupProfileViewModel;
+
+    public static void navigation(Context context, String groupId, int code) {
+        Intent intent = new Intent(context, GroupProfileModifyActivity.class);
+        intent.putExtra(KEY_GROUP_ID, groupId);
+        intent.putExtra(KEY_CODE, code);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,37 +109,18 @@ public class GroupProfileModifyActivity extends BaseActivity {
         setToolbarBtnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showLoadingDialog("正在修改");
                 String result = et_groupProfileAlter.getText().toString().trim();
-                CallBackListener callBackListener = new CallBackListener() {
-                    @Override
-                    public void onSuccess() {
-                        if (!isDestroyed() && !isFinishing()) {
-                            dismissLoadingDialog();
-                            showToast("修改成功");
-                            finish();
-                        }
-                    }
-
-                    @Override
-                    public void onError(int code, String desc) {
-                        if (!isDestroyed() && !isFinishing()) {
-                            dismissLoadingDialog();
-                            showToast("修改失败，" + desc + " code:" + code);
-                        }
-                    }
-                };
                 switch (code) {
                     case ALTER_GROUP_NAME: {
-                        GroupProfileManager.modifyGroupName(groupId, result, callBackListener);
+                        groupProfileViewModel.modifyGroupName(groupId, result);
                         break;
                     }
                     case ALTER_GROUP_INTRODUCTION: {
-                        GroupProfileManager.modifyGroupIntroduction(groupId, result, callBackListener);
+                        groupProfileViewModel.modifyGroupIntroduction(groupId, result);
                         break;
                     }
                     case ALTER_GROUP_NOTIFICATION: {
-                        GroupProfileManager.modifyGroupNotification(groupId, result, callBackListener);
+                        groupProfileViewModel.modifyGroupNotification(groupId, result);
                         break;
                     }
                 }
@@ -139,14 +130,18 @@ public class GroupProfileModifyActivity extends BaseActivity {
 
     @Override
     protected BaseViewModel initViewModel() {
-        return null;
+        groupProfileViewModel = ViewModelProviders.of(this).get(GroupProfileViewModel.class);
+        groupProfileViewModel.getActionEventLiveData().observe(this, this::handleAction);
+        return groupProfileViewModel;
     }
 
-    public static void navigation(Context context, String groupId, int code) {
-        Intent intent = new Intent(context, GroupProfileModifyActivity.class);
-        intent.putExtra(KEY_GROUP_ID, groupId);
-        intent.putExtra(KEY_CODE, code);
-        context.startActivity(intent);
+    private void handleAction(GroupProfileActionEvent groupProfileActionEvent) {
+        switch (groupProfileActionEvent.getAction()) {
+            case GroupProfileActionEvent.MODIFY_PROFILE_SUCCESS: {
+                finish();
+                break;
+            }
+        }
     }
 
 }

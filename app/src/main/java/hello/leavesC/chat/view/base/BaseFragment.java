@@ -8,6 +8,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import hello.leavesC.common.dialog.LoadingDialog;
 import hello.leavesC.common.dialog.MessageDialog;
 import hello.leavesC.presenter.event.base.BaseActionEvent;
@@ -39,28 +42,47 @@ public abstract class BaseFragment extends Fragment {
 
     protected abstract ViewModel initViewModel();
 
+    protected List<ViewModel> initViewModelList() {
+        return null;
+    }
+
     private void initViewModelEvent() {
-        ViewModel viewModel = initViewModel();
-        if (viewModel instanceof IViewModelAction) {
-            IViewModelAction viewModelAction = (IViewModelAction) viewModel;
-            viewModelAction.getActionLiveData().observe(this, baseActionEvent -> {
-                if (baseActionEvent != null) {
-                    switch (baseActionEvent.getAction()) {
-                        case BaseActionEvent.SHOW_LOADING_DIALOG: {
-                            showLoadingDialog(baseActionEvent.getMessage());
-                            break;
-                        }
-                        case BaseActionEvent.DISMISS_LOADING_DIALOG: {
-                            dismissLoadingDialog();
-                            break;
-                        }
-                        case BaseActionEvent.SHOW_TOAST: {
-                            showToast(baseActionEvent.getMessage());
-                            break;
+        List<ViewModel> viewModelList = initViewModelList();
+        if (viewModelList != null && viewModelList.size() > 0) {
+            observeEvent(viewModelList);
+        } else {
+            ViewModel viewModel = initViewModel();
+            if (viewModel != null) {
+                List<ViewModel> modelList = new ArrayList<>();
+                modelList.add(viewModel);
+                observeEvent(modelList);
+            }
+        }
+    }
+
+    private void observeEvent(List<ViewModel> viewModelList) {
+        for (ViewModel viewModel : viewModelList) {
+            if (viewModel instanceof IViewModelAction) {
+                IViewModelAction viewModelAction = (IViewModelAction) viewModel;
+                viewModelAction.getActionLiveData().observe(this, baseActionEvent -> {
+                    if (baseActionEvent != null) {
+                        switch (baseActionEvent.getAction()) {
+                            case BaseActionEvent.SHOW_LOADING_DIALOG: {
+                                showLoadingDialog(baseActionEvent.getMessage());
+                                break;
+                            }
+                            case BaseActionEvent.DISMISS_LOADING_DIALOG: {
+                                dismissLoadingDialog();
+                                break;
+                            }
+                            case BaseActionEvent.SHOW_TOAST: {
+                                showToast(baseActionEvent.getMessage());
+                                break;
+                            }
                         }
                     }
-                }
-            });
+                });
+            }
         }
     }
 

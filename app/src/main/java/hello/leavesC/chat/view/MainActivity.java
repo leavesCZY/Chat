@@ -20,8 +20,9 @@ import hello.leavesC.chat.view.conversation.ConversationFragment;
 import hello.leavesC.chat.view.group.SelectFriendToCreateGroupActivity;
 import hello.leavesC.chat.view.me.MeFragment;
 import hello.leavesC.chat.view.open.OpenActivity;
-import hello.leavesC.presenter.tls.TlsService;
 import hello.leavesC.presenter.viewModel.base.BaseViewModel;
+import hello.leavesC.sdk.Constants;
+import tencent.tls.platform.TLSLoginHelper;
 
 /**
  * 作者：叶应是叶
@@ -120,7 +121,8 @@ public class MainActivity extends BaseActivity {
     }
 
     public void logout() {
-        TlsService.getInstance(this).clearUserInfo();
+        TLSLoginHelper loginHelper = TLSLoginHelper.getInstance().init(getApplicationContext(), Constants.SDK_APP_ID, Constants.ACCOUNT_TYPE, Constants.APP_VERSION);
+        loginHelper.clearUserInfo(loginHelper.getLastUserInfo().identifier);
         startActivity(OpenActivity.class);
         setResult(RESULT_OK);
         finish();

@@ -1,8 +1,8 @@
 package hello.leavesC.chat.view.contacts;
 
 import android.app.Activity;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -13,20 +13,23 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.tencent.imsdk.TIMConversationType;
 import com.tencent.imsdk.TIMFriendGenderType;
-import com.tencent.imsdk.ext.sns.TIMFriendResult;
 
 import java.util.Map;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import hello.leavesC.chat.R;
 import hello.leavesC.chat.cache.FriendCache;
 import hello.leavesC.chat.model.FriendProfile;
 import hello.leavesC.chat.view.base.BaseActivity;
 import hello.leavesC.chat.view.chat.ChatActivity;
 import hello.leavesC.common.common.OptionView;
-import hello.leavesC.presenter.listener.ValueCallBackListener;
-import hello.leavesC.presenter.manager.FriendManager;
+import hello.leavesC.presenter.event.ModifyFriendProfileActionEvent;
+import hello.leavesC.presenter.viewModel.ModifyFriendProfileViewModel;
 import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
 /**
@@ -40,19 +43,28 @@ public class FriendProfileActivity extends BaseActivity {
 
     private String identifier;
 
-    private TextView tv_friendProfile_name;
+    @BindView(R.id.tv_friendProfile_name)
+    TextView tv_friendProfile_name;
 
-    private ImageView iv_friendProfile_gender;
+    @BindView(R.id.iv_friendProfile_gender)
+    ImageView iv_friendProfile_gender;
 
-    private OptionView ov_friendProfile_identifier;
+    @BindView(R.id.ov_friendProfile_identifier)
+    OptionView ov_friendProfile_identifier;
 
-    private OptionView ov_friendProfile_nickname;
+    @BindView(R.id.ov_friendProfile_nickname)
+    OptionView ov_friendProfile_nickname;
 
-    private OptionView ov_friendProfile_signature;
+    @BindView(R.id.ov_friendProfile_signature)
+    OptionView ov_friendProfile_signature;
 
-    private Button btn_friendProfile_startChat;
+    @BindView(R.id.btn_friendProfile_startChat)
+    Button btn_friendProfile_startChat;
 
-    private Button btn_friendProfile_deleteFriend;
+    @BindView(R.id.btn_friendProfile_deleteFriend)
+    Button btn_friendProfile_deleteFriend;
+
+    private ModifyFriendProfileViewModel profileViewModel;
 
     private View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
@@ -65,31 +77,35 @@ public class FriendProfileActivity extends BaseActivity {
                     break;
                 }
                 case R.id.btn_friendProfile_deleteFriend: {
-                    showMessageDialog(null, "确认删除好友？", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            showLoadingDialog("正在删除", false, false);
-                            FriendManager.deleteFriend(identifier, new ValueCallBackListener<TIMFriendResult>() {
+                    new QMUIDialog.MessageDialogBuilder(FriendProfileActivity.this)
+                            .setTitle(null)
+                            .setMessage("确认删除好友？")
+                            .addAction("取消", (dialog, index) -> dialog.dismiss())
+                            .addAction(0, "删除", QMUIDialogAction.ACTION_PROP_NEGATIVE, new QMUIDialogAction.ActionListener() {
                                 @Override
-                                public void onSuccess(TIMFriendResult result) {
-                                    dismissLoadingDialog();
-                                    showToast("已删除好友");
-                                    finish();
+                                public void onClick(QMUIDialog dialog, int index) {
+                                    profileViewModel.deleteFriend(identifier);
+                                    dialog.dismiss();
                                 }
-
-                                @Override
-                                public void onError(int code, String desc) {
-                                    dismissLoadingDialog();
-                                    showMessageDialog(null, "code" + code + "desc:" + desc, null);
-                                }
-                            });
-                        }
-                    });
+                            })
+                            .create().show();
                     break;
                 }
             }
         }
     };
+
+    public static void navigation(Activity activity, String identifier, int requestCode) {
+        Intent intent = new Intent(activity, FriendProfileActivity.class);
+        intent.putExtra(IDENTIFIER, identifier);
+        activity.startActivityForResult(intent, requestCode);
+    }
+
+    public static void navigation(Context context, String identifier) {
+        Intent intent = new Intent(context, FriendProfileActivity.class);
+        intent.putExtra(IDENTIFIER, identifier);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,18 +126,23 @@ public class FriendProfileActivity extends BaseActivity {
 
     @Override
     protected BaseViewModel initViewModel() {
-        return null;
+        profileViewModel = ViewModelProviders.of(this).get(ModifyFriendProfileViewModel.class);
+        profileViewModel.getModifyLiveData().observe(this, this::handleModifyEvent);
+        return profileViewModel;
+    }
+
+    private void handleModifyEvent(ModifyFriendProfileActionEvent modifyFriendProfileActionEvent) {
+        switch (modifyFriendProfileActionEvent.getAction()) {
+            case ModifyFriendProfileActionEvent.DELETE_SUCCESS: {
+                finish();
+                break;
+            }
+        }
     }
 
     private void initView() {
+        ButterKnife.bind(this);
         setToolbarTitle("个人名片");
-        tv_friendProfile_name = findViewById(R.id.tv_friendProfile_name);
-        iv_friendProfile_gender = findViewById(R.id.iv_friendProfile_gender);
-        ov_friendProfile_identifier = findViewById(R.id.ov_friendProfile_identifier);
-        ov_friendProfile_nickname = findViewById(R.id.ov_friendProfile_nickname);
-        ov_friendProfile_signature = findViewById(R.id.ov_friendProfile_signature);
-        btn_friendProfile_startChat = findViewById(R.id.btn_friendProfile_startChat);
-        btn_friendProfile_deleteFriend = findViewById(R.id.btn_friendProfile_deleteFriend);
     }
 
     private void getProfile() {
@@ -153,18 +174,6 @@ public class FriendProfileActivity extends BaseActivity {
             AlterFriendRemarkActivity.navigation(this, identifier);
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    public static void navigation(Context context, String identifier) {
-        Intent intent = new Intent(context, FriendProfileActivity.class);
-        intent.putExtra(IDENTIFIER, identifier);
-        context.startActivity(intent);
-    }
-
-    public static void navigation(Activity activity, String identifier, int requestCode) {
-        Intent intent = new Intent(activity, FriendProfileActivity.class);
-        intent.putExtra(IDENTIFIER, identifier);
-        activity.startActivityForResult(intent, requestCode);
     }
 
 }

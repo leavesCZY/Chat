@@ -1,29 +1,30 @@
 package hello.leavesC.chat.view.group;
 
 import android.app.Activity;
-import android.content.DialogInterface;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import java.util.Observable;
-import java.util.Observer;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
+
+import java.util.List;
+import java.util.Map;
 
 import hello.leavesC.chat.ChatApplication;
 import hello.leavesC.chat.R;
 import hello.leavesC.chat.cache.FriendCache;
 import hello.leavesC.chat.cache.GroupCache;
 import hello.leavesC.chat.model.GroupProfile;
-import hello.leavesC.chat.presenter.GroupProfilePresenter;
 import hello.leavesC.chat.utils.TimeUtil;
-import hello.leavesC.presenter.TransformUtil;
 import hello.leavesC.chat.view.base.BaseActivity;
 import hello.leavesC.common.common.CircleImageView;
 import hello.leavesC.common.common.OptionView;
-import hello.leavesC.presenter.listener.CallBackListener;
-import hello.leavesC.presenter.manager.GroupManager;
-import hello.leavesC.presenter.manager.GroupProfileManager;
+import hello.leavesC.presenter.viewModel.GroupProfileViewModel;
+import hello.leavesC.presenter.TransformUtil;
+import hello.leavesC.presenter.event.GroupProfileActionEvent;
 import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
 /**
@@ -31,7 +32,7 @@ import hello.leavesC.presenter.viewModel.base.BaseViewModel;
  * 时间：2018/1/13 22:37
  * 说明：群组资料界面
  */
-public class GroupProfileActivity extends BaseActivity implements Observer {
+public class GroupProfileActivity extends BaseActivity {
 
     private static final String TAG = "GroupProfileActivity";
 
@@ -39,7 +40,13 @@ public class GroupProfileActivity extends BaseActivity implements Observer {
 
     private String groupId;
 
-    private GroupProfilePresenter groupProfilePresenter;
+    private GroupProfileViewModel groupProfileViewModel;
+
+    public static void navigation(Activity activity, String identifier, int requestCode) {
+        Intent intent = new Intent(activity, GroupProfileActivity.class);
+        intent.putExtra(GROUP_ID, identifier);
+        activity.startActivityForResult(intent, requestCode);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,16 +54,30 @@ public class GroupProfileActivity extends BaseActivity implements Observer {
         setContentView(R.layout.activity_group_profile);
         groupId = getIntent().getStringExtra(GROUP_ID);
         GroupProfile groupProfile = GroupCache.getInstance().getGroupProfile(groupId);
-        if (groupProfile != null) {
-            initView(groupProfile);
-            groupProfilePresenter = new GroupProfilePresenter(groupId);
-            groupProfilePresenter.addObserver(this);
-        }
+        initView(groupProfile);
+        GroupCache.getInstance().observe(this, this::handle);
+    }
+
+    private void handle(Map<String, List<GroupProfile>> stringListMap) {
+        GroupProfile groupProfile = GroupCache.getInstance().getGroupProfile(groupId);
+        initView(groupProfile);
     }
 
     @Override
     protected BaseViewModel initViewModel() {
-        return null;
+        groupProfileViewModel = ViewModelProviders.of(this).get(GroupProfileViewModel.class);
+        groupProfileViewModel.getActionEventLiveData().observe(this, this::handleAction);
+        return groupProfileViewModel;
+    }
+
+    private void handleAction(GroupProfileActionEvent groupProfileActionEvent) {
+        switch (groupProfileActionEvent.getAction()) {
+            case GroupProfileActionEvent.QUIT_GROUP_SUCCESS: {
+                setResult(RESULT_OK);
+                finish();
+                break;
+            }
+        }
     }
 
     private void initView(final GroupProfile groupProfile) {
@@ -103,30 +124,18 @@ public class GroupProfileActivity extends BaseActivity implements Observer {
                         break;
                     }
                     case R.id.btn_groupProfile_quitGroup: {
-                        showMessageDialog(null, "确认退出群组吗？", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                if (which == DialogInterface.BUTTON_POSITIVE) {
-                                    GroupManager.quitGroup(groupId, new CallBackListener() {
-                                        @Override
-                                        public void onSuccess() {
-                                            if (!isFinishing() && !isDestroyed()) {
-                                                showToast("已退出群组");
-                                                setResult(RESULT_OK);
-                                                finish();
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onError(int code, String desc) {
-                                            if (!isFinishing() && !isDestroyed()) {
-                                                showToast("群出群组出错，" + code + " " + desc);
-                                            }
-                                        }
-                                    });
-                                }
-                            }
-                        });
+                        new QMUIDialog.MessageDialogBuilder(GroupProfileActivity.this)
+                                .setTitle(null)
+                                .setMessage("确认退出群组吗？")
+                                .addAction("取消", (dialog, index) -> dialog.dismiss())
+                                .addAction(0, "删除", QMUIDialogAction.ACTION_PROP_NEGATIVE, new QMUIDialogAction.ActionListener() {
+                                    @Override
+                                    public void onClick(QMUIDialog dialog, int index) {
+                                        dialog.dismiss();
+                                        groupProfileViewModel.quitGroup(groupId);
+                                    }
+                                })
+                                .create().show();
                         break;
                     }
                 }
@@ -142,35 +151,10 @@ public class GroupProfileActivity extends BaseActivity implements Observer {
             @Override
             public void onClick(int id, int which, String content) {
                 ov_groupProfile_receiveMessageOpt.setContent(content);
-                GroupProfileManager.modifyGroupReceiveMessageOpt(groupId, ChatApplication.identifier,
-                        TransformUtil.parseGroupReceiveMessageOpt(content), null);
+                groupProfileViewModel.modifyGroupReceiveMessageOpt(groupId, ChatApplication.identifier,
+                        TransformUtil.parseGroupReceiveMessageOpt(content));
             }
         });
-    }
-
-    public static void navigation(Activity activity, String identifier, int requestCode) {
-        Intent intent = new Intent(activity, GroupProfileActivity.class);
-        intent.putExtra(GROUP_ID, identifier);
-        activity.startActivityForResult(intent, requestCode);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (groupProfilePresenter != null) {
-            groupProfilePresenter.deleteObserver(this);
-            groupProfilePresenter.clean();
-            groupProfilePresenter = null;
-        }
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        if (o instanceof GroupProfilePresenter) {
-            if (arg instanceof GroupProfile) {
-                initView((GroupProfile) arg);
-            }
-        }
     }
 
 }
