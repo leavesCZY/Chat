@@ -23,6 +23,7 @@
         android:layout_centerVertical="true"
         android:background="@drawable/pressed_background"
         android:clickable="true"
+        android:focusable="true"
         android:visibility="gone">
 
         <ImageView

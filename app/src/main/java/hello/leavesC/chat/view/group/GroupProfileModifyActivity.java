@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
@@ -66,16 +67,19 @@ public class GroupProfileModifyActivity extends BaseActivity {
         switch (code) {
             case ALTER_GROUP_NAME: {
                 setToolbarTitle("修改群名");
+                et_groupProfileAlter.setMaxLines(8);
                 origin = groupProfile.getName();
                 break;
             }
             case ALTER_GROUP_INTRODUCTION: {
                 setToolbarTitle("修改群简介");
+                et_groupProfileAlter.setMaxLines(30);
                 origin = groupProfile.getIntroduction();
                 break;
             }
             case ALTER_GROUP_NOTIFICATION: {
                 setToolbarTitle("修改群公告");
+                et_groupProfileAlter.setMaxLines(30);
                 origin = groupProfile.getNotification();
                 break;
             }
@@ -85,6 +89,7 @@ public class GroupProfileModifyActivity extends BaseActivity {
             }
         }
         et_groupProfileAlter.setText(origin);
+        et_groupProfileAlter.setSelection(et_groupProfileAlter.getText().length());
         et_groupProfileAlter.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -98,7 +103,7 @@ public class GroupProfileModifyActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.toString().equals(origin)) {
+                if (s.toString().trim().equals(origin)) {
                     getToolbarBtn().setEnabled(false);
                 } else {
                     getToolbarBtn().setEnabled(true);
@@ -111,6 +116,10 @@ public class GroupProfileModifyActivity extends BaseActivity {
                 String result = et_groupProfileAlter.getText().toString().trim();
                 switch (code) {
                     case ALTER_GROUP_NAME: {
+                        if (TextUtils.isEmpty(result)) {
+                            showToast("群名不能为空");
+                            return;
+                        }
                         groupProfileViewModel.modifyGroupName(groupId, result);
                         break;
                     }

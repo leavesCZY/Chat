@@ -58,7 +58,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.me.ModifyInfoActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|adjustPan" />
         <activity
             android:name=".view.open.LoginActivity"
             android:screenOrientation="portrait" />
@@ -76,7 +77,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.group.GroupProfileModifyActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|adjustPan" />
         <activity
             android:name=".view.group.GroupMemberProfileActivity"
             android:screenOrientation="portrait" />

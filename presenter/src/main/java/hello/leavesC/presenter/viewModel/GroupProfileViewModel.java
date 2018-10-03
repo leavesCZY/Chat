@@ -1,7 +1,6 @@
 package hello.leavesC.presenter.viewModel;
 
 import android.arch.lifecycle.MediatorLiveData;
-import android.text.TextUtils;
 
 import com.tencent.imsdk.TIMCallBack;
 import com.tencent.imsdk.TIMGroupManager;
@@ -107,13 +106,13 @@ public class GroupProfileViewModel extends BaseViewModel {
     private void modifyProfile(String groupId, String groupName, String introduction, String notification) {
         showLoadingDialog("正在修改");
         TIMGroupManagerExt.ModifyGroupInfoParam param = new TIMGroupManagerExt.ModifyGroupInfoParam(groupId);
-        if (!TextUtils.isEmpty(groupName)) {
+        if (groupName != null) {
             param.setGroupName(groupName);
         }
-        if (!TextUtils.isEmpty(introduction)) {
+        if (introduction != null) {
             param.setIntroduction(introduction);
         }
-        if (!TextUtils.isEmpty(notification)) {
+        if (notification != null) {
             param.setNotification(notification);
         }
         TIMGroupManagerExt.getInstance().modifyGroupInfo(param, new TIMCallBack() {
