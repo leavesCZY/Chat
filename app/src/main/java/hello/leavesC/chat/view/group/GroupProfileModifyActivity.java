@@ -14,7 +14,6 @@ import hello.leavesC.chat.cache.GroupCache;
 import hello.leavesC.chat.model.GroupProfile;
 import hello.leavesC.chat.view.base.BaseActivity;
 import hello.leavesC.presenter.viewModel.GroupProfileViewModel;
-import hello.leavesC.presenter.event.GroupProfileActionEvent;
 import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
 /**
@@ -131,17 +130,7 @@ public class GroupProfileModifyActivity extends BaseActivity {
     @Override
     protected BaseViewModel initViewModel() {
         groupProfileViewModel = ViewModelProviders.of(this).get(GroupProfileViewModel.class);
-        groupProfileViewModel.getActionEventLiveData().observe(this, this::handleAction);
         return groupProfileViewModel;
-    }
-
-    private void handleAction(GroupProfileActionEvent groupProfileActionEvent) {
-        switch (groupProfileActionEvent.getAction()) {
-            case GroupProfileActionEvent.MODIFY_PROFILE_SUCCESS: {
-                finish();
-                break;
-            }
-        }
     }
 
 }

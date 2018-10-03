@@ -14,7 +14,6 @@ import com.tencent.imsdk.ext.group.TIMGroupMemberResult;
 import java.util.ArrayList;
 import java.util.List;
 
-import hello.leavesC.presenter.event.GroupProfileActionEvent;
 import hello.leavesC.presenter.model.GroupMemberInfo;
 import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
@@ -28,8 +27,6 @@ public class GroupProfileViewModel extends BaseViewModel {
     private MediatorLiveData<TIMGroupMemberInfo> groupMemberInfoLiveData = new MediatorLiveData<>();
 
     private MediatorLiveData<List<GroupMemberInfo>> groupMemberInfoListLiveData = new MediatorLiveData<>();
-
-    private MediatorLiveData<GroupProfileActionEvent> actionEventLiveData = new MediatorLiveData<>();
 
     public void getGroupMemberInfo(String groupId, String identifier) {
         showLoadingDialog("正在获取群成员资料");
@@ -86,7 +83,7 @@ public class GroupProfileViewModel extends BaseViewModel {
             public void onSuccess() {
                 dismissLoadingDialog();
                 showToast("已退出群组");
-                actionEventLiveData.setValue(new GroupProfileActionEvent(GroupProfileActionEvent.QUIT_GROUP_SUCCESS));
+                finishWithResultOk();
             }
         });
     }
@@ -130,7 +127,7 @@ public class GroupProfileViewModel extends BaseViewModel {
             public void onSuccess() {
                 showToast("修改成功");
                 dismissLoadingDialog();
-                actionEventLiveData.setValue(new GroupProfileActionEvent(GroupProfileActionEvent.MODIFY_PROFILE_SUCCESS));
+                finish();
             }
         });
     }
@@ -160,7 +157,7 @@ public class GroupProfileViewModel extends BaseViewModel {
             public void onSuccess(List<TIMGroupMemberResult> timGroupMemberResults) {
                 dismissLoadingDialog();
                 showToast("好友已入群");
-                actionEventLiveData.setValue(new GroupProfileActionEvent(GroupProfileActionEvent.INVITE_GROUP_SUCCESS));
+                finish();
             }
         });
     }
@@ -185,7 +182,7 @@ public class GroupProfileViewModel extends BaseViewModel {
             public void onSuccess(String s) {
                 dismissLoadingDialog();
                 showToast("创建成功");
-                actionEventLiveData.setValue(new GroupProfileActionEvent(GroupProfileActionEvent.CREATE_GROUP_SUCCESS));
+                finish();
             }
         });
     }
@@ -196,10 +193,6 @@ public class GroupProfileViewModel extends BaseViewModel {
 
     public MediatorLiveData<List<GroupMemberInfo>> getGroupMemberInfoListLiveData() {
         return groupMemberInfoListLiveData;
-    }
-
-    public MediatorLiveData<GroupProfileActionEvent> getActionEventLiveData() {
-        return actionEventLiveData;
     }
 
 }

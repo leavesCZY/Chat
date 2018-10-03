@@ -45,6 +45,16 @@ public class BaseAndroidViewModel extends AndroidViewModel implements IViewModel
     }
 
     @Override
+    public void finish() {
+        actionLiveData.setValue(new BaseActionEvent(BaseActionEvent.FINISH));
+    }
+
+    @Override
+    public void finishWithResultOk() {
+        actionLiveData.setValue(new BaseActionEvent(BaseActionEvent.FINISH_WITH_RESULT_OK));
+    }
+
+    @Override
     public MutableLiveData<BaseActionEvent> getActionLiveData() {
         return actionLiveData;
     }

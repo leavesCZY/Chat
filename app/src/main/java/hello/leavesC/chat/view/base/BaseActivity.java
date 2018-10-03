@@ -85,6 +85,15 @@ public abstract class BaseActivity extends AppCompatActivity {
                                 showToast(baseActionEvent.getMessage());
                                 break;
                             }
+                            case BaseActionEvent.FINISH: {
+                                finish();
+                                break;
+                            }
+                            case BaseActionEvent.FINISH_WITH_RESULT_OK: {
+                                setResult(RESULT_OK);
+                                finish();
+                                break;
+                            }
                         }
                     }
                 });

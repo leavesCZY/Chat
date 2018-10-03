@@ -83,9 +83,7 @@ public class MeFragment extends BaseFragment {
         selfProfileViewModel = ViewModelProviders.of(this).get(SelfProfileViewModel.class);
         selfProfileViewModel.getProfileModelLiveData().observe(this, this::handleSelfProfile);
         selfProfileViewModel.getEventLiveData().observe(this, this::handleEvent);
-
         modifySelfProfileViewModel = ViewModelProviders.of(this).get(ModifySelfProfileViewModel.class);
-
         List<ViewModel> viewModelList = new ArrayList<>();
         viewModelList.add(selfProfileViewModel);
         viewModelList.add(modifySelfProfileViewModel);
@@ -112,10 +110,10 @@ public class MeFragment extends BaseFragment {
         ov_allowType.setContent(profileModel.getAllow());
     }
 
-    @OnClick({R.id.rl_avatar, R.id.ov_nickname, R.id.ov_signature})
+    @OnClick({R.id.ov_about, R.id.ov_nickname, R.id.ov_signature})
     void onClick(View view) {
         switch (view.getId()) {
-            case R.id.rl_avatar: {
+            case R.id.ov_about: {
                 startActivity(AboutActivity.class);
                 break;
             }

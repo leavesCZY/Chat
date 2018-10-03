@@ -26,6 +26,10 @@
 -keep class qalsdk.**{*;}
 -dontwarn qalsdk.**
 
+-dontwarn com.tencent.bugly.**
+-keep public class com.tencent.bugly.**{*;}
+-keep class android.support.**{*;}
+
 -dontwarn net.soureceforge.pinyin4j.**
 -dontwarn demo.**
 -keep class net.sourceforge.pinyin4j.** { *;}

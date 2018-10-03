@@ -13,6 +13,10 @@ public class BaseActionEvent extends BaseEvent {
 
     public static final int SHOW_TOAST = 30;
 
+    public static final int FINISH = 40;
+
+    public static final int FINISH_WITH_RESULT_OK = 50;
+
     private String message;
 
     public BaseActionEvent(int action) {

@@ -22,25 +22,32 @@
         tools:ignore="ContentDescription" />
 
     <hello.leavesC.common.common.OptionView
-        android:id="@+id/ov_gitHub"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/iv_about_avatar"
-        app:title="项目地址" />
-
-    <hello.leavesC.common.common.OptionView
         android:id="@+id/ov_contact"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/ov_gitHub"
+        app:layout_constraintTop_toBottomOf="@id/iv_about_avatar"
         app:title="联系方式" />
+
+    <hello.leavesC.common.common.OptionView
+        android:id="@+id/ov_gitHub"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/ov_contact"
+        app:title="项目地址" />
 
     <hello.leavesC.common.common.OptionView
         android:id="@+id/ov_version"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/ov_contact"
+        app:layout_constraintTop_toBottomOf="@id/ov_gitHub"
+        app:title="当前版本" />
+
+    <hello.leavesC.common.common.OptionView
+        android:id="@+id/ov_checkUpgrade"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/ov_version"
         app:showDivider="false"
-        app:title="版本" />
+        app:title="检查更新" />
 
 </android.support.constraint.ConstraintLayout>

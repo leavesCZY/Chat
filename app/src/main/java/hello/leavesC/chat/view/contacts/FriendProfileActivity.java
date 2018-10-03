@@ -28,7 +28,6 @@ import hello.leavesC.chat.model.FriendProfile;
 import hello.leavesC.chat.view.base.BaseActivity;
 import hello.leavesC.chat.view.chat.ChatActivity;
 import hello.leavesC.common.common.OptionView;
-import hello.leavesC.presenter.event.ModifyFriendProfileActionEvent;
 import hello.leavesC.presenter.viewModel.ModifyFriendProfileViewModel;
 import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
@@ -127,17 +126,7 @@ public class FriendProfileActivity extends BaseActivity {
     @Override
     protected BaseViewModel initViewModel() {
         profileViewModel = ViewModelProviders.of(this).get(ModifyFriendProfileViewModel.class);
-        profileViewModel.getModifyLiveData().observe(this, this::handleModifyEvent);
         return profileViewModel;
-    }
-
-    private void handleModifyEvent(ModifyFriendProfileActionEvent modifyFriendProfileActionEvent) {
-        switch (modifyFriendProfileActionEvent.getAction()) {
-            case ModifyFriendProfileActionEvent.DELETE_SUCCESS: {
-                finish();
-                break;
-            }
-        }
     }
 
     private void initView() {

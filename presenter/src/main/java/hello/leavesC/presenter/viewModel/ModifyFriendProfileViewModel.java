@@ -1,6 +1,5 @@
 package hello.leavesC.presenter.viewModel;
 
-import android.arch.lifecycle.MediatorLiveData;
 import android.support.annotation.NonNull;
 
 import com.tencent.imsdk.TIMCallBack;
@@ -12,7 +11,6 @@ import com.tencent.imsdk.ext.sns.TIMFriendshipManagerExt;
 import java.util.Collections;
 import java.util.List;
 
-import hello.leavesC.presenter.event.ModifyFriendProfileActionEvent;
 import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
 /**
@@ -21,8 +19,6 @@ import hello.leavesC.presenter.viewModel.base.BaseViewModel;
  * 描述：
  */
 public class ModifyFriendProfileViewModel extends BaseViewModel {
-
-    private MediatorLiveData<ModifyFriendProfileActionEvent> modifyLiveData = new MediatorLiveData<>();
 
     public void modifyFriendRemark(@NonNull String identifier, @NonNull String remark) {
         showLoadingDialog("正在修改");
@@ -39,7 +35,7 @@ public class ModifyFriendProfileViewModel extends BaseViewModel {
             public void onSuccess() {
                 dismissLoadingDialog();
                 showToast("修改成功");
-                modifyLiveData.setValue(new ModifyFriendProfileActionEvent(ModifyFriendProfileActionEvent.MODIFY_SUCCESS));
+                finish();
             }
         });
     }
@@ -55,9 +51,7 @@ public class ModifyFriendProfileViewModel extends BaseViewModel {
             public void onSuccess(List<TIMFriendResult> timFriendResults) {
                 dismissLoadingDialog();
                 showToast("已删除好友");
-                ModifyFriendProfileActionEvent event = new ModifyFriendProfileActionEvent(ModifyFriendProfileActionEvent.DELETE_SUCCESS);
-                event.setIdentifier(timFriendResults.get(0).getIdentifer());
-                modifyLiveData.setValue(event);
+                finish();
             }
 
             @Override
@@ -65,11 +59,6 @@ public class ModifyFriendProfileViewModel extends BaseViewModel {
                 showToast(s);
             }
         });
-    }
-
-
-    public MediatorLiveData<ModifyFriendProfileActionEvent> getModifyLiveData() {
-        return modifyLiveData;
     }
 
 }

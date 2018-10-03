@@ -12,7 +12,6 @@ import android.widget.EditText;
 import hello.leavesC.chat.R;
 import hello.leavesC.chat.cache.FriendCache;
 import hello.leavesC.chat.view.base.BaseActivity;
-import hello.leavesC.presenter.event.ModifyFriendProfileActionEvent;
 import hello.leavesC.presenter.viewModel.ModifyFriendProfileViewModel;
 import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
@@ -49,17 +48,7 @@ public class AlterFriendRemarkActivity extends BaseActivity {
     @Override
     protected BaseViewModel initViewModel() {
         profileViewModel = ViewModelProviders.of(this).get(ModifyFriendProfileViewModel.class);
-        profileViewModel.getModifyLiveData().observe(this, this::handleModifyEvent);
         return profileViewModel;
-    }
-
-    private void handleModifyEvent(ModifyFriendProfileActionEvent modifyFriendProfileActionEvent) {
-        switch (modifyFriendProfileActionEvent.getAction()) {
-            case ModifyFriendProfileActionEvent.MODIFY_SUCCESS: {
-                finish();
-                break;
-            }
-        }
     }
 
     private void initView() {

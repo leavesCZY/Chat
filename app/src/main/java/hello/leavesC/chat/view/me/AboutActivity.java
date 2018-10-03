@@ -6,6 +6,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
+import com.tencent.bugly.beta.Beta;
+
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hello.leavesC.chat.BuildConfig;
@@ -35,7 +37,7 @@ public class AboutActivity extends BaseActivity {
         return null;
     }
 
-    @OnClick({R.id.ov_gitHub, R.id.ov_contact})
+    @OnClick({R.id.ov_gitHub, R.id.ov_contact, R.id.ov_checkUpgrade})
     void onClick(View view) {
         switch (view.getId()) {
             case R.id.ov_gitHub: {
@@ -44,6 +46,10 @@ public class AboutActivity extends BaseActivity {
             }
             case R.id.ov_contact: {
                 AppIntroductionActivity.navigation(AboutActivity.this, "联系方式", getString(R.string.about_contact));
+                break;
+            }
+            case R.id.ov_checkUpgrade: {
+                Beta.checkUpgrade();
                 break;
             }
         }

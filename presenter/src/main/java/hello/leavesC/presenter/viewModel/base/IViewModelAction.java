@@ -19,6 +19,10 @@ public interface IViewModelAction {
 
     void showToast(String message);
 
+    void finish();
+
+    void finishWithResultOk();
+
     MutableLiveData<BaseActionEvent> getActionLiveData();
 
 }

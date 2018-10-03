@@ -1,4 +1,4 @@
-package hello.leavesC.presenter.liveData;
+package hello.leavesC.presenter.viewModel;
 
 import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.MediatorLiveData;
@@ -20,6 +20,8 @@ import java.util.List;
 import hello.leavesC.presenter.event.ChatActionEvent;
 import hello.leavesC.presenter.event.MessageActionEvent;
 import hello.leavesC.presenter.event.RefreshActionEvent;
+import hello.leavesC.presenter.liveData.MessageEventLiveData;
+import hello.leavesC.presenter.liveData.RefreshEventLiveData;
 import hello.leavesC.presenter.log.Logger;
 import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
@@ -68,14 +70,19 @@ public class ChatViewModel extends BaseViewModel {
     }
 
     private void handleMessageActionEvent(MessageActionEvent messageActionEvent) {
-        TIMMessage message = messageActionEvent.getMessage();
-        if (message == null) {
-            showMessageLiveData.setValue(null);
-        } else if (message.getConversation().getPeer().equals(conversation.getPeer())
-                && message.getConversation().getType() == conversation.getType()) {
-            showMessageLiveData.setValue(message);
-            //当前聊天界面已读上报，用于多终端登录时未读消息数同步
-            readMessages();
+        switch (messageActionEvent.getAction()) {
+            case MessageActionEvent.NEW_MESSAGE: {
+                TIMMessage message = messageActionEvent.getMessage();
+                if (message == null) {
+                    showMessageLiveData.setValue(null);
+                } else if (message.getConversation().getPeer().equals(conversation.getPeer())
+                        && message.getConversation().getType() == conversation.getType()) {
+                    showMessageLiveData.setValue(message);
+                    //当前聊天界面已读上报，用于多终端登录时未读消息数同步
+                    readMessages();
+                }
+                break;
+            }
         }
     }
 

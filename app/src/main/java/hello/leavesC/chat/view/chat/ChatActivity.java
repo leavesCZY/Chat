@@ -44,7 +44,7 @@ import hello.leavesC.common.input.EmojiKeyboard;
 import hello.leavesC.common.input.utils.EmojiUtils;
 import hello.leavesC.common.input.utils.SpanStringUtils;
 import hello.leavesC.presenter.event.ChatActionEvent;
-import hello.leavesC.presenter.liveData.ChatViewModel;
+import hello.leavesC.presenter.viewModel.ChatViewModel;
 import hello.leavesC.presenter.log.Logger;
 import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 

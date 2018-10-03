@@ -22,9 +22,8 @@ import hello.leavesC.chat.utils.TimeUtil;
 import hello.leavesC.chat.view.base.BaseActivity;
 import hello.leavesC.common.common.CircleImageView;
 import hello.leavesC.common.common.OptionView;
-import hello.leavesC.presenter.viewModel.GroupProfileViewModel;
 import hello.leavesC.presenter.TransformUtil;
-import hello.leavesC.presenter.event.GroupProfileActionEvent;
+import hello.leavesC.presenter.viewModel.GroupProfileViewModel;
 import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
 /**
@@ -66,18 +65,7 @@ public class GroupProfileActivity extends BaseActivity {
     @Override
     protected BaseViewModel initViewModel() {
         groupProfileViewModel = ViewModelProviders.of(this).get(GroupProfileViewModel.class);
-        groupProfileViewModel.getActionEventLiveData().observe(this, this::handleAction);
         return groupProfileViewModel;
-    }
-
-    private void handleAction(GroupProfileActionEvent groupProfileActionEvent) {
-        switch (groupProfileActionEvent.getAction()) {
-            case GroupProfileActionEvent.QUIT_GROUP_SUCCESS: {
-                setResult(RESULT_OK);
-                finish();
-                break;
-            }
-        }
     }
 
     private void initView(final GroupProfile groupProfile) {

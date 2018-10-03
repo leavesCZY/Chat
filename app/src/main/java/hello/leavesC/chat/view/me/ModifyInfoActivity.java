@@ -94,7 +94,6 @@ public class ModifyInfoActivity extends BaseActivity {
     @Override
     protected BaseViewModel initViewModel() {
         profileViewModel = ViewModelProviders.of(this).get(ModifySelfProfileViewModel.class);
-        profileViewModel.getModifySuccessLiveData().observe(this, modifySelfProfileEvent -> finish());
         return profileViewModel;
     }
 

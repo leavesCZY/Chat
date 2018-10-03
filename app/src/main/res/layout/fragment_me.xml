@@ -83,6 +83,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/ov_signature"
+            android:visibility="gone"
             app:title="加好友选项" />
 
         <hello.leavesC.common.common.OptionView
@@ -97,15 +98,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/ov_joinGroup"
-            app:showDivider="false"
             app:title="赞赏支持" />
+
+        <hello.leavesC.common.common.OptionView
+            android:id="@+id/ov_about"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ov_reward"
+            app:showDivider="false"
+            app:title="关于" />
 
         <Button
             android:id="@+id/btn_logout"
             style="@style/redButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/ov_reward"
+            android:layout_below="@id/ov_about"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"

@@ -33,7 +33,7 @@ import hello.leavesC.chat.view.chat.ChatActivity;
 import hello.leavesC.common.dialog.ListPickerDialog;
 import hello.leavesC.common.recycler.common.CommonItemDecoration;
 import hello.leavesC.presenter.event.ConversationActionEvent;
-import hello.leavesC.presenter.liveData.ConversationViewModel;
+import hello.leavesC.presenter.viewModel.ConversationViewModel;
 import hello.leavesC.presenter.model.ConversationModel;
 import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 

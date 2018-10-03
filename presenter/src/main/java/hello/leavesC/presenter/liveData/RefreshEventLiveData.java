@@ -19,7 +19,7 @@ import hello.leavesC.presenter.log.Logger;
  */
 public class RefreshEventLiveData extends LiveData<RefreshActionEvent> {
 
-    private static final String TAG = "RefreshEvent";
+    private static final String TAG = "RefreshEventLiveData";
 
     private TIMRefreshListener refreshListener = new TIMRefreshListener() {
         //数据刷新通知，如未读计数、会话列表等

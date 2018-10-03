@@ -8,8 +8,6 @@ import com.tencent.imsdk.TIMMessageListener;
 import com.tencent.imsdk.TIMUserConfig;
 import com.tencent.imsdk.ext.message.TIMUserConfigMsgExt;
 
-import java.util.List;
-
 import hello.leavesC.presenter.event.MessageActionEvent;
 import hello.leavesC.presenter.log.Logger;
 
@@ -22,17 +20,14 @@ public class MessageEventLiveData extends LiveData<MessageActionEvent> {
 
     private static final String TAG = "MessageEventLiveData";
 
-    private TIMMessageListener messageListener = new TIMMessageListener() {
-        @Override
-        public boolean onNewMessages(List<TIMMessage> messageList) {
-            for (TIMMessage message : messageList) {
-                Logger.e(TAG, "MessageType: " + message.getElement(0).getType());
-                MessageActionEvent messageActionEvent = new MessageActionEvent(MessageActionEvent.NEW_MESSAGE);
-                messageActionEvent.setMessage(message);
-                setValue(messageActionEvent);
-            }
-            return false;
+    private TIMMessageListener messageListener = messageList -> {
+        for (TIMMessage message : messageList) {
+            Logger.e(TAG, "MessageType: " + message.getElement(0).getType());
+            MessageActionEvent messageActionEvent = new MessageActionEvent(MessageActionEvent.NEW_MESSAGE);
+            messageActionEvent.setMessage(message);
+            setValue(messageActionEvent);
         }
+        return false;
     };
 
     private MessageEventLiveData() {

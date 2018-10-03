@@ -1,15 +1,12 @@
 package hello.leavesC.presenter.viewModel;
 
-import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import com.tencent.imsdk.TIMCallBack;
 import com.tencent.imsdk.TIMFriendAllowType;
 import com.tencent.imsdk.TIMFriendGenderType;
 import com.tencent.imsdk.TIMFriendshipManager;
 
-import hello.leavesC.presenter.event.ModifySelfProfileActionEvent;
 import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
 /**
@@ -19,10 +16,8 @@ import hello.leavesC.presenter.viewModel.base.BaseViewModel;
  */
 public class ModifySelfProfileViewModel extends BaseViewModel {
 
-    private MutableLiveData<ModifySelfProfileActionEvent> modifySuccessLiveData;
-
     public ModifySelfProfileViewModel() {
-        modifySuccessLiveData = new MutableLiveData<>();
+
     }
 
     private TIMCallBack callBack = new TIMCallBack() {
@@ -36,7 +31,7 @@ public class ModifySelfProfileViewModel extends BaseViewModel {
         public void onSuccess() {
             dismissLoadingDialog();
             showToast("修改成功");
-            modifySuccessLiveData.setValue(new ModifySelfProfileActionEvent(ModifySelfProfileActionEvent.MODIFY_SUCCESS));
+            finish();
         }
     };
 
@@ -74,10 +69,6 @@ public class ModifySelfProfileViewModel extends BaseViewModel {
             param.setAllowType(allowType);
         }
         TIMFriendshipManager.getInstance().modifyProfile(param, callBack);
-    }
-
-    public MutableLiveData<ModifySelfProfileActionEvent> getModifySuccessLiveData() {
-        return modifySuccessLiveData;
     }
 
 }

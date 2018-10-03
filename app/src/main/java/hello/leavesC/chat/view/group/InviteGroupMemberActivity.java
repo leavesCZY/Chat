@@ -21,7 +21,6 @@ import hello.leavesC.chat.view.base.BaseActivity;
 import hello.leavesC.common.common.LetterIndexView;
 import hello.leavesC.common.recycler.common.CommonItemDecoration;
 import hello.leavesC.common.recycler.common.CommonRecyclerViewHolder;
-import hello.leavesC.presenter.event.GroupProfileActionEvent;
 import hello.leavesC.presenter.viewModel.GroupProfileViewModel;
 import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
@@ -86,17 +85,7 @@ public class InviteGroupMemberActivity extends BaseActivity {
     @Override
     protected BaseViewModel initViewModel() {
         groupProfileViewModel = ViewModelProviders.of(this).get(GroupProfileViewModel.class);
-        groupProfileViewModel.getActionEventLiveData().observe(this, this::handleAction);
         return groupProfileViewModel;
-    }
-
-    private void handleAction(GroupProfileActionEvent groupProfileActionEvent) {
-        switch (groupProfileActionEvent.getAction()) {
-            case GroupProfileActionEvent.INVITE_GROUP_SUCCESS: {
-                finish();
-                break;
-            }
-        }
     }
 
     @Override

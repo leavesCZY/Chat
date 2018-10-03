@@ -1,4 +1,4 @@
-package hello.leavesC.presenter.liveData;
+package hello.leavesC.presenter.viewModel;
 
 import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.MediatorLiveData;
@@ -17,11 +17,15 @@ import com.tencent.imsdk.ext.message.TIMManagerExt;
 import java.util.ArrayList;
 import java.util.List;
 
+import hello.leavesC.presenter.event.ConversationActionEvent;
 import hello.leavesC.presenter.event.FriendActionEvent;
 import hello.leavesC.presenter.event.GroupActionEvent;
 import hello.leavesC.presenter.event.MessageActionEvent;
 import hello.leavesC.presenter.event.RefreshActionEvent;
-import hello.leavesC.presenter.event.ConversationActionEvent;
+import hello.leavesC.presenter.liveData.FriendEventLiveData;
+import hello.leavesC.presenter.liveData.GroupEventLiveData;
+import hello.leavesC.presenter.liveData.MessageEventLiveData;
+import hello.leavesC.presenter.liveData.RefreshEventLiveData;
 import hello.leavesC.presenter.log.Logger;
 import hello.leavesC.presenter.model.ConversationModel;
 import hello.leavesC.presenter.viewModel.base.BaseViewModel;
@@ -78,26 +82,30 @@ public class ConversationViewModel extends BaseViewModel {
     }
 
     private void handleMessageEvent(MessageActionEvent messageActionEvent) {
-        Logger.e(TAG, "update MessageEvent");
-        TIMMessage message = messageActionEvent.getMessage();
-        if (message == null) {
-            Logger.e(TAG, "update MessageEvent update data == null");
-            getConversation();
-        } else {
-            Logger.e(TAG, "MessageEvent update data != null");
-            TIMConversationType conversationType = message.getConversation().getType();
-            switch (conversationType) {
-                case C2C:
-                    updateC2CMessageLiveData.setValue(message);
-                    break;
-                case Group:
-                    updateGroupMessageLiveData.setValue(message);
-                    break;
-                case System:
-                    updateSystemMessageLiveData.setValue(message);
-                    break;
-                case Invalid:
-                    break;
+        switch (messageActionEvent.getAction()) {
+            case MessageActionEvent.NEW_MESSAGE: {
+                Logger.e(TAG, "update MessageEvent");
+                TIMMessage message = messageActionEvent.getMessage();
+                if (message == null) {
+                    Logger.e(TAG, "update MessageEvent update data == null");
+                    getConversation();
+                } else {
+                    Logger.e(TAG, "MessageEvent update data != null");
+                    TIMConversationType conversationType = message.getConversation().getType();
+                    switch (conversationType) {
+                        case C2C:
+                            updateC2CMessageLiveData.setValue(message);
+                            break;
+                        case Group:
+                            updateGroupMessageLiveData.setValue(message);
+                            break;
+                        case System:
+                            updateSystemMessageLiveData.setValue(message);
+                            break;
+                        case Invalid:
+                            break;
+                    }
+                }
             }
         }
     }

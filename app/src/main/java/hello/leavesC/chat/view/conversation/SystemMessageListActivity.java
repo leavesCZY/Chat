@@ -23,7 +23,7 @@ import hello.leavesC.chat.utils.MessageFactory;
 import hello.leavesC.chat.view.base.BaseActivity;
 import hello.leavesC.common.recycler.common.CommonItemDecoration;
 import hello.leavesC.presenter.event.ChatActionEvent;
-import hello.leavesC.presenter.liveData.ChatViewModel;
+import hello.leavesC.presenter.viewModel.ChatViewModel;
 import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
 /**

@@ -20,10 +20,10 @@
             android:id="@+id/civ_friendAvatar"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_marginBottom="7dp"
             android:layout_marginLeft="13dp"
-            android:layout_marginRight="13dp"
             android:layout_marginTop="7dp"
+            android:layout_marginRight="13dp"
+            android:layout_marginBottom="7dp"
             android:src="@drawable/avatar_friend" />
 
         <TextView
