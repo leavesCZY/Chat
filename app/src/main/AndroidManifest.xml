@@ -41,10 +41,10 @@
             android:name=".view.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.SearchUserActivity"
+            android:name=".view.friendship.SearchUserActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.SearchUserResultActivity"
+            android:name=".view.friendship.SearchUserResultActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.chat.ChatActivity"
@@ -52,7 +52,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.contacts.AlterFriendRemarkActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|adjustPan" />
         <activity
             android:name=".view.contacts.FriendProfileActivity"
             android:screenOrientation="portrait" />

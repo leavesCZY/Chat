@@ -1,33 +1,25 @@
-# Chat
+# Round
 一个简简单单的 IM 应用
 
-写这个应用的本意只是想练练手，如果觉得我的应用对你有所帮助，也不妨点击“赞赏支持”请我喝一杯咖啡，哈
+这是一个简单的IM应用，写这个应用的本意只是想练练手，暂且实现了私聊和群聊功能，后边也根据反馈反馈再来更新吧~应用完全开源，觉得还不错的同学不如点击应用内的“赞赏支持”来赞助我喝杯咖啡？
 
 #### 下载地址：[Round](https://www.pgyer.com/Round)
 
 
 
-![](screenshot/%E7%95%8C%E9%9D%A2%E5%88%87%E6%8D%A2.gif)
+![](screenshot/1.png)
 
-![](screenshot/%E7%A7%81%E8%81%8A.gif)
-
-
-
-![](screenshot/%E7%BE%A4%E8%81%8A.gif)
+![](screenshot/2.png)
 
 
 
-![](screenshot/%E5%A5%BD%E5%8F%8B%E7%95%8C%E9%9D%A2.gif)
+![](screenshot/3.png)
 
 
 
-![](screenshot/%E4%B8%AA%E4%BA%BA%E8%B5%84%E6%96%99.gif)
+![](screenshot/4.png)
 
 
 
-![Snap.gif](screenshot/%E6%B7%BB%E5%8A%A0%E5%A5%BD%E5%8F%8B.gif)
-
-
-
-![](screenshot/%E5%88%9B%E5%BB%BA%E7%BE%A4%E7%BB%84.gif)
+![](screenshot/5.png)
 

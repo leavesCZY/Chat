@@ -89,7 +89,7 @@ public class GroupProfileModifyActivity extends BaseActivity {
             }
         }
         et_groupProfileAlter.setText(origin);
-        et_groupProfileAlter.setSelection(et_groupProfileAlter.getText().length());
+        et_groupProfileAlter.setSelection(TextUtils.isEmpty(et_groupProfileAlter.getText()) ? 0 : et_groupProfileAlter.getText().length());
         et_groupProfileAlter.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

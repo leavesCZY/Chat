@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
@@ -104,7 +105,7 @@ public class ModifyInfoActivity extends BaseActivity {
         et_alterInfo.setText(original);
         et_alterInfo.addTextChangedListener(textWatcher);
         et_alterInfo.requestFocus();
-        et_alterInfo.setSelection(et_alterInfo.getText().length());
+        et_alterInfo.setSelection(TextUtils.isEmpty(et_alterInfo.getText()) ? 0 : et_alterInfo.getText().length());
         et_alterInfo.setFilters(new InputFilter[]{new InputFilter.LengthFilter(30)});
         setToolbarBtnClickListener(clickListener);
         requestType = getIntent().getIntExtra(REQUEST_TYPE, 0);

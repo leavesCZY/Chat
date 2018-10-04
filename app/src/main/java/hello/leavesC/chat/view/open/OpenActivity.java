@@ -82,7 +82,7 @@ public class OpenActivity extends BaseActivity {
 
     private void showLoginRegister() {
         AlphaAnimation alphaAnimation = new AlphaAnimation(0, 1);
-        alphaAnimation.setDuration(600);
+        alphaAnimation.setDuration(800);
         ll_loginRegister.setVisibility(View.VISIBLE);
         ll_loginRegister.startAnimation(alphaAnimation);
     }

@@ -44,8 +44,8 @@ import hello.leavesC.common.input.EmojiKeyboard;
 import hello.leavesC.common.input.utils.EmojiUtils;
 import hello.leavesC.common.input.utils.SpanStringUtils;
 import hello.leavesC.presenter.event.ChatActionEvent;
-import hello.leavesC.presenter.viewModel.ChatViewModel;
 import hello.leavesC.presenter.log.Logger;
+import hello.leavesC.presenter.viewModel.ChatViewModel;
 import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
 import static com.tencent.imsdk.TIMConversationType.C2C;
@@ -165,7 +165,7 @@ public class ChatActivity extends BaseActivity implements EmojiFragment.OnEmotic
             setToolbarTitle(friendProfile == null ? peer : friendProfile.getName());
         } else if (conversationType == TIMConversationType.Group) {
             GroupProfile groupProfile = GroupCache.getInstance().getGroupProfile(peer);
-            setToolbarTitle(groupProfile == null ? peer : groupProfile.getName());
+            setToolbarTitle(groupProfile == null ? peer : groupProfile.getName() + "（" + groupProfile.getMemberNumber() + "）");
         }
         EmojiFragment emojiFragment = EmojiFragment.newInstance(EmojiUtils.EMOJI_TYPE_CLASSICS);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();

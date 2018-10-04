@@ -1,4 +1,4 @@
-package hello.leavesC.chat.view;
+package hello.leavesC.chat.view.friendship;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;

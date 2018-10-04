@@ -17,6 +17,7 @@ import hello.leavesC.chat.cache.GroupCache;
 import hello.leavesC.chat.view.base.BaseActivity;
 import hello.leavesC.chat.view.contacts.ContactsFragment;
 import hello.leavesC.chat.view.conversation.ConversationFragment;
+import hello.leavesC.chat.view.friendship.SearchUserActivity;
 import hello.leavesC.chat.view.group.SelectFriendToCreateGroupActivity;
 import hello.leavesC.chat.view.me.MeFragment;
 import hello.leavesC.chat.view.open.OpenActivity;
@@ -33,11 +34,7 @@ public class MainActivity extends BaseActivity {
 
     private List<Fragment> tabFragments;
 
-    private ViewPager viewPager;
-
     private FragmentPagerAdapter adapter;
-
-    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +42,6 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         initData();
         initView();
-        viewPager.setAdapter(adapter);
     }
 
     @Override
@@ -82,10 +78,11 @@ public class MainActivity extends BaseActivity {
 
     private void initView() {
         initToolbar(getString(R.string.app_name), false);
-        viewPager = findViewById(R.id.viewpager_main);
+        ViewPager viewPager = findViewById(R.id.viewpager_main);
         TabLayout tabLayout = findViewById(R.id.tabLayout_main);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
+        viewPager.setAdapter(adapter);
     }
 
     @Override
@@ -108,12 +105,6 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        setResult(RESULT_OK);
-        super.onBackPressed();
-    }
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
         FriendCache.getInstance().clear();
@@ -124,7 +115,6 @@ public class MainActivity extends BaseActivity {
         TLSLoginHelper loginHelper = TLSLoginHelper.getInstance().init(getApplicationContext(), Constants.SDK_APP_ID, Constants.ACCOUNT_TYPE, Constants.APP_VERSION);
         loginHelper.clearUserInfo(loginHelper.getLastUserInfo().identifier);
         startActivity(OpenActivity.class);
-        setResult(RESULT_OK);
         finish();
     }
 

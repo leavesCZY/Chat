@@ -61,6 +61,7 @@ public class LoginActivity extends BaseActivity {
     protected ViewModel initViewModel() {
         loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
         loginViewModel.getLoginEventLiveData().observe(this, loginEvent -> {
+            assert loginEvent != null;
             ChatApplication.identifier = loginEvent.getIdentifier();
             startActivity(MainActivity.class);
             finish();

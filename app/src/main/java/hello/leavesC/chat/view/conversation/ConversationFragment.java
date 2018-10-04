@@ -33,8 +33,8 @@ import hello.leavesC.chat.view.chat.ChatActivity;
 import hello.leavesC.common.dialog.ListPickerDialog;
 import hello.leavesC.common.recycler.common.CommonItemDecoration;
 import hello.leavesC.presenter.event.ConversationActionEvent;
-import hello.leavesC.presenter.viewModel.ConversationViewModel;
 import hello.leavesC.presenter.model.ConversationModel;
+import hello.leavesC.presenter.viewModel.ConversationViewModel;
 import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
 /**
@@ -128,7 +128,7 @@ public class ConversationFragment extends BaseFragment {
         }
     }
 
-    public synchronized void initConversation(List<TIMConversation> conversationList) {
+    public void initConversation(List<TIMConversation> conversationList) {
         this.conversationList.clear();
         for (TIMConversation conversation : conversationList) {
             switch (conversation.getType()) {
@@ -144,7 +144,7 @@ public class ConversationFragment extends BaseFragment {
         refresh();
     }
 
-    public synchronized void updateC2CMessage(TIMMessage message) {
+    public void updateC2CMessage(TIMMessage message) {
         String peer = message.getConversation().getPeer();
         for (BaseConversation conversation : conversationList) {
             if (conversation.getPeer().equals(peer) && conversation.getConversationType() == TIMConversationType.C2C) {
@@ -159,7 +159,7 @@ public class ConversationFragment extends BaseFragment {
         refresh();
     }
 
-    public synchronized void updateGroupMessage(TIMMessage message) {
+    public void updateGroupMessage(TIMMessage message) {
         String peer = message.getConversation().getPeer();
         for (BaseConversation conversation : conversationList) {
             if (conversation.getPeer().equals(peer) && conversation.getConversationType() == TIMConversationType.Group) {
@@ -174,7 +174,7 @@ public class ConversationFragment extends BaseFragment {
         refresh();
     }
 
-    public synchronized void updateSystemMessage(TIMMessage message) {
+    public void updateSystemMessage(TIMMessage message) {
         String peer = message.getConversation().getPeer();
         for (BaseConversation conversation : conversationList) {
             if (conversation.getPeer().equals(peer) && conversation.getConversationType() == TIMConversationType.System) {
@@ -190,15 +190,15 @@ public class ConversationFragment extends BaseFragment {
     }
 
 
-    public synchronized void updateFriendshipMessage() {
+    public void updateFriendshipMessage() {
 
     }
 
-    public synchronized void updateGroupInfo(TIMGroupCacheInfo info) {
+    public void updateGroupInfo(TIMGroupCacheInfo info) {
         refresh();
     }
 
-    public synchronized void updateFriendProfile(List<String> identifierList) {
+    public void updateFriendProfile(List<String> identifierList) {
         for (String identifier : identifierList) {
             ChatConversation chatConversation = null;
             for (BaseConversation conversation : conversationList) {
@@ -215,7 +215,7 @@ public class ConversationFragment extends BaseFragment {
         refresh();
     }
 
-    public synchronized void removeConversation(ConversationModel conversationModel) {
+    public void removeConversation(ConversationModel conversationModel) {
         BaseConversation baseConversation = null;
         for (BaseConversation conversation : conversationList) {
             if (conversation.getPeer().equals(conversationModel.getPeer())

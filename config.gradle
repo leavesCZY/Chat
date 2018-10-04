@@ -3,8 +3,8 @@ ext {
     compileSdkVersion = 28
     minSdkVersion = 19
     targetSdkVersion = 28
-    versionCode = 18
-    versionName = '1.8.0'
+    versionCode = 20
+    versionName = '2.0.0'
     buildToolsVersion = "28.0.2"
     debugMinifyEnabled = true
     releaseMinifyEnabled = true

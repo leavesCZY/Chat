@@ -5,8 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.View;
 import android.widget.EditText;
 
 import hello.leavesC.chat.R;
@@ -54,14 +54,12 @@ public class AlterFriendRemarkActivity extends BaseActivity {
     private void initView() {
         setToolbarTitle("设置备注");
         EditText et_alterFriendRemark = findViewById(R.id.et_alterFriendRemark);
-        setToolbarBtnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String remark = et_alterFriendRemark.getText().toString().trim();
-                profileViewModel.modifyFriendRemark(identifier, remark);
-            }
+        setToolbarBtnClickListener(v -> {
+            String remark = et_alterFriendRemark.getText().toString().trim();
+            profileViewModel.modifyFriendRemark(identifier, remark);
         });
         et_alterFriendRemark.setText(original);
+        et_alterFriendRemark.setSelection(TextUtils.isEmpty(et_alterFriendRemark.getText()) ? 0 : et_alterFriendRemark.getText().length());
         et_alterFriendRemark.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
