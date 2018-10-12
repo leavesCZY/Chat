@@ -87,13 +87,18 @@ public class GroupCache extends LiveData<Map<String, List<GroupProfile>>> {
     }
 
     private void handleRefreshEvent(RefreshActionEvent refreshActionEvent) {
-        refresh();
+        switch (refreshActionEvent.getAction()) {
+            case RefreshActionEvent.REFRESH: {
+                refresh();
+                break;
+            }
+        }
     }
 
     /**
      * 刷新群组缓存
      */
-    private synchronized void refresh() {
+    private void refresh() {
         for (String key : groupMap.keySet()) {
             groupMap.get(key).clear();
         }
@@ -114,7 +119,7 @@ public class GroupCache extends LiveData<Map<String, List<GroupProfile>>> {
     /**
      * 判断是否群内成员
      */
-    public synchronized boolean isInGroup(String groupId) {
+    public boolean isInGroup(String groupId) {
         for (String key : groupMap.keySet()) {
             for (GroupProfile groupProfile : groupMap.get(key)) {
                 if (groupProfile.getIdentifier().equals(groupId)) {
@@ -128,7 +133,7 @@ public class GroupCache extends LiveData<Map<String, List<GroupProfile>>> {
     /**
      * 判断是否指定群组的群主
      */
-    public synchronized boolean isGroupOwner(String groupId, String identifier) {
+    public boolean isGroupOwner(String groupId, String identifier) {
         for (String key : groupMap.keySet()) {
             for (GroupProfile groupProfile : groupMap.get(key)) {
                 if (groupProfile.getIdentifier().equals(groupId) && groupProfile.getOwner().equals(identifier)) {
@@ -142,7 +147,7 @@ public class GroupCache extends LiveData<Map<String, List<GroupProfile>>> {
     /**
      * 获取所有群
      */
-    public synchronized List<GroupProfile> getAllGroup() {
+    public List<GroupProfile> getAllGroup() {
         List<GroupProfile> profileArrayList = new ArrayList<>();
         for (String key : groupMap.keySet()) {
             profileArrayList.addAll(groupMap.get(key));
@@ -193,7 +198,7 @@ public class GroupCache extends LiveData<Map<String, List<GroupProfile>>> {
     /**
      * 清除数据
      */
-    public synchronized void clear() {
+    public void clear() {
         groupEventLiveData.removeObserver(this::handleGroupEvent);
         refreshEventLiveData.removeObserver(this::handleRefreshEvent);
         groupMap.clear();

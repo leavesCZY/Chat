@@ -68,13 +68,18 @@ public class FriendCache extends LiveData<Map<String, FriendProfile>> {
     }
 
     private void handleRefreshEvent(RefreshActionEvent refreshActionEvent) {
-        refresh();
+        switch (refreshActionEvent.getAction()) {
+            case RefreshActionEvent.REFRESH: {
+                refresh();
+                break;
+            }
+        }
     }
 
     /**
      * 刷新好友缓存
      */
-    private synchronized void refresh() {
+    private void refresh() {
         friendMap.clear();
         List<TIMUserProfile> userProfileList = TIMFriendshipProxy.getInstance().getFriends();
         if (userProfileList != null) {
@@ -88,7 +93,7 @@ public class FriendCache extends LiveData<Map<String, FriendProfile>> {
     /**
      * 获取好友列表
      */
-    public synchronized List<FriendProfile> getFriendProfileList() {
+    public List<FriendProfile> getFriendProfileList() {
         List<FriendProfile> friendProfileList = new ArrayList<>();
         for (String key : friendMap.keySet()) {
             friendProfileList.add(friendMap.get(key));
@@ -100,7 +105,7 @@ public class FriendCache extends LiveData<Map<String, FriendProfile>> {
     /**
      * 判断是否是好友
      */
-    public synchronized boolean isFriend(String identifier) {
+    public boolean isFriend(String identifier) {
         for (String key : friendMap.keySet()) {
             if (key.equals(identifier)) {
                 return true;
@@ -112,7 +117,7 @@ public class FriendCache extends LiveData<Map<String, FriendProfile>> {
     /**
      * 获取好友资料
      */
-    public synchronized FriendProfile getProfile(String identifier) {
+    public FriendProfile getProfile(String identifier) {
         for (String key : friendMap.keySet()) {
             if (key.equals(identifier)) {
                 return friendMap.get(key);
@@ -124,15 +129,12 @@ public class FriendCache extends LiveData<Map<String, FriendProfile>> {
     /**
      * 获取对好友的称呼
      */
-    public synchronized String getFriendName(String identifier) {
+    public String getFriendName(String identifier) {
         FriendProfile friendProfile = getProfile(identifier);
         return friendProfile == null ? identifier : friendProfile.getName();
     }
 
-    /**
-     * 清除数据
-     */
-    public synchronized void clear() {
+    public void clear() {
         friendEventLiveData.removeObserver(this::handleFriendEvent);
         refreshEventLiveData.removeObserver(this::handleRefreshEvent);
         friendMap.clear();

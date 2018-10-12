@@ -15,13 +15,7 @@ public class SystemMessageComparator implements Comparator<BaseMessage> {
     public int compare(BaseMessage o1, BaseMessage o2) {
         long time1 = o1.getMessageTime();
         long time2 = o2.getMessageTime();
-        if (time1 > time2) {
-            return -1;
-        }
-        if (time1 < time2) {
-            return 1;
-        }
-        return 0;
+        return Long.compare(time2, time1);
     }
 
 }

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
-import android.widget.TextView;
 
 import com.tencent.imsdk.TIMConversationType;
 import com.tencent.imsdk.TIMMessageStatus;
@@ -49,14 +48,11 @@ public class ChatAdapter extends CommonRecyclerViewAdapter<BaseMessage> {
     private TIMConversationType conversationType;
 
     public ChatAdapter(Context context, TIMConversationType conversationType, List<BaseMessage> dataList) {
-        super(context, dataList, new MultiTypeSupport<BaseMessage>() {
-            @Override
-            public int getLayoutId(BaseMessage baseMessage, int position) {
-                if (baseMessage.isSelf()) {
-                    return R.layout.item_message_me;
-                }
-                return baseMessage.isSystemMessage() ? R.layout.item_message_system_hint : R.layout.item_message_friend;
+        super(context, dataList, (baseMessage, position) -> {
+            if (baseMessage.isSelf()) {
+                return R.layout.item_message_me;
             }
+            return baseMessage.isSystemMessage() ? R.layout.item_message_system_hint : R.layout.item_message_friend;
         });
         this.context = context;
         this.conversationType = conversationType;
@@ -96,7 +92,9 @@ public class ChatAdapter extends CommonRecyclerViewAdapter<BaseMessage> {
         } else if (newMessage.getMessageTime() - newDataList.get(newItemPosition - 1).getMessageTime() > TIME) {
             newNeedShowTime = true;
         }
-        return oldMessage.getSenderName().equals(newMessage.getSenderName()) && (oldMessage.getMessageStatus() == newMessage.getMessageStatus()) && (oldNeedShowTime == newNeedShowTime);
+        return oldMessage.getSenderName().equals(newMessage.getSenderName())
+                && (oldMessage.getMessageStatus() == newMessage.getMessageStatus())
+                && (oldNeedShowTime == newNeedShowTime);
     }
 
     @NonNull
@@ -194,7 +192,8 @@ public class ChatAdapter extends CommonRecyclerViewAdapter<BaseMessage> {
     @Override
     protected void entirelyBindData(CommonRecyclerViewHolder holder, final BaseMessage data, final int position) {
         if (data.isSelf()) {
-            holder.setText(R.id.tv_my_message, SpanStringUtils.getEmojiContent(context, (TextView) holder.getView(R.id.tv_my_message), data.getMessageSummary()));
+            holder.setText(R.id.tv_my_message, SpanStringUtils.getEmojiContent(context,
+                    holder.getView(R.id.tv_my_message), data.getMessageSummary()));
             if (position == 0) {
                 holder.setViewVisibility(R.id.tv_myMsgSendTime, View.VISIBLE)
                         .setText(R.id.tv_myMsgSendTime, TimeUtil.getChatTimeString(data.getMessageTime()));
@@ -221,22 +220,16 @@ public class ChatAdapter extends CommonRecyclerViewAdapter<BaseMessage> {
                             .setViewVisibility(R.id.iv_myMessageSendError, View.VISIBLE);
                     break;
             }
-            holder.setOnClickListener(R.id.iv_myAvatar, new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (chatClickListener != null) {
-                        chatClickListener.onMyAvatarClick();
-                    }
+            holder.setOnClickListener(R.id.iv_myAvatar, v -> {
+                if (chatClickListener != null) {
+                    chatClickListener.onMyAvatarClick();
                 }
             });
-            holder.setOnLongClickListener(R.id.tv_my_message, new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    if (chatClickListener != null) {
-                        chatClickListener.onMessageLongClick(data);
-                    }
-                    return false;
+            holder.setOnLongClickListener(R.id.tv_my_message, v -> {
+                if (chatClickListener != null) {
+                    chatClickListener.onMessageLongClick(data);
                 }
+                return false;
             });
         } else if (data.isSystemMessage()) {
             if (position == 0) {
@@ -250,7 +243,8 @@ public class ChatAdapter extends CommonRecyclerViewAdapter<BaseMessage> {
                     holder.setViewVisibility(R.id.tv_systemHintTime, View.GONE);
                 }
             }
-            holder.setText(R.id.tv_systemHint, SpanStringUtils.getEmojiContent(context, (TextView) holder.getView(R.id.tv_systemHint), data.getMessageSummary()));
+            holder.setText(R.id.tv_systemHint, SpanStringUtils.getEmojiContent(context,
+                    holder.getView(R.id.tv_systemHint), data.getMessageSummary()));
         } else {
             if (position == 0) {
                 holder.setViewVisibility(R.id.tv_friendMsgSendTime, View.VISIBLE)
@@ -258,32 +252,28 @@ public class ChatAdapter extends CommonRecyclerViewAdapter<BaseMessage> {
             } else {
                 if (data.getMessageTime() - dataList.get(position - 1).getMessageTime() > TIME) {
                     holder.setViewVisibility(R.id.tv_friendMsgSendTime, View.VISIBLE)
-                            .setText(R.id.tv_friendMsgSendTime, TimeUtil.getChatTimeString(data.getMessageTime()));
+                            .setText(R.id.tv_friendMsgSendTime,
+                                    TimeUtil.getChatTimeString(data.getMessageTime()));
                 } else {
                     holder.setViewVisibility(R.id.tv_friendMsgSendTime, View.GONE);
                 }
             }
-            holder.setText(R.id.tv_friend_message, SpanStringUtils.getEmojiContent(context, (TextView) holder.getView(R.id.tv_friend_message), data.getMessageSummary()));
+            holder.setText(R.id.tv_friend_message, SpanStringUtils.getEmojiContent(context,
+                    holder.getView(R.id.tv_friend_message), data.getMessageSummary()));
             if (conversationType == TIMConversationType.Group) {
                 holder.setViewVisibility(R.id.tv_friendName, View.VISIBLE)
                         .setText(R.id.tv_friendName, data.getSenderName());
             }
-            holder.setOnClickListener(R.id.iv_friendAvatar, new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (chatClickListener != null) {
-                        chatClickListener.onFriendAvatarClick(position);
-                    }
+            holder.setOnClickListener(R.id.iv_friendAvatar, v -> {
+                if (chatClickListener != null) {
+                    chatClickListener.onFriendAvatarClick(position);
                 }
             });
-            holder.setOnLongClickListener(R.id.tv_friend_message, new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    if (chatClickListener != null) {
-                        chatClickListener.onMessageLongClick(data);
-                    }
-                    return false;
+            holder.setOnLongClickListener(R.id.tv_friend_message, v -> {
+                if (chatClickListener != null) {
+                    chatClickListener.onMessageLongClick(data);
                 }
+                return false;
             });
         }
     }

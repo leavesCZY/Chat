@@ -36,7 +36,8 @@ public class FriendAdapter extends CommonRecyclerViewAdapter<FriendProfile> {
 
     @Override
     protected boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-        return dataList.get(oldItemPosition).getIdentifier().equals(newDataList.get(newItemPosition).getIdentifier());
+        return dataList.get(oldItemPosition).getIdentifier()
+                .equals(newDataList.get(newItemPosition).getIdentifier());
     }
 
     @Override

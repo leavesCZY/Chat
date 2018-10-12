@@ -15,13 +15,7 @@ public class ConversationComparator implements Comparator<BaseConversation> {
     public int compare(BaseConversation o1, BaseConversation o2) {
         long time1 = o1.getLastMessageTime();
         long time2 = o2.getLastMessageTime();
-        if (time1 > time2) {
-            return -1;
-        }
-        if (time1 < time2) {
-            return 1;
-        }
-        return 0;
+        return Long.compare(time2, time1);
     }
 
 }

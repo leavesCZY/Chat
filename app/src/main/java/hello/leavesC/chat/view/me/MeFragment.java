@@ -6,6 +6,8 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
@@ -24,9 +26,9 @@ import hello.leavesC.chat.R;
 import hello.leavesC.chat.view.MainActivity;
 import hello.leavesC.chat.view.base.BaseFragment;
 import hello.leavesC.common.common.OptionView;
-import hello.leavesC.presenter.TransformUtil;
 import hello.leavesC.presenter.event.SelfProfileActionEvent;
 import hello.leavesC.presenter.model.ProfileModel;
+import hello.leavesC.presenter.utils.TransformUtil;
 import hello.leavesC.presenter.viewModel.ModifySelfProfileViewModel;
 import hello.leavesC.presenter.viewModel.SelfProfileViewModel;
 
@@ -110,7 +112,7 @@ public class MeFragment extends BaseFragment {
         ov_allowType.setContent(profileModel.getAllow());
     }
 
-    @OnClick({R.id.ov_about, R.id.ov_nickname, R.id.ov_signature})
+    @OnClick({R.id.ov_about, R.id.ov_nickname, R.id.ov_signature, R.id.ov_joinQQGroup})
     void onClick(View view) {
         switch (view.getId()) {
             case R.id.ov_about: {
@@ -125,6 +127,22 @@ public class MeFragment extends BaseFragment {
                 ModifyInfoActivity.navigation(getContext(), ModifyInfoActivity.REQUEST_ALTER_SIGNATURE, ov_signature.getContent());
                 break;
             }
+            case R.id.ov_joinQQGroup: {
+                joinQQGroup();
+                break;
+            }
+        }
+    }
+
+    public void joinQQGroup() {
+        Intent intent = new Intent();
+        intent.setData(Uri.parse("mqqopensdkapi://bizAgent/qm/qr?url=http%3A%2F%2Fqm.qq.com%2Fcgi-bin%2Fqm%2Fqr%3Ffrom%3Dapp%26p%3Dandroid%26k%3D" + "XLJLuVHI20biz0Dck3GrC5PMJRdJ-SxX"));
+        //此Flag可根据具体产品需要自定义，如设置，则在加群界面按返回，返回手Q主界面，不设置，按返回会返回到呼起产品界面
+        //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        try {
+            startActivity(intent);
+        } catch (Exception e) {
+            showToast(e.getMessage());
         }
     }
 

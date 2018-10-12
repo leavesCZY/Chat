@@ -14,7 +14,6 @@ import hello.leavesC.chat.model.BaseConversation;
 import hello.leavesC.chat.model.ChatConversation;
 import hello.leavesC.chat.model.SystemConversation;
 import hello.leavesC.chat.utils.TimeUtil;
-import hello.leavesC.presenter.log.Logger;
 import hello.leavesC.common.input.utils.SpanStringUtils;
 import hello.leavesC.common.recycler.common.CommonRecyclerViewAdapter;
 import hello.leavesC.common.recycler.common.CommonRecyclerViewHolder;
@@ -84,7 +83,6 @@ public class ConversationAdapter extends CommonRecyclerViewAdapter<BaseConversat
 
     @Override
     protected void entirelyBindData(CommonRecyclerViewHolder holder, BaseConversation data, int position) {
-        Logger.e(TAG, "entirelyBindData");
         if (data.getUnreadMessageNumber() > 0) {
             holder.setText(R.id.tv_conversation_unreadNumber, String.valueOf(data.getUnreadMessageNumber()))
                     .setViewVisibility(R.id.tv_conversation_unreadNumber, View.VISIBLE);
@@ -99,9 +97,7 @@ public class ConversationAdapter extends CommonRecyclerViewAdapter<BaseConversat
 
     @Override
     protected synchronized void partialBindData(CommonRecyclerViewHolder holder, @NonNull Bundle bundle) {
-        Logger.e(TAG, "partialBindData");
         for (String key : bundle.keySet()) {
-            Logger.e(TAG, "partialBindData: " + key);
             switch (key) {
                 case "Name":
                     holder.setText(R.id.tv_conversation_name, bundle.getString(key));

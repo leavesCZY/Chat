@@ -9,7 +9,7 @@ import com.tencent.imsdk.TIMManager;
 import com.tencent.imsdk.TIMUserProfile;
 import com.tencent.imsdk.TIMValueCallBack;
 
-import hello.leavesC.presenter.TransformUtil;
+import hello.leavesC.presenter.utils.TransformUtil;
 import hello.leavesC.presenter.event.SelfProfileActionEvent;
 import hello.leavesC.presenter.model.ProfileModel;
 import hello.leavesC.presenter.viewModel.base.BaseViewModel;

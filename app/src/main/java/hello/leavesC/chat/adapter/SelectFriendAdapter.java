@@ -25,7 +25,8 @@ public class SelectFriendAdapter extends FriendAdapter {
     protected boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
         FriendProfile oldFriendProfile = dataList.get(oldItemPosition);
         FriendProfile newFriendProfile = newDataList.get(newItemPosition);
-        return super.areContentsTheSame(oldItemPosition, newItemPosition) && (oldFriendProfile.isSelected() == newFriendProfile.isSelected());
+        return super.areContentsTheSame(oldItemPosition, newItemPosition)
+                && (oldFriendProfile.isSelected() == newFriendProfile.isSelected());
     }
 
     @NonNull
@@ -62,7 +63,8 @@ public class SelectFriendAdapter extends FriendAdapter {
     @Override
     protected void entirelyBindData(CommonRecyclerViewHolder holder, FriendProfile data, int position) {
         holder.setText(R.id.tv_selectFriend_name, data.getName())
-                .setImageResource(R.id.iv_selectFriend_tag, data.isSelected() ? R.drawable.selected : R.drawable.unselected);
+                .setImageResource(R.id.iv_selectFriend_tag, data.isSelected()
+                        ? R.drawable.selected : R.drawable.unselected);
     }
 
 }

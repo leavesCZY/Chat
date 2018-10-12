@@ -36,19 +36,16 @@ public class GroupListActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_list);
-        setToolbarTitle("群");
+        setToolbarTitle("群列表");
         RecyclerView rv_groupList = findViewById(R.id.rv_groupList);
         rv_groupList.setLayoutManager(new LinearLayoutManager(this));
         rv_groupList.addItemDecoration(new CommonItemDecoration(ContextCompat.getDrawable(getContext(), R.drawable.divider), LinearLayoutManager.VERTICAL));
         groupProfileList = new ArrayList<>();
         groupProfileList.addAll(GroupCache.getInstance().getAllGroup());
         groupListAdapter = new GroupListAdapter(this, groupProfileList);
-        groupListAdapter.setClickListener(new CommonRecyclerViewHolder.OnClickListener() {
-            @Override
-            public void onClick(int position) {
-                ChatActivity.navigation(GroupListActivity.this, groupProfileList.get(position).getIdentifier(), TIMConversationType.Group);
-                finish();
-            }
+        groupListAdapter.setClickListener(position -> {
+            ChatActivity.navigation(GroupListActivity.this, groupProfileList.get(position).getIdentifier(), TIMConversationType.Group);
+            finish();
         });
         rv_groupList.setAdapter(groupListAdapter);
         GroupCache.getInstance().observe(this, this::handle);
