@@ -5,23 +5,16 @@
 
 ### 下载地址：[Round](https://www.pgyer.com/Round)
 
-### 微信赞赏支持
-
-![](screenshot/qrcode.png)
-
 ![](screenshot/1.png)
 
 ![](screenshot/2.png)
 
-
-
 ![](screenshot/3.png)
-
-
 
 ![](screenshot/4.png)
 
-
-
 ![](screenshot/5.png)
 
+### 微信赞赏支持
+
+![](screenshot/qrcode.png)
