@@ -112,7 +112,7 @@ public class MeFragment extends BaseFragment {
         ov_allowType.setContent(profileModel.getAllow());
     }
 
-    @OnClick({R.id.ov_about, R.id.ov_nickname, R.id.ov_signature, R.id.ov_joinQQGroup})
+    @OnClick({R.id.ov_about, R.id.ov_nickname, R.id.ov_signature, R.id.ov_joinQQ})
     void onClick(View view) {
         switch (view.getId()) {
             case R.id.ov_about: {
@@ -127,20 +127,17 @@ public class MeFragment extends BaseFragment {
                 ModifyInfoActivity.navigation(getContext(), ModifyInfoActivity.REQUEST_ALTER_SIGNATURE, ov_signature.getContent());
                 break;
             }
-            case R.id.ov_joinQQGroup: {
-                joinQQGroup();
+            case R.id.ov_joinQQ: {
+                joinQQ();
                 break;
             }
         }
     }
 
-    public void joinQQGroup() {
-        Intent intent = new Intent();
-        intent.setData(Uri.parse("mqqopensdkapi://bizAgent/qm/qr?url=http%3A%2F%2Fqm.qq.com%2Fcgi-bin%2Fqm%2Fqr%3Ffrom%3Dapp%26p%3Dandroid%26k%3D" + "XLJLuVHI20biz0Dck3GrC5PMJRdJ-SxX"));
-        //此Flag可根据具体产品需要自定义，如设置，则在加群界面按返回，返回手Q主界面，不设置，按返回会返回到呼起产品界面
-        //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    public void joinQQ() {
         try {
-            startActivity(intent);
+            String url = "mqqwpa://im/chat?chat_type=wpa&uin=1990724437";
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
         } catch (Exception e) {
             showToast(e.getMessage());
         }

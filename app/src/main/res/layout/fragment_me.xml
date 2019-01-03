@@ -101,17 +101,17 @@
             app:title="赞赏支持" />
 
         <hello.leavesC.common.common.OptionView
-            android:id="@+id/ov_joinQQGroup"
+            android:id="@+id/ov_joinQQ"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/ov_reward"
-            app:title="加入QQ群" />
+            app:title="加我QQ" />
 
         <hello.leavesC.common.common.OptionView
             android:id="@+id/ov_about"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/ov_joinQQGroup"
+            android:layout_below="@id/ov_joinQQ"
             app:showDivider="false"
             app:title="关于" />
 
