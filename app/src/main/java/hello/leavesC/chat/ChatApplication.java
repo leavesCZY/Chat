@@ -10,6 +10,7 @@ import hello.leavesC.chat.business.InitBusiness;
  * 描述：
  * GitHub：https://github.com/leavesC
  * Blog：https://www.jianshu.com/u/9df45b87cfdf
+ * QQ：1990724437
  */
 public class ChatApplication extends Application {
 

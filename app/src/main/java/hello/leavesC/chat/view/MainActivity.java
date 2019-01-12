@@ -31,6 +31,7 @@ import tencent.tls.platform.TLSLoginHelper;
  * 描述：主界面
  * GitHub：https://github.com/leavesC
  * Blog：https://www.jianshu.com/u/9df45b87cfdf
+ * QQ：1990724437
  */
 public class MainActivity extends BaseActivity {
 

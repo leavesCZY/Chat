@@ -69,6 +69,9 @@ public class GroupProfileActivity extends BaseActivity {
     }
 
     private void initView(final GroupProfile groupProfile) {
+        if (groupProfile == null) {
+            return;
+        }
         setToolbarTitle(groupProfile.getName());
         CircleImageView iv_groupProfile_avatar = findViewById(R.id.iv_groupProfile_avatar);
         OptionView ov_groupProfile_groupName = findViewById(R.id.ov_groupProfile_groupName);
