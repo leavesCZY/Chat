@@ -1,15 +1,12 @@
 apply plugin: 'com.android.application'
-apply from: 'and_res_guard.gradle'
 
 def globalConfiguration = rootProject.ext
 def presentationDependencies = globalConfiguration.dependencies
 
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
-def keyStorePath_ = properties.getProperty("key.keyStorePath")
-def storePassword_ = properties.getProperty("key.storePassword")
-def keyAlias_ = properties.getProperty("key.keyAlias")
-def keyPassword_ = properties.getProperty("key.keyPassword")
+def keyStorePath_ = keyStorePath
+def storePassword_ = storePassword
+def keyAlias_ = keyAlias
+def keyPassword_ = keyPassword
 def storeFile_ = file(keyStorePath_)
 
 static def buildTime() {
@@ -51,13 +48,17 @@ android {
     }
     buildTypes {
         debug {
-            minifyEnabled globalConfiguration["debugMinifyEnabled"]
+            minifyEnabled false
+            zipAlignEnabled false
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug
             buildConfigField "boolean", "isRelease", "false"
         }
         release {
-            minifyEnabled globalConfiguration["releaseMinifyEnabled"]
+            minifyEnabled true
+            zipAlignEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
             buildConfigField "boolean", "isRelease", "true"
