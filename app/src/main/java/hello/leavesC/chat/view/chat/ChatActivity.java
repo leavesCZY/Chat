@@ -258,6 +258,7 @@ public class ChatActivity extends BaseActivity implements EmojiFragment.OnEmotic
             case R.id.menu_chat:
                 switch (conversationType) {
                     case C2C: {
+                        FriendProfileActivity.navigation(this, peer);
                         break;
                     }
                     case Group: {

@@ -25,7 +25,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         buildConfigField "String", "buildTime", "\"" + buildTime() + "\""
         ndk {
-            abiFilters "armeabi"//, "x86"
+            abiFilters "armeabi"
         }
     }
     signingConfigs {

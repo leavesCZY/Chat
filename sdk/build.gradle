@@ -13,11 +13,6 @@ android {
         versionName globalConfiguration["versionName"]
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-    sourceSets {
-        main {
-            jniLibs.srcDirs = ['libs']
-        }
-    }
     buildTypes {
         release {
             minifyEnabled true

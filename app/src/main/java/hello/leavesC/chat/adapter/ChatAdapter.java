@@ -12,6 +12,7 @@ import java.util.List;
 
 import hello.leavesC.chat.R;
 import hello.leavesC.chat.model.BaseMessage;
+import hello.leavesC.chat.model.DefaultMessage;
 import hello.leavesC.chat.model.GroupTipsMessage;
 import hello.leavesC.chat.model.TextMessage;
 import hello.leavesC.chat.utils.TimeUtil;
@@ -65,6 +66,9 @@ public class ChatAdapter extends CommonRecyclerViewAdapter<BaseMessage> {
         }
         if (data instanceof GroupTipsMessage) {
             return new GroupTipsMessage(data.getMessage());
+        }
+        if (data instanceof DefaultMessage) {
+            return new DefaultMessage(data.getMessage());
         }
         return null;
     }

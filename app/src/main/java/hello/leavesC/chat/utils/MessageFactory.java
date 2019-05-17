@@ -3,6 +3,7 @@ package hello.leavesC.chat.utils;
 import com.tencent.imsdk.TIMMessage;
 
 import hello.leavesC.chat.model.BaseMessage;
+import hello.leavesC.chat.model.DefaultMessage;
 import hello.leavesC.chat.model.GroupTipsMessage;
 import hello.leavesC.chat.model.SystemGroupMessage;
 import hello.leavesC.chat.model.SystemProfileTipsMessage;
@@ -26,18 +27,6 @@ public class MessageFactory {
         switch (message.getElement(0).getType()) {
             case Text:
                 return new TextMessage(message);
-            case Face:
-                break;
-            case Image:
-                break;
-            case Sound:
-                break;
-            case Location:
-                break;
-            case File:
-                break;
-            case Custom:
-                break;
             case GroupTips:
                 return new GroupTipsMessage(message);
             case GroupSystem:
@@ -46,12 +35,17 @@ public class MessageFactory {
                 return new SystemSnsMessage(message);
             case ProfileTips:
                 return new SystemProfileTipsMessage(message);
+            case Face:
+            case Image:
+            case Sound:
+            case Location:
+            case File:
+            case Custom:
             case Video:
-                break;
             case UGC:
-                break;
+            default:
+                return new DefaultMessage(message);
         }
-        return null;
     }
 
 }
