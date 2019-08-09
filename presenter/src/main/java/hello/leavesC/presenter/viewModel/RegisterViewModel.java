@@ -1,8 +1,8 @@
 package hello.leavesC.presenter.viewModel;
 
 import android.app.Application;
-import android.arch.lifecycle.MutableLiveData;
-import android.support.annotation.NonNull;
+import androidx.lifecycle.MutableLiveData;
+import androidx.annotation.NonNull;
 
 import hello.leavesC.presenter.model.ProfileModel;
 import hello.leavesC.presenter.viewModel.base.BaseAndroidViewModel;

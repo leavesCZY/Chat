@@ -1,12 +1,13 @@
 package hello.leavesC.presenter.liveData;
 
-import android.arch.lifecycle.LiveData;
+import androidx.lifecycle.LiveData;
 
 import com.tencent.imsdk.TIMGroupMemberInfo;
 import com.tencent.imsdk.TIMGroupSettings;
 import com.tencent.imsdk.TIMUserConfig;
 import com.tencent.imsdk.ext.group.TIMGroupAssistantListener;
 import com.tencent.imsdk.ext.group.TIMGroupCacheInfo;
+import com.tencent.imsdk.ext.group.TIMGroupDetailInfo;
 import com.tencent.imsdk.ext.group.TIMUserConfigGroupExt;
 
 import java.util.List;

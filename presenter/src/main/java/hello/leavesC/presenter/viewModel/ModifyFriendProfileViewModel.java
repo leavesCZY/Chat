@@ -1,6 +1,6 @@
 package hello.leavesC.presenter.viewModel;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.tencent.imsdk.TIMCallBack;
 import com.tencent.imsdk.TIMValueCallBack;

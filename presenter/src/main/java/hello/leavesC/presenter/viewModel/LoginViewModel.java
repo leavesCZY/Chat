@@ -1,8 +1,10 @@
 package hello.leavesC.presenter.viewModel;
 
 import android.app.Application;
-import android.arch.lifecycle.MediatorLiveData;
-import android.support.annotation.NonNull;
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.MediatorLiveData;
 
 import com.tencent.imsdk.TIMCallBack;
 import com.tencent.imsdk.TIMManager;
@@ -89,6 +91,7 @@ public class LoginViewModel extends BaseAndroidViewModel {
         TIMManager.getInstance().login(tlsUserInfo.identifier, loginHelper.getUserSig(tlsUserInfo.identifier), new TIMCallBack() {
             @Override
             public void onError(int i, String s) {
+                Log.e(TAG, "code: " + i + " msg: " + s);
                 dismissLoadingDialog();
                 showToast(s);
             }

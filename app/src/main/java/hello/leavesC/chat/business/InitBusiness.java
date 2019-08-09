@@ -5,15 +5,11 @@ import android.app.Application;
 import android.content.Context;
 
 import com.squareup.leakcanary.LeakCanary;
-import com.tencent.bugly.Bugly;
-import com.tencent.bugly.beta.Beta;
-import com.tencent.bugly.crashreport.CrashReport;
 import com.tencent.imsdk.TIMLogLevel;
 import com.tencent.imsdk.TIMManager;
 import com.tencent.imsdk.TIMSdkConfig;
 
 import hello.leavesC.chat.BuildConfig;
-import hello.leavesC.chat.view.MainActivity;
 import hello.leavesC.sdk.Constants;
 
 /**
@@ -24,23 +20,8 @@ import hello.leavesC.sdk.Constants;
 public class InitBusiness {
 
     public static void init(Application application) {
-        initBugly(application);
         initIM(application);
         initLeakCanary(application);
-    }
-
-    private static void initBugly(Context context) {
-        Beta.autoInit = true;
-        Beta.autoCheckUpgrade = true;
-        Beta.upgradeCheckPeriod = 60 * 1000;
-        Beta.initDelay = 10 * 1000;
-        Beta.showInterruptedStrategy = true;
-        Beta.canShowUpgradeActs.add(MainActivity.class);
-        Beta.canShowApkInfo = true;
-        CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(context);
-        strategy.setUploadProcess(isMainProcess(context));
-        CrashReport.setIsDevelopmentDevice(context, BuildConfig.DEBUG);
-        Bugly.init(context, String.valueOf(Constants.SDK_APP_ID), !BuildConfig.isRelease, strategy);
     }
 
     private static void initIM(Context context) {

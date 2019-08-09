@@ -1,5 +1,5 @@
 # Round
-> 以下内容于 2019/05/17 修改
+> 以下内容于 2019/08/09 修改
 
 一个简简单单的 IM 应用
 
@@ -11,8 +11,21 @@
 ![](screenshot/3.png) ![](screenshot/4.png)
 ![](screenshot/5.png) ![](screenshot/6.png)
 
-### 支付宝赞赏支持
-![](screenshot/alipay.jpg)
 
-### 微信赞赏支持
-![](screenshot/wechat.png)
+### 账号
+
+由于后台限制，目前只允许注册一百个账号，如果你发现注册不了，可以使用以下我预先注册好的几个账号
+
+- test1
+- test2
+- test3
+- test01
+- test02
+- test03
+
+密码：12345678
+
+### 赞赏支持
+
+![](screenshot/alipay.jpg) ![](screenshot/wechat.png)
+

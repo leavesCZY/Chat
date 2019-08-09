@@ -10,12 +10,12 @@ package hello.leavesC.sdk;
 public class Constants {
 
     //SdkAppId
-    public static final int SDK_APP_ID = 1400030427;
+    public static final int SDK_APP_ID = 1400025870;
 
     //账户类型
-    public static final int ACCOUNT_TYPE = 12590;
+    public static final int ACCOUNT_TYPE = 7128;
 
     //App版本号
-    public static final String APP_VERSION = "2.2.2";
+    public static final String APP_VERSION = BuildConfig.VERSION_NAME;
 
 }

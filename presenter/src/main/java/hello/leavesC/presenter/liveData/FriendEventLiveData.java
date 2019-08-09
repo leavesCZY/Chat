@@ -1,6 +1,6 @@
 package hello.leavesC.presenter.liveData;
 
-import android.arch.lifecycle.LiveData;
+import androidx.lifecycle.LiveData;
 
 import com.tencent.imsdk.TIMFriendshipManager;
 import com.tencent.imsdk.TIMFriendshipSettings;

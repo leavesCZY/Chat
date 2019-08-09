@@ -1,9 +1,9 @@
 package hello.leavesC.chat.view.group;
 
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.tencent.imsdk.TIMConversationType;
 
@@ -18,7 +18,6 @@ import hello.leavesC.chat.model.GroupProfile;
 import hello.leavesC.chat.view.base.BaseActivity;
 import hello.leavesC.chat.view.chat.ChatActivity;
 import hello.leavesC.common.recycler.common.CommonItemDecoration;
-import hello.leavesC.common.recycler.common.CommonRecyclerViewHolder;
 import hello.leavesC.presenter.viewModel.base.BaseViewModel;
 
 /**

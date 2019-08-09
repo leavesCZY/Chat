@@ -1,6 +1,6 @@
 package hello.leavesC.chat.model;
 
-import android.support.annotation.DrawableRes;
+import androidx.annotation.DrawableRes;
 
 /**
  * 作者：叶应是叶

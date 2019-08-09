@@ -1,6 +1,6 @@
 package hello.leavesC.chat.cache;
 
-import android.arch.lifecycle.LiveData;
+import androidx.lifecycle.LiveData;
 
 import com.tencent.imsdk.ext.group.TIMGroupAssistant;
 import com.tencent.imsdk.ext.group.TIMGroupCacheInfo;

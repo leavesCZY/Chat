@@ -87,17 +87,10 @@
             app:title="加好友选项" />
 
         <hello.leavesC.common.common.OptionView
-            android:id="@+id/ov_joinGroup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/ov_allowType"
-            app:title="加入群组" />
-
-        <hello.leavesC.common.common.OptionView
             android:id="@+id/ov_reward"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/ov_joinGroup"
+            android:layout_below="@id/ov_allowType"
             app:title="赞赏支持" />
 
         <hello.leavesC.common.common.OptionView

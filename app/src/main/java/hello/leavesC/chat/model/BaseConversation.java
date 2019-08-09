@@ -1,6 +1,6 @@
 package hello.leavesC.chat.model;
 
-import android.support.annotation.DrawableRes;
+import androidx.annotation.DrawableRes;
 import android.text.SpannableString;
 
 import com.tencent.imsdk.TIMConversation;

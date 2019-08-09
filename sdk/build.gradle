@@ -1,17 +1,13 @@
 apply plugin: 'com.android.library'
 
-def globalConfiguration = rootProject.ext
-def presentationDependencies = globalConfiguration.dependencies
-
 android {
-    compileSdkVersion globalConfiguration["compileSdkVersion"]
-    buildToolsVersion globalConfiguration["buildToolsVersion"]
+    compileSdkVersion 29
     defaultConfig {
-        minSdkVersion globalConfiguration["minSdkVersion"]
-        targetSdkVersion globalConfiguration["targetSdkVersion"]
-        versionCode globalConfiguration["versionCode"]
-        versionName globalConfiguration["versionName"]
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        minSdkVersion 19
+        targetSdkVersion 29
+        versionCode Integer.parseInt(app_versionCode)
+        versionName "$app_versionName"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -24,8 +20,17 @@ android {
 
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
-    implementation presentationDependencies.appcompatV7
-    testImplementation presentationDependencies.junit
-    androidTestImplementation presentationDependencies.testRunner
-    androidTestImplementation presentationDependencies.espressoCore
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation files('libs/imsdk.jar')
+    implementation files('libs/imsdk_group_ext.jar')
+    implementation files('libs/imsdk_msg_ext.jar')
+    implementation files('libs/imsdk_sns_ext.jar')
+    implementation files('libs/mobilepb.jar')
+    implementation files('libs/pinyin4j-2.5.0.jar')
+    implementation files('libs/qalsdk.jar')
+    implementation files('libs/tls_sdk.jar')
+    implementation files('libs/wup-1.0.0-SNAPSHOT.jar')
 }

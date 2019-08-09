@@ -1,8 +1,8 @@
 package hello.leavesC.presenter.viewModel;
 
 import android.app.Application;
-import android.arch.lifecycle.MediatorLiveData;
-import android.support.annotation.NonNull;
+import androidx.lifecycle.MediatorLiveData;
+import androidx.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.tencent.imsdk.TIMCallBack;

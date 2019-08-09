@@ -1,7 +1,7 @@
 package hello.leavesC.chat.view.open;
 
-import android.arch.lifecycle.ViewModel;
-import android.arch.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.widget.EditText;
 

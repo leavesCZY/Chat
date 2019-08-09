@@ -1,6 +1,6 @@
 package hello.leavesC.presenter.viewModel;
 
-import android.arch.lifecycle.MediatorLiveData;
+import androidx.lifecycle.MediatorLiveData;
 import android.os.Handler;
 import android.text.TextUtils;
 

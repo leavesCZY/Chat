@@ -1,7 +1,5 @@
 package hello.leavesC.chat.view.me;
 
-import android.arch.lifecycle.ViewModel;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -9,10 +7,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 
@@ -169,19 +170,6 @@ public class MeFragment extends BaseFragment {
                 showToast("启动支付宝失败 " + e.getMessage());
             }
         }
-    }
-
-    @OnClick(R.id.ov_joinGroup)
-    void joinGroup() {
-        new QMUIDialog.MessageDialogBuilder(getActivity())
-                .setTitle("Hello")
-                .setMessage("是否加入开发者交流群？")
-                .addAction("取消", (dialog, index) -> dialog.dismiss())
-                .addAction("确定", (dialog, index) -> {
-                    dialog.dismiss();
-                    selfProfileViewModel.applyJoinGroup("@TGS#2VYICXBF3", "兴趣所致");
-                })
-                .create().show();
     }
 
     @OnClick(R.id.ov_gender)

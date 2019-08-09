@@ -1,9 +1,9 @@
 package hello.leavesC.common.recycler.common;
 
 import android.graphics.Bitmap;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.IdRes;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.IdRes;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.AbsListView;

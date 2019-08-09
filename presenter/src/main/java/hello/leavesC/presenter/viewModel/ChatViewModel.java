@@ -1,8 +1,8 @@
 package hello.leavesC.presenter.viewModel;
 
-import android.arch.lifecycle.LifecycleOwner;
-import android.arch.lifecycle.MediatorLiveData;
-import android.support.annotation.Nullable;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.MediatorLiveData;
+import androidx.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.tencent.imsdk.TIMConversation;

@@ -1,7 +1,7 @@
 package hello.leavesC.chat.view.friendship;
 
 import android.app.Activity;
-import android.arch.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;

@@ -1,6 +1,6 @@
 package hello.leavesC.common.recycler.util;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 
 import hello.leavesC.common.recycler.wrap.WrapRecyclerViewAdapter;
 

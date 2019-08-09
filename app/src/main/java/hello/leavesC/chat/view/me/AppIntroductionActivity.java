@@ -1,6 +1,6 @@
 package hello.leavesC.chat.view.me;
 
-import android.arch.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModel;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;

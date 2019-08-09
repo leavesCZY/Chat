@@ -1,9 +1,9 @@
 package hello.leavesC.chat.view.friendship;
 
-import android.arch.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.SearchView;
+import androidx.appcompat.widget.SearchView;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
