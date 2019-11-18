@@ -23,7 +23,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation files('libs/imsdk.jar')
     implementation files('libs/imsdk_group_ext.jar')
     implementation files('libs/imsdk_msg_ext.jar')

@@ -98,6 +98,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/ov_reward"
+            app:substance="1990724437"
             app:title="加我QQ" />
 
         <hello.leavesC.common.common.OptionView
